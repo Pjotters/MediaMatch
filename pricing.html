@@ -1,1 +1,292 @@
-<!DOCTYPE html><html><head><title>Prijzen</title></head><body><h1>Pricing Vergelijking</h1></body></html>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoeiFoto - Prijsplannen</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Pricing page specifieke styling */
+        .pricing-header {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .pricing-tier {
+            transition: var(--transition);
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pricing-tier:hover {
+            transform: translateY(-8px);
+        }
+        
+        .pricing-tier.popular {
+            position: relative;
+            transform: scale(1.05);
+        }
+        
+        .pricing-tier.popular:hover {
+            transform: scale(1.05) translateY(-8px);
+        }
+        
+        .pricing-tier.popular::after {
+            content: 'Populair';
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .tier-basic::before {
+            background: linear-gradient(135deg, hsl(152, 89%, 48%), hsl(204, 89%, 58%));
+            opacity: 0.2;
+        }
+        
+        .tier-pro::before {
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(326, 89%, 48%));
+            opacity: 0.2;
+        }
+        
+        .tier-ultimate::before {
+            background: linear-gradient(135deg, hsl(326, 89%, 48%), hsl(36, 89%, 58%));
+            opacity: 0.2;
+        }
+        
+        .tier-header {
+            text-align: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid hsl(var(--surface)/0.3);
+        }
+        
+        .tier-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+        
+        .tier-period {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        .tier-features {
+            padding: 2rem;
+            flex-grow: 1;
+        }
+        
+        .tier-features li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .tier-features li::before {
+            content: '✓';
+            display: inline-block;
+            margin-right: 0.5rem;
+            color: hsl(152, 89%, 48%);
+        }
+        
+        .tier-cta {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, hsl(var(--primary)/0.8), hsl(var(--secondary)/0.8));
+            color: white;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)));
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px hsl(var(--primary)/0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid hsl(var(--primary)/0.5);
+        }
+        
+        .btn-outline:hover {
+            background: hsl(var(--primary)/0.1);
+        }
+        
+        /* Header en navigatie */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+        
+        nav a:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+        
+        .toggle-mode {
+            background: hsl(var(--surface)/0.8);
+            border-radius: 50px;
+            padding: 0.3rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header class="glass">
+        <div class="logo">RoeiFoto</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="pricing.html">Prijzen</a>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="pricing-header glass">
+            <h1>Kies het perfecte plan voor jouw fotografie</h1>
+            <p>Flexibele opslag voor elke professionele fotograaf</p>
+            <p>Geveriveerde fotografen van Pjotters kunnen oneindig uploaden</p>
+        </section>
+        
+        <section class="pricing-grid">
+            <!-- Starter Plan -->
+            <div class="pricing-tier glass tier-basic">
+                <div class="tier-header">
+                    <h2>Starter</h2>
+                    <div class="tier-price">€0,00</div>
+                    <div class="tier-period">per maand</div>
+                </div>
+                <ul class="tier-features">
+                    <li>1GB cloudopslag - 1.000 foto's</li>
+                    <li>Mag maximaal oplopen tot 3.5GB cloudopslag - €10 per GB</li>
+                    <li>Basis AI-fotocategorisatie</li>
+                    <li>Tot 250MB upload per dag</li>
+                    <li>Web toegang</li>
+                    <li>30 dagen geschiedenis</li>
+                </ul>
+                <div class="tier-cta">
+                    <a href="#" class="btn btn-outline">Kies Starter</a>
+                </div>
+            </div>
+            
+            <!-- Pro Plan -->
+            <div class="pricing-tier glass tier-pro popular">
+                <div class="tier-header">
+                    <h2>Pro</h2>
+                    <div class="tier-price">€19,99</div>
+                    <div class="tier-period">per maand</div>
+                </div>
+                <ul class="tier-features">
+                    <li>5GB cloudopslag - 10.000 foto's </li>
+                    <li>Mag maximaal oplopen tot 17.5GB cloudopslag - €5 per GB</li>
+                    <li>Geavanceerde AI-fotocategorisatie</li>
+                    <li>Tot 1GB upload per dag</li>
+                    <li>Web & mobiele toegang</li>
+                    <li>90 dagen geschiedenis</li>
+                    <li>Prioriteit ondersteuning</li>
+                </ul>
+                <div class="tier-cta">
+                    <a href="#" class="btn">Kies Pro</a>
+                </div>
+            </div>
+            
+            <!-- Ultimate Plan -->
+            <div class="pricing-tier glass tier-ultimate">
+                <div class="tier-header">
+                    <h2>Ultimate</h2>
+                    <div class="tier-price">€39,99</div>
+                    <div class="tier-period">per maand</div>
+                </div>
+                <ul class="tier-features">
+                    <li>20GB cloudopslag</li>
+                    <li>Premium AI-fotocategorisatie</li>
+                    <li>Onbeperkte dagelijkse uploads</li>
+                    <li>Web, mobiele & desktop toegang</li>
+                    <li>Onbeperkte geschiedenis</li>
+                    <li>24/7 prioriteit ondersteuning</li>
+                    <li>Geavanceerde bewerkingstools</li>
+                </ul>
+                <div class="tier-cta">
+                    <a href="#" class="btn">Kies Ultimate</a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="features-comparison glass">
+            <h2>Alle plannen bevatten</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <h3>🔒 Veilige opslag</h3>
+                    <p>End-to-end encryptie voor al je bestanden</p>
+                </div>
+                <div class="feature">
+                    <h3>⚡ Snelle toegang</h3>
+                    <p>Bliksemsnelle loading tijden door onze CDN</p>
+                </div>
+                <div class="feature">
+                    <h3>🔄 Automatische backups</h3>
+                    <p>Nooit meer zorgen over verloren foto's</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="glass">
+        <p>© 2025 RoeiFoto - Alle rechten voorbehouden</p>
+    </footer>
+</body>
+</html>

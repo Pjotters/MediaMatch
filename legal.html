@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoeiFoto - Juridische Informatie</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Legal pagina specifieke styling */
+        .legal-header {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .legal-grid {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .legal-nav {
+            position: sticky;
+            top: 100px;
+            align-self: start;
+            padding: 1.5rem;
+        }
+        
+        .legal-nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .legal-nav li {
+            margin-bottom: 1rem;
+        }
+        
+        .legal-nav a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+            display: block;
+            padding: 0.5rem;
+            border-left: 2px solid transparent;
+        }
+        
+        .legal-nav a:hover, .legal-nav a.active {
+            opacity: 1;
+            border-left: 2px solid hsl(var(--primary));
+            padding-left: 1rem;
+            background: hsl(var(--primary)/0.1);
+        }
+        
+        .legal-content {
+            padding: 2rem;
+        }
+        
+        .legal-section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 120px;
+        }
+        
+        .legal-section h2 {
+            border-bottom: 1px solid hsl(var(--surface)/0.3);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: hsl(var(--primary));
+        }
+        
+        .legal-section h3 {
+            margin: 1.5rem 0 1rem;
+            color: hsl(var(--secondary));
+        }
+        
+        .legal-section p, .legal-section ul {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+        
+        .legal-section ul {
+            padding-left: 1.5rem;
+        }
+        
+        /* Highlight belangrijke punten */
+        .highlight {
+            background: linear-gradient(45deg, hsl(var(--primary)/0.1), hsl(var(--secondary)/0.1));
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin: 1.5rem 0;
+        }
+        
+        /* Responsieve aanpassingen */
+        @media (max-width: 768px) {
+            .legal-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .legal-nav {
+                position: relative;
+                top: 0;
+            }
+        }
+        
+        /* Header en navigatie */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+        
+        nav a:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <header class="glass">
+        <div class="logo">RoeiFoto</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="pricing.html">Prijzen</a>
+            <a href="legal.html">Juridisch</a>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="legal-header glass">
+            <h1>Juridische Informatie</h1>
+            <p>Privacybeleid, gebruiksvoorwaarden en wettelijke kennisgevingen</p>
+        </section>
+        
+        <div class="legal-grid">
+            <nav class="legal-nav glass">
+                <ul>
+                    <li><a href="#privacybeleid">Privacybeleid</a></li>
+                    <li><a href="#gebruiksvoorwaarden">Gebruiksvoorwaarden</a></li>
+                    <li><a href="#fotografie">Fotografie & Beeldrechten</a></li>
+                    <li><a href="#gezichtsherkenning">Gezichtsherkenning</a></li>
+                    <li><a href="#ai-gebruik">AI-Gebruik</a></li>
+                    <li><a href="#data-opslag">Gegevensopslag</a></li>
+                    <li><a href="#rechten">Uw Rechten</a></li>
+                    <li><a href="#cookies">Cookiebeleid</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="legal-content glass">
+                <section id="privacybeleid" class="legal-section">
+                    <h2>Privacybeleid</h2>
+                    <p><strong>Laatste update:</strong> 22 april 2025</p>
+                    
+                    <h3>1. Inleiding</h3>
+                    <p>RoeiFoto ("wij", "ons", "onze") neemt de bescherming van uw persoonsgegevens zeer serieus. Dit privacybeleid informeert u over hoe wij omgaan met persoonsgegevens die worden verzameld door het gebruik van onze diensten, website en mobiele applicaties. Dit beleid is opgesteld in overeenstemming met de Algemene Verordening Gegevensbescherming (AVG) van de Europese Unie en de Nederlandse Uitvoeringswet AVG.</p>
+                    
+                    <h3>2. Verantwoordelijke voor de gegevensverwerking</h3>
+                    <p>RoeiFoto is de verwerkingsverantwoordelijke voor de verwerking van persoonsgegevens volgens dit privacybeleid:</p>
+                    <ul>
+                        <li>Bedrijfsnaam: RoeiFoto B.V.</li>
+                        <li>Adres: Voorbeeldstraat 123, 1234 AB Amsterdam</li>
+                        <li>E-mail: privacy@roeifoto.nl</li>
+                        <li>KVK-nummer: 12345678</li>
+                    </ul>
+                    
+                    <h3>3. Welke gegevens verzamelen wij</h3>
+                    <p>Afhankelijk van uw gebruik van onze diensten, kunnen wij de volgende categorieën persoonsgegevens verzamelen:</p>
+                    <ul>
+                        <li>Contactgegevens (zoals naam, e-mailadres, telefoonnummer)</li>
+                        <li>Accountgegevens (gebruikersnaam, wachtwoord, aanmaakdatum)</li>
+                        <li>Factuurgegevens (adres, betaalgegevens, btw-nummer)</li>
+                        <li>Gebruiksgegevens (uploaddatum, bestandsgrootte, bestandstype)</li>
+                        <li>Fotografie metadata (camera-instellingen, locatiegegevens indien aanwezig in EXIF data)</li>
+                        <li>Beeldmateriaal (foto's die u uploadt naar onze dienst)</li>
+                        <li>Voor geverifieerde Pjotters-fotografen: professionele gegevens</li>
+                    </ul>
+                    
+                    <div class="highlight">
+                        <h3>Speciale categorieën van gegevens</h3>
+                        <p>Onze diensten kunnen verwerking van bijzondere categorieën persoonsgegevens omvatten, zoals biometrische gegevens (door onze gezichtsherkenningsfunctie). Deze verwerking vindt alleen plaats met uw uitdrukkelijke toestemming of wanneer toegestaan door EU of Nederlandse wetgeving.</p>
+                    </div>
+                </section>
+                
+                <section id="gebruiksvoorwaarden" class="legal-section">
+                    <h2>Gebruiksvoorwaarden</h2>
+                    
+                    <h3>1. Aanvaarding van de voorwaarden</h3>
+                    <p>Door toegang te krijgen tot of gebruik te maken van RoeiFoto-diensten, stemt u ermee in gebonden te zijn aan deze gebruiksvoorwaarden. Als u niet akkoord gaat met deze voorwaarden, gebruik onze diensten dan niet.</p>
+                    
+                    <h3>2. Wijzigingen in de dienst en voorwaarden</h3>
+                    <p>Wij behouden ons het recht voor om naar eigen goeddunken onze diensten, het privacybeleid en deze gebruiksvoorwaarden te wijzigen. We zullen redelijke inspanningen leveren om u op de hoogte te stellen van materiële wijzigingen.</p>
+                    
+                    <h3>3. Uw account</h3>
+                    <p>Als u een account aanmaakt, bent u verantwoordelijk voor het beveiligen van uw accountgegevens en voor alle activiteiten die plaatsvinden onder uw account. U moet ons onmiddellijk op de hoogte stellen van ongeautoriseerd gebruik van uw account.</p>
+                    
+                    <h3>4. Beëindiging van diensten</h3>
+                    <p>Wij behouden ons het recht voor om naar eigen goeddunken, zonder kennisgeving en zonder aansprakelijkheid, de toegang tot onze diensten te beëindigen of te beperken voor gebruikers die deze voorwaarden schenden.</p>
+                </section>
+                
+                <section id="fotografie" class="legal-section">
+                    <h2>Fotografie & Beeldrechten</h2>
+                    
+                    <h3>1. Uw inhoud</h3>
+                    <p>Door gebruik te maken van onze diensten, behoudt u alle intellectuele eigendomsrechten die u mogelijk heeft op de inhoud die u uploadt. Door inhoud te uploaden, verleent u ons een niet-exclusieve, wereldwijde, royaltyvrije licentie om uw inhoud te gebruiken, hosten, opslaan en verwerken uitsluitend met het doel om onze diensten aan u te leveren.</p>
+                    
+                    <h3>2. Toegestane inhoud</h3>
+                    <p>U mag alleen inhoud uploaden waarvoor u de rechten bezit of waarvoor u toestemming heeft van de rechthebbende. Inhoud die inbreuk maakt op intellectuele eigendomsrechten, privacy of andere wettelijke rechten van derden is verboden.</p>
+                    
+                    <h3>3. Fotografierechten en portretten</h3>
+                    <p>Als u foto's upload waar herkenbare personen op staan, verklaart u dat u toestemming heeft van deze personen (of hun wettelijke vertegenwoordigers) om deze foto's te gebruiken en op te slaan via onze dienst. Volgens Nederlands recht (Auteurswet artikel 19-21) hebben geportretteerde personen in bepaalde gevallen het recht om verzet aan te tekenen tegen openbaarmaking van hun portret.</p>
+                    
+                    <div class="highlight">
+                        <h3>Fotografen en modellen</h3>
+                        <p>Professionele fotografen en modellen worden geadviseerd om modelovereenkomsten te gebruiken bij het maken en publiceren van portretten voor commerciële doeleinden. RoeiFoto faciliteert alleen opslag en organisatie van deze beelden en wordt niet beschouwd als uitgever of publicerende partij.</p>
+                    </div>
+                </section>
+                
+                <section id="gezichtsherkenning" class="legal-section">
+                    <h2>Gezichtsherkenning</h2>
+                    
+                    <h3>1. Biometrische gegevens</h3>
+                    <p>Onze dienst gebruikt gezichtsherkenning voor het automatisch organiseren en taggen van uw foto's. Dit omvat de verwerking van biometrische gegevens, die worden beschouwd als bijzondere categorieën persoonsgegevens onder de AVG.</p>
+                    
+                    <h3>2. Toestemming</h3>
+                    <p>Voordat we gezichtsherkenning toepassen op uw foto's, vragen we uw uitdrukkelijke toestemming. U kunt deze toestemming te allen tijde intrekken via uw accountinstellingen. Na intrekking van uw toestemming zullen wij alle biometrische gegevens die we hebben verzameld binnen 30 dagen verwijderen.</p>
+                    
+                    <h3>3. Beperkingen</h3>
+                    <p>Gezichtsherkenning wordt alleen gebruikt binnen uw persoonlijke bibliotheek en wordt niet toegepast om mensen te identificeren buiten uw eigen uploads. Biometrische templates worden niet gedeeld met derden en worden versleuteld opgeslagen.</p>
+                    
+                    <div class="highlight">
+                        <h3>AVG Compliance voor Biometrische Gegevens</h3>
+                        <p>In overeenstemming met de AVG (artikel 9) verwerken wij biometrische gegevens alleen met uw uitdrukkelijke toestemming. Wij hebben een Data Protection Impact Assessment (DPIA) uitgevoerd om de risico's van deze verwerking te analyseren en passende beveiligingsmaatregelen te implementeren.</p>
+                    </div>
+                </section>
+                
+                <section id="ai-gebruik" class="legal-section">
+                    <h2>AI-Gebruik</h2>
+                    
+                    <h3>1. Automatische categorisatie</h3>
+                    <p>RoeiFoto maakt gebruik van kunstmatige intelligentie om automatisch uw foto's te categoriseren, taggen en organiseren. Dit omvat het herkennen van objecten, scènes, kleuren en composities.</p>
+                    
+                    <h3>2. Training van modellen</h3>
+                    <p>Onze AI-modellen zijn vooraf getraind. Zonder uw uitdrukkelijke toestemming gebruiken we uw foto's niet om onze AI-modellen te trainen. Als u ervoor kiest om deel te nemen aan ons AI-verbeteringsprogramma (opt-in), kunnen geanonimiseerde kenmerken van uw beelden worden gebruikt om onze categorie-herkenning te verbeteren.</p>
+                    
+                    <h3>3. Transparantie</h3>
+                    <p>U kunt te allen tijde zien welke automatische tags en categorieën zijn toegepast op uw foto's. Deze kunnen worden bewerkt of verwijderd volgens uw voorkeuren.</p>
+                    
+                    <div class="highlight">
+                        <h3>EU AI-verordening Compliance</h3>
+                        <p>Ons AI-systeem voldoet aan de vereisten van de EU AI-verordening (in ontwikkeling). We volgen de principes van ethische AI, transparantie, juistheid, privacy en menselijk toezicht. Ons systeem wordt regelmatig geëvalueerd om bias en discriminatie te voorkomen.</p>
+                    </div>
+                </section>
+                
+                <section id="data-opslag" class="legal-section">
+                    <h2>Gegevensopslag</h2>
+                    
+                    <h3>1. Locatie van gegevensopslag</h3>
+                    <p>Al uw gegevens worden opgeslagen op beveiligde servers binnen de Europese Economische Ruimte (EER), specifiek in Nederland en Duitsland. Dit zorgt ervoor dat uw gegevens worden beschermd volgens de hoge standaarden van de AVG.</p>
+                    
+                    <h3>2. Bewaartermijnen</h3>
+                    <p>Wij bewaren uw persoonsgegevens en foto's zolang uw account actief is, tenzij anders aangegeven. Na het opzeggen van uw account, worden uw gegevens en foto's 30 dagen bewaard voor het geval u besluit uw account te herstellen. Daarna worden ze permanent verwijderd.</p>
+                    
+                    <h3>3. Beveiliging</h3>
+                    <p>Wij implementeren uitgebreide technische en organisatorische maatregelen om uw gegevens te beschermen, waaronder:</p>
+                    <ul>
+                        <li>End-to-end encryptie voor alle uploads en downloads</li>
+                        <li>Encryptie van opgeslagen gegevens (at-rest encryption)</li>
+                        <li>Strenge toegangscontroles en authenticatie</li>
+                        <li>Regelmatige beveiligingsaudits en penetratietests</li>
+                        <li>Automatische back-ups en disaster recovery procedures</li>
+                    </ul>
+                    
+                    <div class="highlight">
+                        <h3>Gegevensdeling met derden</h3>
+                        <p>Wij delen uw gegevens alleen met zorgvuldig geselecteerde dienstverleners die nodig zijn om onze service te leveren (zoals cloud hosting providers). Deze partijen zijn contractueel verplicht om uw gegevens te beschermen in overeenstemming met de AVG. Wij verkopen uw gegevens nooit aan derden voor marketing- of advertentiedoeleinden.</p>
+                    </div>
+                </section>
+                
+                <section id="rechten" class="legal-section">
+                    <h2>Uw Rechten</h2>
+                    
+                    <h3>1. AVG-rechten</h3>
+                    <p>Onder de AVG heeft u de volgende rechten met betrekking tot uw persoonsgegevens:</p>
+                    <ul>
+                        <li><strong>Recht op informatie:</strong> Informatie over hoe wij uw gegevens verwerken</li>
+                        <li><strong>Recht op inzage:</strong> Toegang tot de persoonsgegevens die wij van u hebben</li>
+                        <li><strong>Recht op rectificatie:</strong> Correctie van onjuiste of onvolledige gegevens</li>
+                        <li><strong>Recht op verwijdering:</strong> Verwijdering van uw gegevens onder bepaalde omstandigheden</li>
+                        <li><strong>Recht op beperking van de verwerking:</strong> Beperking van hoe wij uw gegevens gebruiken</li>
+                        <li><strong>Recht op dataportabiliteit:</strong> Ontvangst van uw gegevens in een machineleesbaar formaat</li>
+                        <li><strong>Recht van bezwaar:</strong> Bezwaar maken tegen bepaalde verwerkingen</li>
+                        <li><strong>Rechten met betrekking tot geautomatiseerde besluitvorming:</strong> Niet onderworpen worden aan volledig geautomatiseerde beslissingen met juridische gevolgen</li>
+                    </ul>
+                    
+                    <h3>2. Uitoefenen van uw rechten</h3>
+                    <p>U kunt uw rechten uitoefenen door:</p>
+                    <ul>
+                        <li>In te loggen op uw account en de betreffende instellingen aan te passen</li>
+                        <li>Contact op te nemen via privacy@roeifoto.nl</li>
+                        <li>Een brief te sturen naar ons kantooradres</li>
+                    </ul>
+                    <p>Wij zullen binnen 30 dagen op uw verzoek reageren.</p>
+                    
+                    <h3>3. Klachten</h3>
+                    <p>Als u niet tevreden bent met hoe wij omgaan met uw gegevens, kunt u een klacht indienen bij de Autoriteit Persoonsgegevens: <a href="https://autoriteitpersoonsgegevens.nl" style="color:hsl(var(--primary))">autoriteitpersoonsgegevens.nl</a></p>
+                </section>
+                
+                <section id="cookies" class="legal-section">
+                    <h2>Cookiebeleid</h2>
+                    
+                    <h3>1. Wat zijn cookies</h3>
+                    <p>Cookies zijn kleine tekstbestanden die op uw apparaat worden opgeslagen wanneer u onze website bezoekt. Ze helpen ons om uw ervaring te verbeteren en bepaalde functies aan te bieden.</p>
+                    
+                    <h3>2. Welke cookies gebruiken wij</h3>
+                    <ul>
+                        <li><strong>Noodzakelijke cookies:</strong> Vereist voor basisfunctionaliteit van de website</li>
+                        <li><strong>Functionele cookies:</strong> Helpen bij het onthouden van uw voorkeuren</li>
+                        <li><strong>Analytische cookies:</strong> Helpen ons te begrijpen hoe bezoekers onze website gebruiken</li>
+                    </ul>
+                    
+                    <h3>3. Cookie-instellingen</h3>
+                    <p>Bij uw eerste bezoek aan onze website vragen wij om uw toestemming voor het plaatsen van niet-noodzakelijke cookies. U kunt uw cookie-instellingen op elk moment wijzigen of alle cookies verwijderen via uw browserinstellingen.</p>
+                </section>
+                
+                <section id="contact" class="legal-section">
+                    <h2>Contact</h2>
+                    
+                    <h3>Vragen over privacybeleid</h3>
+                    <p>Als u vragen heeft over dit privacybeleid of over hoe wij omgaan met uw persoonsgegevens, neem dan contact met ons op:</p>
+                    <ul>
+                        <li>E-mail: privacy@roeifoto.nl</li>
+                        <li>Telefoon: +31 (0)20 123 4567</li>
+                        <li>Post: RoeiFoto B.V., Voorbeeldstraat 123, 1234 AB Amsterdam</li>
+                    </ul>
+                    
+                    <h3>Functionaris voor Gegevensbescherming</h3>
+                    <p>Onze Functionaris voor Gegevensbescherming (FG) kan worden bereikt via fg@roeifoto.nl</p>
+                </section>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="glass">
+        <p>© 2025 RoeiFoto - Alle rechten voorbehouden</p>
+    </footer>
+    
+    <script>
+        // Script voor soepel scrollen naar ankers
+        document.querySelectorAll('.legal-nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+                
+                // Update active link
+                document.querySelectorAll('.legal-nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // Highlight actieve sectie tijdens scrollen
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.legal-section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                const sectionHeight = section.offsetHeight;
+                const scrollPosition = window.scrollY;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.legal-nav a').forEach(a => a.classList.remove('active'));
+                    document.querySelector(`.legal-nav a[href="#${id}"]`).classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

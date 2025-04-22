@@ -1,1 +1,264 @@
-<!DOCTYPE html><html><head><title>Galerij</title></head><body><h1>Foto Galerij</h1></body></html>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoeiFoto - Fotogalerij</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Gallery specifieke styling */
+        .gallery-header {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            background: hsl(var(--surface)/0.6);
+            border: 1px solid hsl(var(--primary)/0.3);
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(45deg, hsl(var(--primary)/0.8), hsl(var(--secondary)/0.8));
+            transform: translateY(-2px);
+        }
+        
+        .gallery-grid {
+            margin: 0 auto;
+            max-width: 1400px;
+            padding: 1rem;
+        }
+        
+        .gallery-item {
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+            border-radius: calc(var(--radius) * 0.7);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: hsl(var(--surface)/0.8);
+            backdrop-filter: var(--blur);
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: var(--transition);
+            border-bottom-left-radius: calc(var(--radius) * 0.7);
+            border-bottom-right-radius: calc(var(--radius) * 0.7);
+        }
+        
+        .gallery-item:hover .overlay {
+            transform: translateY(0);
+        }
+        
+        .gallery-item .overlay h3 {
+            margin: 0 0 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .gallery-item .overlay p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Masonry layout met verschillende hoogtes */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-auto-rows: 10px;
+            grid-gap: 1.5rem;
+        }
+        
+        .gallery-item.tall {
+            grid-row-end: span 50;
+        }
+        
+        .gallery-item.medium {
+            grid-row-end: span 40;
+        }
+        
+        .gallery-item.small {
+            grid-row-end: span 30;
+        }
+        
+        /* Responsieve aanpassingen */
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+        
+        /* Header en navigatie */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text; /* Compatibiliteit */
+        }
+        
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+        
+        nav a:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <header class="glass">
+        <div class="logo">RoeiFoto</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="pricing.html">Prijzen</a>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="gallery-header glass">
+            <h1>Ontdek onze fotocollecties</h1>
+            <p>Inspiratie voor jouw volgende shoot</p>
+        </section>
+        
+        <section class="gallery-filters">
+            <button class="filter-btn active" data-filter="all">Alle foto's</button>
+            <button class="filter-btn" data-filter="natuur">Natuur</button>
+            <button class="filter-btn" data-filter="portret">Portret</button>
+            <button class="filter-btn" data-filter="architectuur">Architectuur</button>
+            <button class="filter-btn" data-filter="sport">Sport</button>
+        </section>
+        
+        <section class="gallery-grid">
+            <!-- Placeholder afbeeldingen (later te vervangen door HP-opslag API) -->
+            <div class="gallery-item tall" data-category="natuur">
+                <img src="https://source.unsplash.com/random/600x800?nature" alt="Natuur fotografie">
+                <div class="overlay">
+                    <h3>Berglandschap</h3>
+                    <p>Zwitserse alpen bij zonsopgang</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item medium" data-category="portret">
+                <img src="https://source.unsplash.com/random/600x600?portrait" alt="Portret fotografie">
+                <div class="overlay">
+                    <h3>Licht & Schaduw</h3>
+                    <p>Studio portret met natuurlijk licht</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item small" data-category="architectuur">
+                <img src="https://source.unsplash.com/random/600x400?architecture" alt="Architectuur fotografie">
+                <div class="overlay">
+                    <h3>Moderne Lijnen</h3>
+                    <p>Geometrische patronen in de stad</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item medium" data-category="sport">
+                <img src="https://source.unsplash.com/random/600x600?sports" alt="Sport fotografie">
+                <div class="overlay">
+                    <h3>In Beweging</h3>
+                    <p>De perfecte timing vastgelegd</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item small" data-category="natuur">
+                <img src="https://source.unsplash.com/random/600x400?water" alt="Water fotografie">
+                <div class="overlay">
+                    <h3>Waterspiegeling</h3>
+                    <p>Kristalhelder meer in de bergen</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item tall" data-category="portret">
+                <img src="https://source.unsplash.com/random/600x800?model" alt="Model fotografie">
+                <div class="overlay">
+                    <h3>Expressie</h3>
+                    <p>Fashion portret met emotie</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item medium" data-category="architectuur">
+                <img src="https://source.unsplash.com/random/600x600?building" alt="Gebouw fotografie">
+                <div class="overlay">
+                    <h3>Historische Schoonheid</h3>
+                    <p>Klassieke architectuur details</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item small" data-category="sport">
+                <img src="https://source.unsplash.com/random/600x400?athlete" alt="Atleet fotografie">
+                <div class="overlay">
+                    <h3>Topprestatie</h3>
+                    <p>Het beslissende moment</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item medium" data-category="natuur">
+                <img src="https://source.unsplash.com/random/600x600?forest" alt="Bos fotografie">
+                <div class="overlay">
+                    <h3>Mysterieus Bos</h3>
+                    <p>Ochtendnevel tussen de bomen</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="glass">
+        <p>© 2025 RoeiFoto - Alle rechten voorbehouden</p>
+    </footer>
+    
+    <script src="gallery.js"></script>
+</body>
+</html>

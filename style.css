@@ -1,1 +1,67 @@
-body { background-color: #0f0f0f; color: #ffffff; font-family: sans-serif; }
+:root {
+  --primary: 265 86% 76%;
+  --secondary: 184 89% 48%;
+  --surface: 240 10% 12%;
+  
+  --radius: 1rem;
+  --blur: blur(16px);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base styles */
+body {
+  background: hsl(var(--surface));
+  color: hsl(0 0% 98%);
+  font-family: 'Inter', system-ui;
+  line-height: 1.6;
+}
+
+/* Glas container */
+.glass {
+  background: hsl(var(--surface)/0.6);
+  backdrop-filter: var(--blur);
+  border-radius: var(--radius);
+  border: 1px solid hsl(var(--surface)/0.2);
+  box-shadow: 0 8px 32px hsl(0 0% 0%/0.3);
+}
+
+/* Gallery grid */
+.gallery-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  padding: 2rem;
+}
+
+.gallery-item {
+  aspect-ratio: 3/4;
+  background: hsl(var(--surface)/0.4);
+  border-radius: calc(var(--radius) * 0.8);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.gallery-item:hover {
+  transform: translateY(-4px);
+  background: hsl(var(--primary)/0.1);
+}
+
+/* Pricing cards */
+.pricing-tier {
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing-tier::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    hsl(var(--primary)) 0%,
+    hsl(var(--secondary)) 100%
+  );
+  opacity: 0.1;
+  z-index: -1;
+}
