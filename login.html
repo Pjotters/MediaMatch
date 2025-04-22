@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaMatch - Inloggen</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Login pagina specifieke styling */
+        .login-container {
+            max-width: 450px;
+            margin: 5rem auto;
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            background-color: hsla(var(--surface)/0.5);
+            backdrop-filter: var(--blur);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid hsla(var(--primary)/0.2);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: calc(var(--radius) / 2);
+            background-color: hsla(var(--surface)/0.5);
+            border: 1px solid hsla(var(--primary)/0.3);
+            color: white;
+            backdrop-filter: var(--blur);
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: hsla(var(--primary)/0.8);
+            box-shadow: 0 0 0 3px hsla(var(--primary)/0.2);
+        }
+        
+        .btn-login {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            margin-top: 2rem;
+            background: linear-gradient(45deg, hsl(280, 80%, 60%), hsl(340, 80%, 55%));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-size: 1rem;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .form-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, hsl(280, 80%, 60%), hsl(340, 80%, 55%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .form-header p {
+            opacity: 0.8;
+        }
+        
+        .form-toggle {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .form-toggle a {
+            color: hsl(280, 80%, 70%);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .form-toggle a:hover {
+            color: hsl(280, 80%, 80%);
+            text-decoration: underline;
+        }
+        
+        .form-links {
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+        
+        .form-links a {
+            color: hsl(280, 80%, 75%);
+            text-decoration: none;
+        }
+        
+        .form-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        
+        .remember-me input {
+            margin-right: 0.5rem;
+        }
+    </style>
+    <script src="login.js" defer></script>
+</head>
+<body>
+    <header class="glass">
+        <div class="logo"><img src="assets/MediaMatch.png" alt="MediaMatch Logo" height="40"></div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="upload.html">Upload</a>
+            <a href="pricing-policy.html">Prijzen</a>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="login-container">
+            <div class="form-header">
+                <h2>Welkom terug</h2>
+                <p>Log in op je MediaMatch account</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">E-mailadres</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Wachtwoord</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                
+                <div class="remember-me">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Onthoud mij</label>
+                </div>
+                
+                <button type="submit" class="btn-login">Inloggen</button>
+            </form>
+            
+            <div class="form-links">
+                <a href="#">Wachtwoord vergeten?</a>
+            </div>
+            
+            <div class="form-toggle">
+                Nog geen account? <a href="register.html">Registreer nu</a>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="glass">
+        <p>© 2025 MediaMatch - Alle rechten voorbehouden</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaMatch - Registreren</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Register pagina specifieke styling */
+        .register-container {
+            max-width: 500px;
+            margin: 2rem auto 4rem;
+            padding: 2.5rem;
+            border-radius: var(--radius);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: calc(var(--radius) / 2);
+            background-color: hsla(var(--surface)/0.5);
+            border: 1px solid hsla(var(--primary)/0.3);
+            color: white;
+            backdrop-filter: var(--blur);
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: hsla(var(--primary)/0.8);
+            box-shadow: 0 0 0 3px hsla(var(--primary)/0.2);
+        }
+        
+        .btn-register {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            margin-top: 2rem;
+            background: linear-gradient(45deg, hsl(280, 80%, 60%), hsl(340, 80%, 55%));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .btn-register:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        }
+        
+        .password-requirements {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .password-strength {
+            height: 5px;
+            background-color: hsla(var(--surface)/0.5);
+            margin-top: 0.5rem;
+            border-radius: 50px;
+            overflow: hidden;
+        }
+        
+        .password-strength-meter {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s, background-color 0.3s;
+        }
+        
+        .password-feedback {
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            min-height: 1.2em;
+        }
+        
+        .form-toggle {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .form-toggle a {
+            color: hsl(280, 80%, 70%);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .form-toggle a:hover {
+            color: hsl(280, 80%, 80%);
+            text-decoration: underline;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .form-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, hsl(280, 80%, 60%), hsl(340, 80%, 55%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .form-header p {
+            opacity: 0.8;
+        }
+        
+        .status-message {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: calc(var(--radius) / 2);
+            text-align: center;
+            display: none;
+        }
+        
+        .status-message.success {
+            background-color: hsla(120, 60%, 50%, 0.1);
+            border: 1px solid hsla(120, 60%, 50%, 0.3);
+            color: hsl(120, 60%, 80%);
+        }
+        
+        .status-message.error {
+            background-color: hsla(0, 60%, 50%, 0.1);
+            border: 1px solid hsla(0, 60%, 50%, 0.3);
+            color: hsl(0, 60%, 80%);
+        }
+    </style>
+    <script src="register.js" defer></script>
+</head>
+<body>
+    <header class="glass">
+        <div class="logo"><img src="assets/MediaMatch.png" alt="MediaMatch Logo" height="40"></div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="upload.html">Upload</a>
+            <a href="pricing-policy.html">Prijzen</a>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="register-container glass">
+            <div class="form-header">
+                <h2>Maak een account</h2>
+                <p>Word lid van onze community</p>
+            </div>
+            
+            <div id="statusMessage" class="status-message"></div>
+            
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="name">Volledige naam</label>
+                    <input type="text" id="name" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">E-mailadres</label>
+                    <input type="email" id="email" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Wachtwoord</label>
+                    <input type="password" id="password" class="form-control" required>
+                    <div class="password-strength">
+                        <div id="passwordStrengthMeter" class="password-strength-meter"></div>
+                    </div>
+                    <div id="passwordFeedback" class="password-feedback"></div>
+                    <div class="password-requirements">
+                        Wachtwoord moet minimaal 8 tekens bevatten, inclusief een hoofdletter, een cijfer en een speciaal teken.
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Bevestig wachtwoord</label>
+                    <input type="password" id="confirmPassword" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="termsAgreement" required>
+                        Ik ga akkoord met de <a href="legal.html" target="_blank">Algemene Voorwaarden</a> en het <a href="legal.html#privacy" target="_blank">Privacybeleid</a>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-register">Registreren</button>
+            </form>
+            
+            <div class="form-toggle">
+                Heb je al een account? <a href="#">Inloggen</a>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="glass">
+        <p>© 2025 MediaMatch - Alle rechten voorbehouden</p>
+    </footer>
+</body>
+</html>
