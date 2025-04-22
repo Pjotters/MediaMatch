@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaMatch - Abonnementsvoorwaarden en Prijsbeleid</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Pricing Policy pagina specifieke styling */
+        .policy-header {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .policy-grid {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .policy-nav {
+            position: sticky;
+            top: 100px;
+            align-self: start;
+            padding: 1.5rem;
+        }
+        
+        .policy-nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .policy-nav li {
+            margin-bottom: 1rem;
+        }
+        
+        .policy-nav a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+            display: block;
+            padding: 0.5rem;
+            border-left: 2px solid transparent;
+        }
+        
+        .policy-nav a:hover, .policy-nav a.active {
+            opacity: 1;
+            border-left: 2px solid hsl(var(--primary));
+            padding-left: 1rem;
+            background: hsl(var(--primary)/0.1);
+        }
+        
+        .policy-content {
+            padding: 2rem;
+        }
+        
+        .policy-section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 120px;
+        }
+        
+        .policy-section h2 {
+            border-bottom: 1px solid hsl(var(--surface)/0.3);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: hsl(var(--primary));
+        }
+        
+        .policy-section h3 {
+            margin: 1.5rem 0 1rem;
+            color: hsl(var(--secondary));
+        }
+        
+        .policy-section p, .policy-section ul {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+        
+        .policy-section ul {
+            padding-left: 1.5rem;
+        }
+        
+        .highlight {
+            background: linear-gradient(45deg, hsl(var(--primary)/0.1), hsl(var(--secondary)/0.1));
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin: 1.5rem 0;
+        }
+        
+        .plan-comparison {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            overflow: hidden;
+            border-radius: var(--radius);
+        }
+        
+        .plan-comparison th, .plan-comparison td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid hsl(var(--surface)/0.3);
+        }
+        
+        .plan-comparison th {
+            background: hsl(var(--surface-light));
+            font-weight: 600;
+        }
+        
+        .plan-comparison tr:nth-child(even) {
+            background: hsl(var(--surface)/0.3);
+        }
+        
+        .plan-comparison tr:hover {
+            background: hsl(var(--primary)/0.1);
+        }
+        
+        /* Responsieve aanpassingen */
+        @media (max-width: 768px) {
+            .policy-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .policy-nav {
+                position: relative;
+                top: 0;
+            }
+            
+            .plan-comparison {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="glass">
+        <div class="logo">MediaMatch</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="pricing.html">Prijzen</a>
+            <a href="legal.html">Juridisch</a>
+            <a href="pricing-policy.html">Abonnementsbeleid</a>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="policy-header glass">
+            <h1>Abonnementsvoorwaarden en Prijsbeleid</h1>
+            <p>Wettelijke voorwaarden voor abonnementen, prijzen en rechten</p>
+        </section>
+        
+        <div class="policy-grid">
+            <nav class="policy-nav glass">
+                <ul>
+                    <li><a href="#algemeen">Algemene Voorwaarden</a></li>
+                    <li><a href="#abonnementen">Abonnementstypes</a></li>
+                    <li><a href="#rechten">Rechten per Abonnement</a></li>
+                    <li><a href="#betalingen">Betalingen & Facturatie</a></li>
+                    <li><a href="#opzegging">Opzegging & Restitutie</a></li>
+                    <li><a href="#opslag">Opslagbeleid</a></li>
+                    <li><a href="#wijzigingen">Wijzigingen in Diensten</a></li>
+                    <li><a href="#herroeping">Herroepingsrecht</a></li>
+                    <li><a href="#klachten">Klachtenprocedure</a></li>
+                    <li><a href="#btw">BTW & Belastingen</a></li>
+                </ul>
+            </nav>
+            
+            <div class="policy-content glass">
+                <section id="algemeen" class="policy-section">
+                    <h2>Algemene Voorwaarden Abonnementen</h2>
+                    <p><strong>Laatst bijgewerkt:</strong> 22 april 2025</p>
+                    
+                    <h3>1. Toepasselijkheid</h3>
+                    <p>Deze abonnementsvoorwaarden zijn van toepassing op alle diensten en abonnementen die worden aangeboden door MediaMatch B.V. (voorheen bekend als RoeiFoto), gevestigd te Delft, Nederland. Deze voorwaarden vormen een aanvulling op onze Algemene Gebruiksvoorwaarden en ons Privacybeleid.</p>
+                    
+                    <h3>2. Definities</h3>
+                    <p>In deze voorwaarden worden de volgende definities gehanteerd:</p>
+                    <ul>
+                        <li><strong>Dienst:</strong> De fotografie-opslagoplossing aangeboden door MediaMatch, inclusief alle bijbehorende functionaliteiten.</li>
+                        <li><strong>Abonnement:</strong> Een overeenkomst tussen de gebruiker en MediaMatch voor toegang tot en gebruik van de dienst onder specifieke voorwaarden, voor een bepaalde of onbepaalde periode.</li>
+                        <li><strong>Gebruiker:</strong> Iedere natuurlijke of rechtspersoon die een abonnement afsluit of gebruikt.</li>
+                        <li><strong>Website:</strong> De website van MediaMatch en alle bijbehorende subdomeinen en diensten.</li>
+                    </ul>
+                    
+                    <h3>3. Contractrelatie</h3>
+                    <p>Door het afsluiten van een abonnement komt een overeenkomst tot stand tussen u en ©MediaMatch B.V. Deze overeenkomst is bindend en wordt beheerst door Nederlands recht. Voor vragen over deze voorwaarden kunt u contact opnemen via <a href="mailto:pjotters.zipzop@gmail.com">pjotters.zipzop@gmail.com</a>.</p>
+                </section>
+                
+                <section id="abonnementen" class="policy-section">
+                    <h2>Abonnementstypes en Kenmerken</h2>
+                    
+                    <h3>1. Beschikbare Abonnementen</h3>
+                    <p>©MediaMatch biedt de volgende abonnementstypes aan:</p>
+                    
+                    <div class="highlight">
+                        <h4>Starter Abonnement</h4>
+                        <p><strong>Prijs:</strong> €0,00 per maand (gratis basisversie)</p>
+                        <p><strong>Opslag:</strong> 1GB basisopslag (geschikt voor ongeveer 1.000 foto's)</p>
+                        <p><strong>Uitbreiding:</strong> Mogelijkheid tot 7.5GB tegen €10 per GB vanaf 3.5GB</p>
+                        <p><strong>Dagelijkse uploadlimiet:</strong> 250MB</p>
+                        <p><strong>Pjotters-AI:</strong> Verplichte optie tot verberting Pjotters-Intelligence, klant & fotograaf</p>
+                    </div>
+                    
+                    <div class="highlight">
+                        <h4>Pro Abonnement</h4>
+                        <p><strong>Prijs:</strong> €19,99 per maand</p>
+                        <p><strong>Opslag:</strong> 5GB basisopslag (geschikt voor ongeveer 10.000 foto's)</p>
+                        <p><strong>Tot:</strong> Tot 10GB bij het abonnement</p>
+                        <p><strong>Uitbreiding:</strong> Mogelijk tot 17.5GB tegen €5 per GB vanaf 10GB</p>
+                        <p><strong>Dagelijkse uploadlimiet:</strong> 1GB</p> <p>Met uitzondering mag het hoger uitvallen, neem contact op met: ©Pjotters-ZipZop</p>
+                        <p><strong>Pjotters-AI:</strong> Verplichte optie tot verberting Pjotters-Intelligence, klant</p>
+                    </div>
+                    
+                    <div class="highlight">
+                        <h4>Ultimate Abonnement</h4>
+                        <p><strong>Prijs:</strong> €39,99 per maand</p>
+                        <p><strong>Opslag:</strong> 20GB basisopslag</p>
+                        <p><strong>Uitbreiding:</strong> Onbeperkte uitbreiding mogelijk tegen €2.50 per GB</p>
+                        <p><strong>Dagelijkse uploadlimiet:</strong> Onbeperkt</p>
+                        <p><strong>Pjotters-AI:</strong> Optionele optie tot verberting Pjotters-Intelligence, klant & fotograaf</p>
+                    </div>
+                    </div>
+                    
+                    <p>Geverifieerde fotografen van Pjotters kunnen oneindig uploaden zonder beperkingen, ongeacht het abonnementstype. Verificatie gebeurt via een separate procedure die beschikbaar is voor professionele fotografen.</p>
+                    
+                    <h3>2. Looptijd</h3>
+                    <p>Abonnementen worden standaard afgesloten voor een periode van 1 maand, tenzij anders aangegeven bij het afsluiten. Na deze periode wordt het abonnement automatisch verlengd voor telkens dezelfde periode, tenzij tijdig opgezegd conform onze opzegvoorwaarden.</p>
+                    
+                    <h3>3. Wijziging van Abonnement</h3>
+                    <p>Gebruikers kunnen op elk moment upgraden naar een hoger abonnementsniveau. De bijbehorende kosten worden pro rata berekend voor de resterende abonnementsperiode. Downgraden naar een lager abonnementsniveau is mogelijk bij de eerstvolgende verlengingsdatum, mits minimaal 7 dagen voor deze datum aangegeven.</p>
+                </section>
+                
+                <section id="rechten" class="policy-section">
+                    <h2>Rechten per Abonnement</h2>
+                    
+                    <h3>1. Vergelijking van Functionaliteiten</h3>
+                    <p>Hieronder vindt u een gedetailleerde vergelijking van de rechten en functionaliteiten per abonnementstype:</p>
+                    
+                    <div class="table-responsive">
+                        <table class="plan-comparison">
+                            <thead>
+                                <tr>
+                                    <th>Functionaliteit</th>
+                                    <th>Starter</th>
+                                    <th>Pro</th>
+                                    <th>Ultimate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Cloudopslag</td>
+                                    <td>1GB (ca. 1.000 foto's)</td>
+                                    <td>5GB (ca. 10.000 foto's)</td>
+                                    <td>20GB (ca. 40.000 foto's)</td>
+                                </tr>
+                                <tr>
+                                    <td>Maximale uitbreiding</td>
+                                    <td>Tot 7.5GB (€10/GB)</td>
+                                    <td>Tot 17.5GB (€5/GB)</td>
+                                    <td>Onbeperkt (€3/GB)</td>
+                                </tr>
+                                <tr>
+                                    <td>Dagelijkse upload</td>
+                                    <td>250MB</td>
+                                    <td>1GB</td>
+                                    <td>Onbeperkt</td>
+                                </tr>
+                                <tr>
+                                    <td>AI-categorisatie</td>
+                                    <td>Basis</td>
+                                    <td>Geavanceerd</td>
+                                    <td>Premium</td>
+                                </tr>
+                                <tr>
+                                    <td>Toegang</td>
+                                    <td>Web</td>
+                                    <td>Web & Lightroom</td>
+                                    <td>Web, Lightroom & Desktop</td>
+                                </tr>
+                                <tr>
+                                    <td>Geschiedenis</td>
+                                    <td>30 dagen</td>
+                                    <td>90 dagen</td>
+                                    <td>Onbeperkt</td>
+                                </tr>
+                                <tr>
+                                    <td>Ondersteuning</td>
+                                    <td>E-mail</td>
+                                    <td>Prioriteit</td>
+                                    <td>24/7 Prioriteit</td>
+                                </tr>
+                                <tr>
+                                    <td>Bewerkingstools</td>
+                                    <td>Nee</td>
+                                    <td>Basis</td>
+                                    <td>Geavanceerd</td>
+                                </tr>
+                                <tr>
+                                    <td>API-toegang</td>
+                                    <td>Nee</td>
+                                    <td>Beperkt</td>
+                                    <td>Volledig</td>
+                                </tr>
+                                <tr>
+                                    <td>Gezichtsherkenning</td>
+                                    <td>Basis</td>
+                                    <td>Geavanceerd</td>
+                                    <td>Premium</td>
+                                </tr>
+                                <tr>
+                                    <td>Albums per maand (Toevoegen)</td>
+                                    <td>tot 3 Albums</td>
+                                    <td>10 Albums</td>
+                                    <td>Onbeperkt</td>
+                                </tr>
+                                <tr>
+                                    <td>Verval foto's</td>
+                                    <td>30 dagen</td>
+                                    <td>6 maanden</td>
+                                    <td>Onbeperkt</td>
+                                </tr>
+                                <tr>
+                                    <td>Advertentie op:</td>
+                                    <td>Album + foto (embed)</td>
+                                    <td>Album</td>
+                                    <td>Geen</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h3>2. Intellectuele Eigendomsrechten</h3>
+                    <p>Bij MediaMatch-Ultimate behoud de gebruiker volledig de intellectuele eigendomsrechten van hun geüploade content. MediaMatch krijgt alleen de beperkte rechten die nodig zijn om de dienst te verlenen, zoals beschreven in onze Gebruiksvoorwaarden.</p>
+                    
+                    <h3>3. Pjotters-Verificatie</h3>
+                    <p>Geverifieerde Pjotters-fotografen krijgen aanvullende rechten zoals onbeperkte uploads, ongeacht het abonnementsniveau. Het verificatieproces omvat een beoordeling van de professionele status en vereist het verstrekken van relevante documentatie.</p>
+                </section>
+                
+                <section id="betalingen" class="policy-section">
+                    <h2>Betalingen & Facturatie</h2>
+                    
+                    <h3>1. Betalingsmethoden</h3>
+                    <p>MediaMatch accepteert de volgende betalingsmethoden:</p>
+                    <ul>
+                        <li>Creditcard (Visa, Mastercard, American Express)</li>
+                        <li>iDEAL (voor Nederlandse gebruikers)</li>
+                        <li>PayPal</li>
+                        <li>Bankoverschrijving (alleen voor jaarabonnementen)</li>
+                        <li>Apple Pay en Google Pay (in de mobiele apps)</li>
+                    </ul>
+                    
+                    <h3>2. Facturatiecyclus</h3>
+                    <p>Facturatie gebeurt standaard op basis van de gekozen abonnementsperiode (maandelijks of jaarlijks). Abonnementen worden automatisch verlengd en in rekening gebracht aan het einde van elke periode, tenzij het abonnement tijdig wordt opgezegd.</p>
+                    
+                    <p>Voor maandelijkse abonnementen vindt facturatie plaats op dezelfde datum van elke maand. Voor jaarabonnementen vindt facturatie plaats op dezelfde datum elk jaar. Als deze datum in een bepaalde maand niet bestaat, zal facturatie plaatsvinden op de laatste dag van die maand.</p>
+                    
+                    <h3>3. Facturen</h3>
+                    <p>Alle facturen worden elektronisch beschikbaar gesteld en kunnen worden gedownload vanuit het factuuroverzicht in het gebruikersaccount. Facturen bevatten alle wettelijk vereiste informatie, inclusief:</p>
+                    <ul>
+                        <li>NAW-gegevens van beide partijen</li>
+                        <li>BTW-identificatienummers (indien van toepassing)</li>
+                        <li>Factuurdatum en factuurnummer</li>
+                        <li>Specificatie van geleverde diensten</li>
+                        <li>Bedrag exclusief BTW, BTW-bedrag en totaalbedrag</li>
+                        <li>Betalingsvoorwaarden en betalingsgegevens</li>
+                    </ul>
+                    
+                    <div class="highlight">
+                        <h3>Wettelijke verplichting</h3>
+                        <p>Conform artikel 35a van de Wet op de Omzetbelasting 1968 en de Europese factureringsrichtlijn 2010/45/EU, voldoen alle facturen aan de wettelijke vereisten voor elektronische facturering. De facturen worden in een niet-manipuleerbaar PDF-format verstrekt.</p>
+                    </div>
+                    
+                    <h3>4. Betalingsproblemen</h3>
+                    <p>Bij het niet kunnen verwerken van een betaling (bijvoorbeeld door een verlopen creditcard of onvoldoende saldo), zullen wij:</p>
+                    <ul>
+                        <li>U per e-mail op de hoogte stellen van het betalingsprobleem</li>
+                        <li>Maximaal drie pogingen doen om de betaling alsnog te verwerken over een periode van 7 dagen</li>
+                        <li>Na deze periode, als de betaling nog steeds niet is verwerkt, uw account terugschalen naar de gratis versie of tijdelijk opschorten</li>
+                    </ul>
+                    <p>Uw gegevens blijven gedurende minimaal 30 dagen na het opschorten van uw account beschikbaar. Na deze periode kunnen wij niet garanderen dat alle gegevens bewaard blijven.</p>
+                </section>
+                
+                <section id="opzegging" class="policy-section">
+                    <h2>Opzegging & Restitutie</h2>
+                    
+                    <h3>1. Opzegging door de gebruiker</h3>
+                    <p>U kunt uw abonnement op elk moment opzeggen via uw accountinstellingen of door contact op te nemen met onze klantenservice. Bij opzegging blijft uw abonnement actief tot het einde van de huidige facturatieperiode. Na deze periode wordt uw account automatisch teruggeschaald naar het gratis abonnement.</p>
+                    
+                    <h3>2. Bewaartermijn na opzegging</h3>
+                    <p>Na het downgraden naar een gratis account als gevolg van opzegging, worden uw gegevens behouden zolang ze binnen de opslaglimiet van het gratis abonnement vallen. Als uw gebruikte opslag de limiet van het gratis abonnement overschrijdt, heeft u 30 dagen de tijd om:</p>
+                    <ul>
+                        <li>Gegevens te verwijderen om binnen de opslaglimiet te blijven</li>
+                        <li>Uw gegevens te exporteren (via de export-functie)</li>
+                        <li>Uw abonnement te heractiveren</li>
+                    </ul>
+                    <p>Na deze periode van 30 dagen behouden wij het recht om gegevens te verwijderen die de opslaglimiet van het gratis abonnement overschrijden, beginnend met de oudste gegevens.</p>
+                    
+                    <h3>3. Restitutiebeleid</h3>
+                    <p>Bij vooruitbetaalde abonnementen (zoals jaarabonnementen) gelden de volgende restitutieregels:</p>
+                    <ul>
+                        <li><strong>Binnen 14 dagen na aankoop:</strong> Volledige restitutie mogelijk volgens het herroepingsrecht (zie sectie Herroepingsrecht)</li>
+                        <li><strong>Na 14 dagen maar binnen de eerste maand:</strong> Pro-rata restitutie voor de ongebruikte periode, minus administratiekosten van €15</li>
+                        <li><strong>Na de eerste maand:</strong> Pro-rata restitutie voor de ongebruikte periode, minus administratiekosten van €25</li>
+                    </ul>
+                    <p>Voor maandelijkse abonnementen wordt geen restitutie verleend voor de lopende maand bij opzegging.</p>
+                    
+                    <div class="highlight">
+                        <h3>Wettelijke informatie</h3>
+                        <p>Dit restitutiebeleid doet geen afbreuk aan uw wettelijke rechten, waaronder het herroepingsrecht voor consumenten binnen de Europese Unie, zoals beschreven in de Richtlijn Consumentenrechten 2011/83/EU en de Nederlandse implementatie daarvan in Boek 6 van het Burgerlijk Wetboek.</p>
+                    </div>
+                    
+                    <h3>4. Opzegging door MediaMatch</h3>
+                    <p>MediaMatch behoudt zich het recht voor om een abonnement op te zeggen of te beëindigen in de volgende gevallen:</p>
+                    <ul>
+                        <li>Bij schending van onze gebruiksvoorwaarden</li>
+                        <li>Bij langdurige betalingsachterstand (meer dan 7 dagen)</li>
+                        <li>Bij misbruik van de dienst of het uploaden van illegale inhoud</li>
+                        <li>Bij beëindiging van de dienst of een specifiek abonnementstype</li>
+                    </ul>
+                    <p>In geval van opzegging door MediaMatch om een andere reden dan schending van de voorwaarden door de gebruiker, zal een pro-rata restitutie worden verleend voor vooruitbetaalde periodes.</p>
+                </section>
+                
+                <section id="opslag" class="policy-section">
+                    <h2>Opslagbeleid</h2>
+                    
+                    <h3>1. Opslaglimieten</h3>
+                    <p>Elk abonnement heeft een specifieke opslaglimiet, zoals vermeld in de abonnementsgegevens. Het overschrijden van deze limiet kan leiden tot beperkingen in de mogelijkheid om nieuwe inhoud te uploaden. Gebruikers worden via e-mail en in de applicatie gewaarschuwd wanneer zij 50%, 80% en 95% van hun opslaglimiet hebben bereikt.</p>
+                    
+                    <h3>2. Opslaguitbreidingen</h3>
+                    <p>Gebruikers kunnen extra opslagruimte aanschaffen volgens de tarieven die bij hun abonnementstype horen:</p>
+                    <ul>
+                        <li>Starter: €10 per extra GB (Per 3 maanden)</li>
+                        <li>Pro: €5 per extra GB (Per 3 maanden)</li>
+                        <li>Ultimate: €3 per extra GB (Per 4 maanden)</li>
+                    </ul>
+                    <p>Uitbreidingen worden gefactureerd volgens dezelfde cyclus als het hoofdabonnement en worden automatisch verlengd tenzij ze apart worden opgezegd. Gebruikers betalen de uitbreidings kosten elke 3 maanden met uitzondering van het MediaMatch-Ultimate abonnement.</p>
+                    
+                    <h3>3. Uploadlimieten</h3>
+                    <p>Naast opslaglimieten gelden ook dagelijkse uploadlimieten, zoals gespecificeerd in de abonnementsdetails. Deze limieten zijn bedoeld om misbruik te voorkomen en een stabiele dienstverlening te garanderen voor alle gebruikers.</p>
+                    <p>Indien u meer moet uploaden dan de dagelijkse uploadlimieten, kunt u contact opnemen met onze klantenservice; ©Pjotters-ZipZop</p>
+                    <ul>
+                        <li>Starter: 250MB per dag</li>
+                        <li>Pro: 1GB per dag</li>
+                        <li>Ultimate: Onbeperkt</li>
+                    </ul>
+                    <p>Pjotters-geverifieerde fotografen zijn vrijgesteld van deze dagelijkse uploadlimieten.</p>
+                    
+                    <h3>4. Gegevensbeveiliging</h3>
+                    <p>Alle opgeslagen gegevens worden beveiligd volgens de industriestandaarden, waaronder:</p>
+                    <ul>
+                        <li>Versleuteling tijdens transport (TLS/SSL)</li>
+                        <li>Versleuteling tijdens opslag (AES-256)</li>
+                        <li>Regelmatige back-ups</li>
+                        <li>Fysieke beveiligingsmaatregelen in onze datacenters</li>
+                    </ul>
+                    <p>Voor meer informatie over onze beveiligingsmaatregelen, raadpleeg ons Privacybeleid en ©Pjotters-Securis</p>
+                </section>
+                
+                <section id="wijzigingen" class="policy-section">
+                    <h2>Wijzigingen in Diensten</h2>
+                    
+                    <h3>1. Wijzigingen in abonnementsvoorwaarden</h3>
+                    <p>MediaMatch behoudt zich het recht voor om de abonnementsvoorwaarden te wijzigen. Wijzigingen worden minimaal 30 dagen voor de ingangsdatum via e-mail en een aankondiging op onze website bekendgemaakt. Bij substantiële wijzigingen die nadelig zijn voor gebruikers, bieden wij de mogelijkheid om het abonnement zonder kosten op te zeggen, ongeacht de resterende abonnementsperiode.</p>
+                    
+                    <h3>2. Prijswijzigingen</h3>
+                    <p>MediaMatch kan prijzen van abonnementen wijzigen. Bij prijsverhogingen geldt:</p>
+                    <ul>
+                        <li>Bestaande gebruikers worden minimaal 30 dagen voor de wijziging geïnformeerd</li>
+                        <li>De wijziging is pas van toepassing bij de eerstvolgende verlengingsperiode</li>
+                        <li>Gebruikers hebben het recht om vóór deze datum het abonnement op te zeggen</li>
+                        <li>Gebruikers hebben het recht om vóór deze datum bezwaar aan te teken bij de RvT</li>
+                    </ul>
+                    <p>Prijsverlagingen worden onmiddellijk van kracht voor nieuwe gebruikers en bij de volgende verlengingsperiode voor bestaande gebruikers.</p>
+                    
+                    <h3>3. Functiewijzigingen</h3>
+                    <p>MediaMatch streeft naar continue verbetering van de dienstverlening. Dit kan betekenen dat functies worden toegevoegd, gewijzigd of verwijderd. Bij substantiële verwijdering of beperking van functionaliteiten die expliciet zijn beloofd bij een bepaald abonnementstype, zullen gebruikers in de volgende gevallen worden gecompenseerd:</p>
+                    <ul>
+                        <li>Door alternatieven of vervangende functionaliteit aan te bieden</li>
+                        <li>Door een pro-rata restitutie aan te bieden</li>
+                        <li>Door de mogelijkheid te bieden om het abonnement zonder kosten op te zeggen</li>
+                    </ul>
+                    
+                    <div class="highlight">
+                        <h3>Wettelijke basis</h3>
+                        <p>Deze bepalingen zijn in overeenstemming met de Europese richtlijn betreffende oneerlijke bedingen in consumentenovereenkomsten (93/13/EEG) en de Nederlandse implementatie daarvan in het Burgerlijk Wetboek.</p>
+                    </div>
+                </section>
+                
+                <section id="herroeping" class="policy-section">
+                    <h2>Herroepingsrecht</h2>
+                    
+                    <h3>1. Wettelijk herroepingsrecht</h3>
+                    <p>Als consument binnen de Europese Unie heeft u het recht om binnen 14 dagen zonder opgave van redenen de overeenkomst te herroepen. De herroepingstermijn verstrijkt 14 dagen na de dag waarop de overeenkomst is gesloten.</p>
+                    
+                    <h3>2. Uitoefening van het herroepingsrecht</h3>
+                    <p>Om het herroepingsrecht uit te oefenen, moet u ons via een ondubbelzinnige verklaring (bijvoorbeeld schriftelijk per post of e-mail) op de hoogte stellen van uw beslissing om de overeenkomst te herroepen. U kunt hiervoor gebruikmaken van het modelformulier voor herroeping, maar bent hiertoe niet verplicht.</p>
+                    
+                    <p>Om de herroepingstermijn na te leven volstaat het om uw mededeling betreffende uw uitoefening van het herroepingsrecht te verzenden voordat de herroepingstermijn is verstreken.</p>
+                    
+                    <h3>3. Gevolgen van herroeping</h3>
+                    <p>Als u de overeenkomst herroept, ontvangt u alle betalingen die u tot op dat moment heeft gedaan, zonder vertraging en in ieder geval niet later dan 14 dagen nadat wij op de hoogte zijn gesteld van uw beslissing de overeenkomst te herroepen, van ons terug. Wij betalen u terug met hetzelfde betaalmiddel als waarmee u de oorspronkelijke transactie heeft verricht, tenzij u uitdrukkelijk anderszins heeft ingestemd.</p>
+                    
+                    <h3>4. Uitzondering op het herroepingsrecht</h3>
+                    <p>Conform artikel 6:230p van het Burgerlijk Wetboek vervalt het herroepingsrecht wanneer de dienst volledig is uitgevoerd. Indien u uitdrukkelijk heeft ingestemd met het beginnen van de dienst tijdens de herroepingstermijn en u erkent dat u uw herroepingsrecht verliest zodra de overeenkomst volledig is uitgevoerd, kan het herroepingsrecht deels of volledig vervallen.</p>
+                    
+                    <div class="highlight">
+                        <h3>Modelformulier voor herroeping</h3>
+                        <p>U kunt het volgende formulier gebruiken (maar bent hiertoe niet verplicht):</p>
+                        <p><em>Aan MediaMatch B.V., Nieuwe Plantage 87, 2611 XM Delft, e-mail: support@mediamatch.nl:</em></p>
+                        <p><em>Ik/Wij (*) deel/delen (*) u hierbij mede dat ik/wij (*) onze overeenkomst betreffende de verkoop van de volgende goederen/levering van de volgende dienst (*) herroep/herroepen (*): [abonnementstype invullen], besteld op (*)/ontvangen op (*) [datum], [Naam consument(en)], [Adres consument(en)], [Handtekening consument(en)] (alleen wanneer dit formulier op papier wordt ingediend), [Datum]</em></p>
+                        <p><em>(*) Doorhalen wat niet van toepassing is.</em></p>
+                    </div>
+                </section>
+                
+                <section id="klachten" class="policy-section">
+                    <h2>Klachtenprocedure</h2>
+                    
+                    <h3>1. Indienen van klachten</h3>
+                    <p>MediaMatch streeft naar volledige tevredenheid van zijn gebruikers. Als u een klacht heeft over onze diensten, abonnementen of facturatie, kunt u deze op de volgende manieren indienen:</p>
+                    <ul>
+                        <li>Via e-mail: support@mediamatch.nl</li>
+                        <li>Telefonisch: +31 (0)15 123 4567 (werkdagen 9:00-17:00)</li>
+                        <li>Schriftelijk: MediaMatch B.V., t.a.v. Klantenservice, Nieuwe Plantage 87, 2611 XM Delft</li>
+                        <li>Via het contactformulier op onze website</li>
+                    </ul>
+                    
+                    <h3>2. Behandeling van klachten</h3>
+                    <p>Wij streven ernaar om:</p>
+                    <ul>
+                        <li>De ontvangst van uw klacht binnen 24 uur te bevestigen</li>
+                        <li>Binnen 5 werkdagen inhoudelijk op uw klacht te reageren</li>
+                        <li>Uw klacht binnen 14 dagen op te lossen</li>
+                    </ul>
+                    <p>Bij complexere klachten kan de afhandeling langer duren. In dat geval houden we u op de hoogte van de voortgang.</p>
+                    
+                    <h3>3. Escalatie</h3>
+                    <p>Als u niet tevreden bent met de afhandeling van uw klacht, kunt u deze escaleren naar onze directie via rvt@mediamatch.nl. Daarnaast heeft u als consument in de EU het recht om:</p>
+                    <ul>
+                        <li>Uw klacht voor te leggen aan de Geschillencommissie Thuiswinkel via www.sgc.nl</li>
+                        <li>Uw klacht in te dienen via het Europese ODR-platform: <a href="https://ec.europa.eu/consumers/odr" target="_blank">https://ec.europa.eu/consumers/odr</a></li>
+                        <li>Uw klacht voor te leggen aan de bevoegde rechter</li>
+                    </ul>
+                    
+                    <div class="highlight">
+                        <h3>Wettelijke verplichting</h3>
+                        <p>Deze klachtenprocedure voldoet aan de vereisten van de Wet handhaving consumentenbescherming en de Europese richtlijn 2013/11/EU betreffende alternatieve beslechting van consumentengeschillen.</p>
+                    </div>
+                </section>
+                
+                <section id="btw" class="policy-section">
+                    <h2>BTW & Belastingen</h2>
+                    
+                    <h3>1. BTW-tarieven</h3>
+                    <p>Alle prijzen voor consumenten binnen de Europese Unie zijn inclusief BTW volgens het geldende tarief in het land van de consument, in overeenstemming met de Europese BTW-richtlijn.</p>
+                    <ul>
+                        <li>Nederland: 21% BTW</li>
+                        <li>Andere EU-landen: volgens het geldende tarief in het betreffende land</li>
+                    </ul>
+                    <p>Voor zakelijke klanten met een geldig BTW-identificatienummer binnen de EU, worden diensten gefactureerd zonder BTW volgens het reverse-charge mechanisme.</p>
+                    
+                    <h3>2. BTW-identificatie</h3>
+                    <p>Het BTW-identificatienummer van MediaMatch B.V. is: _Fout Embed_;<Iframe>Pjotters/public/btw</Iframe>Dit nummer staat ook vermeld op alle facturen.</p>
+                    
+                    <h3>3. Internationale belastingen</h3>
+                    <p>Voor klanten buiten de Europese Unie kunnen lokale belastingen en heffingen van toepassing zijn, afhankelijk van lokale belastingwetgeving. Het is de verantwoordelijkheid van de klant om te voldoen aan lokale belastingverplichtingen.</p>
+                    
+                    <h3>4. Fiscale verklaringen en rapporten</h3>
+                    <p>Zakelijke gebruikers kunnen fiscale overzichten en rapporten genereren via hun accountpagina voor administratieve en boekhoudkundige doeleinden. Deze rapporten bevatten alle betalingsgegevens, BTW-specificaties en abonnementsdetails.</p>
+                    
+                    <div class="highlight">
+                        <h3>Juridische basis</h3>
+                        <p>Deze BTW-bepalingen zijn in overeenstemming met de Europese BTW-richtlijn 2006/112/EG, de uitvoeringsverordening (EU) nr. 282/2011, en de Nederlandse Wet op de omzetbelasting 1968.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="glass">
+        <p>© 2025 MediaMatch - Alle rechten voorbehouden</p>
+    </footer>
+    
+    <script>
+        // Script voor soepel scrollen naar ankers
+        document.querySelectorAll('.policy-nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+                
+                // Update active link
+                document.querySelectorAll('.policy-nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // Highlight actieve sectie tijdens scrollen
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.policy-section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                const sectionHeight = section.offsetHeight;
+                const scrollPosition = window.scrollY;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.policy-nav a').forEach(a => a.classList.remove('active'));
+                    document.querySelector(`.policy-nav a[href="#${id}"]`).classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
