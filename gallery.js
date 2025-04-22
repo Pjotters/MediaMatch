@@ -1,0 +1,1 @@
+console.log('Galerij script geladen');

@@ -1,0 +1,1 @@
+console.log('Zoek script geladen');
