@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function initSlideshow() {
     // Paden naar alle Nederland U16 Hockey foto's
     const imagePaths = [
-        '../assets/Hockey/NederlandU16/010F47B8-39C4-4F65-AF72-951C1B014249_1_102_a.jpeg',
+        'assets/Hockey/NederlandU16/0E8AE998-FC00-4AD6-99B7-2C65F92AF229_1_102_a.jpeg',
         '../assets/Hockey/NederlandU16/0E8AE998-FC00-4AD6-99B7-2C65F92AF229_1_102_a.jpeg',
         '../assets/Hockey/NederlandU16/12E08B61-5FD5-4CEF-AF2F-31703FCF9C9E_1_102_a.jpeg',
         '../assets/Hockey/NederlandU16/33A7D1B7-D8EE-4F68-A94A-C7664344FDB6_1_102_a.jpeg',
