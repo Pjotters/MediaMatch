@@ -1,80 +1,80 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Gallery script geladen');
-    
-    // Element referenties ophalen
     const filterButtons = document.querySelectorAll('.filter-btn');
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    
-    // Filter functionaliteit
+    const galleryGrid = document.querySelector('.gallery-grid');
+
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Active class togglen
             filterButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-            
-            // Bepaal welke filter is geselecteerd
-            const filterValue = button.getAttribute('data-filter');
-            
-            // Items filteren
-            galleryItems.forEach(item => {
-                if (filterValue === 'all') {
-                    item.style.display = 'block';
-                } else {
-                    const category = item.getAttribute('data-category');
-                    if (category === filterValue) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                }
-            });
-            
-            // Grid opnieuw inrichten na filteren
-            resizeGridItems();
+            const filter = button.getAttribute('data-filter');
+            filterImages(filter);
         });
     });
-    
+
+    async function loadImagesFromAPI() {
+        try {
+            const response = await fetch('https://constraints-greensboro-converted-jon.trycloudflare.com/api/photos');
+            const photos = await response.json();
+            galleryGrid.innerHTML = '';
+
+            photos.forEach(photo => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item medium';
+                item.setAttribute('data-category', photo.category || 'onbekend');
+                item.innerHTML = `
+                    <img src="${photo.url}" alt="${photo.title}">
+                    <div class="overlay">
+                        <h3>${photo.title || 'Geen titel'}</h3>
+                        <p>${photo.description || ''}</p>
+                    </div>`;
+                galleryGrid.appendChild(item);
+                resizeGridItem(item); // Call the resizeGridItem function for each item
+            });
+        } catch (err) {
+            console.error('Fout bij het laden van foto\'s:', err);
+            
+            // Toon een gebruikersvriendelijke foutmelding in de gallery
+            galleryGrid.innerHTML = `
+                <div class="error-container">
+                    <div class="error-message">
+                        <h3>Er is een probleem opgetreden</h3>
+                        <p>We konden de foto's niet laden. Probeer het later opnieuw.</p>
+                        <button id="retry-button" class="retry-btn">Opnieuw proberen</button>
+                    </div>
+                </div>
+            `;
+            
+            // Voeg event listener toe voor retry button
+            document.getElementById('retry-button').addEventListener('click', () => {
+                loadImagesFromAPI();
+            });
+        }
+    }
+
+    function filterImages(filter) {
+        const items = document.querySelectorAll('.gallery-item');
+        items.forEach(item => {
+            const category = item.getAttribute('data-category');
+            item.style.display = (filter === 'all' || filter === category) ? 'block' : 'none';
+        });
+    }
+
     // Functie voor masonry layout met verschillende hoogtes
     function resizeGridItem(item) {
         const grid = document.querySelector('.gallery-grid');
         const rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
         const rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap')) || 0;
         
-        // Voorbereiden voor later gebruik met HP-opslag API
-        // Voor nu gebruikt het fixed grid spans (small, medium, tall)
-    }
-    
-    function resizeGridItems() {
-        const allItems = document.querySelectorAll('.gallery-item');
-        allItems.forEach(item => {
-            if (item.style.display !== 'none') {
-                resizeGridItem(item);
-            }
-        });
-    }
-    
-    // Voeg luisteraars toe voor window resize en load events
-    window.addEventListener('resize', resizeGridItems);
-    window.addEventListener('load', resizeGridItems);
-    
-    // Voorbereiden voor toekomstige API integratie
-    // Hier zou je later de code kunnen toevoegen om afbeeldingen van de HP-opslag API te laden
-    function loadImagesFromAPI() {
-        // Placeholder functie voor toekomstige API implementatie
-        console.log('API integratie voorbereid');
-        // Voorbeeld API call zou hier komen
-    }
-    
-    // Voeg hover effect toe voor een betere gebruikerservaring
-    galleryItems.forEach(item => {
-        item.addEventListener('mouseenter', () => {
-            const overlay = item.querySelector('.overlay');
-            overlay.style.transform = 'translateY(0)';
-        });
+        // Bereken benodigde span gebaseerd op content hoogte
+        const contentElement = item.querySelector('.overlay'); // Changed to .overlay
+        const contentHeight = contentElement.getBoundingClientRect().height;
         
-        item.addEventListener('mouseleave', () => {
-            const overlay = item.querySelector('.overlay');
-            overlay.style.transform = 'translateY(100%)';
-        });
-    });
+        // Bereken hoeveel grid-rows dit item zou moeten innemen
+        const rowSpan = Math.ceil((contentHeight + rowGap) / (rowHeight + rowGap));
+        
+        // Pas de grid-row-end property aan
+        item.style.gridRowEnd = `span ${rowSpan}`;
+    }
+
+    loadImagesFromAPI();
 });

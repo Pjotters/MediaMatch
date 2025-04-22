@@ -110,6 +110,39 @@
             grid-row-end: span 30;
         }
         
+        /* Foutmelding styling */
+        .error-container {
+            grid-column: 1 / -1;
+            padding: 3rem;
+            text-align: center;
+            background: hsl(var(--surface)/0.4);
+            backdrop-filter: var(--blur);
+            border-radius: var(--radius);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid hsl(var(--primary)/0.2);
+        }
+        
+        .error-message h3 {
+            margin-bottom: 1rem;
+            color: hsl(var(--primary));
+        }
+        
+        .retry-btn {
+            margin-top: 1.5rem;
+            padding: 0.7rem 2rem;
+            background: linear-gradient(45deg, hsl(var(--primary)/0.8), hsl(var(--secondary)/0.8));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .retry-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
         /* Responsieve aanpassingen */
         @media (max-width: 768px) {
             .gallery-grid {
@@ -154,6 +187,7 @@
             transform: translateY(-2px);
         }
     </style>
+    <script src="gallery.js" defer></script>
 </head>
 <body>
     <header class="glass">
@@ -180,85 +214,12 @@
         </section>
         
         <section class="gallery-grid">
-            <!-- Placeholder afbeeldingen (later te vervangen door HP-opslag API) -->
-            <div class="gallery-item tall" data-category="natuur">
-                <img src="https://source.unsplash.com/random/600x800?nature" alt="Natuur fotografie">
-                <div class="overlay">
-                    <h3>Berglandschap</h3>
-                    <p>Zwitserse alpen bij zonsopgang</p>
-                </div>
-            </div>
-            
-            <div class="gallery-item medium" data-category="portret">
-                <img src="https://source.unsplash.com/random/600x600?portrait" alt="Portret fotografie">
-                <div class="overlay">
-                    <h3>Licht & Schaduw</h3>
-                    <p>Studio portret met natuurlijk licht</p>
-                </div>
-            </div>
-            
-            <div class="gallery-item small" data-category="architectuur">
-                <img src="https://source.unsplash.com/random/600x400?architecture" alt="Architectuur fotografie">
-                <div class="overlay">
-                    <h3>Moderne Lijnen</h3>
-                    <p>Geometrische patronen in de stad</p>
-                </div>
-            </div>
-            
-            <div class="gallery-item medium" data-category="sport">
-                <img src="https://source.unsplash.com/random/600x600?sports" alt="Sport fotografie">
-                <div class="overlay">
-                    <h3>In Beweging</h3>
-                    <p>De perfecte timing vastgelegd</p>
-                </div>
-            </div>
-            
-            <div class="gallery-item small" data-category="natuur">
-                <img src="https://source.unsplash.com/random/600x400?water" alt="Water fotografie">
-                <div class="overlay">
-                    <h3>Waterspiegeling</h3>
-                    <p>Kristalhelder meer in de bergen</p>
-                </div>
-            </div>
-            
-            <div class="gallery-item tall" data-category="portret">
-                <img src="https://source.unsplash.com/random/600x800?model" alt="Model fotografie">
-                <div class="overlay">
-                    <h3>Expressie</h3>
-                    <p>Fashion portret met emotie</p>
-                </div>
-            </div>
-            
-            <div class="gallery-item medium" data-category="architectuur">
-                <img src="https://source.unsplash.com/random/600x600?building" alt="Gebouw fotografie">
-                <div class="overlay">
-                    <h3>Historische Schoonheid</h3>
-                    <p>Klassieke architectuur details</p>
-                </div>
-            </div>
-            
-            <div class="gallery-item small" data-category="sport">
-                <img src="https://source.unsplash.com/random/600x400?athlete" alt="Atleet fotografie">
-                <div class="overlay">
-                    <h3>Topprestatie</h3>
-                    <p>Het beslissende moment</p>
-                </div>
-            </div>
-            
-            <div class="gallery-item medium" data-category="natuur">
-                <img src="https://source.unsplash.com/random/600x600?forest" alt="Bos fotografie">
-                <div class="overlay">
-                    <h3>Mysterieus Bos</h3>
-                    <p>Ochtendnevel tussen de bomen</p>
-                </div>
-            </div>
+            <!-- Dynamisch geladen via gallery.js -->
         </section>
     </main>
     
     <footer class="glass">
         <p>© 2025 RoeiFoto - Alle rechten voorbehouden</p>
     </footer>
-    
-    <script src="gallery.js"></script>
 </body>
 </html>
