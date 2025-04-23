@@ -95,52 +95,47 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // Formulier verzenden
+    // --- HIER START DE AANPASSING VOOR JWT EN UPLOAD ---
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        // Toon loading status
         showStatus('Bezig met uploaden...', 'loading');
-
         const formData = new FormData(form);
         const BASE = window.config.apiUrl;
-
+        // JWT ophalen uit localStorage (zoals bij login)
+        const token = localStorage.getItem('token');
+        let headers = {};
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
         try {
-            // Probeer eerst de primaire API
-            let res;
-            let data;
-            
+            let res, data;
             try {
                 res = await fetch(`${BASE}/api/upload`, {
                     method: 'POST',
-                    credentials: 'include',  // zodat session-cookie meegaat
-                    body: formData
+                    credentials: 'include',
+                    body: formData,
+                    headers
                 });
-                
-                if (!res.ok) {
-                    throw new Error('Primaire API niet beschikbaar');
-                }
-                
+                if (!res.ok) throw new Error('Primaire API niet beschikbaar');
                 data = await res.json();
-                console.log('Upload via primaire API geslaagd');
+                showStatus('Upload via primaire API geslaagd', 'success');
             } catch (primaryError) {
                 console.log('Fallback naar backup API endpoint', primaryError);
                 res = await fetch(`${BASE}/api/upload`, {
                     method: 'POST',
-                    credentials: 'include',  // zodat session-cookie meegaat
-                    body: formData
+                    credentials: 'include',
+                    body: formData,
+                    headers
                 });
                 data = await res.json();
-                console.log('Upload via backup API geslaagd');
+                showStatus('Upload via backup API geslaagd', 'success');
             }
-            
-            if (res.ok) {
-                showStatus('Upload succesvol! Je wordt doorgestuurd...', 'success');
+            if (res.ok || (data && data.success)) {
                 setTimeout(() => {
                     window.location.href = '/gallery.html';
-                }, 1500);
+                }, 1200);
             } else {
-                showStatus(`Fout: ${data.error || data.message || 'Er is iets misgegaan'}`, 'error');
+                showStatus(`Fout: ${data && data.message ? data.message : 'Er is iets misgegaan'}`, 'error');
             }
         } catch (error) {
             console.error('Upload fout:', error);
