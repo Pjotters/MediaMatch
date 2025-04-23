@@ -108,6 +108,10 @@ document.addEventListener('DOMContentLoaded', () => {
             headers['Authorization'] = `Bearer ${token}`;
         }
         try {
+            if (!token) {
+                showStatus('Je bent niet ingelogd of je sessie is verlopen. Log opnieuw in voordat je een foto uploadt.', 'error');
+                return;
+            }
             let res, data;
             try {
                 res = await fetch(`${BASE}/api/upload`, {
@@ -135,11 +139,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     window.location.href = '/gallery.html';
                 }, 1200);
             } else {
-                showStatus(`Fout: ${data && data.message ? data.message : 'Er is iets misgegaan'}`, 'error');
+                let foutmelding = 'Onbekende fout bij uploaden.';
+                if (data && data.message) {
+                    foutmelding = `Fout: ${data.message}`;
+                } else if (res && res.status === 401) {
+                    foutmelding = 'Niet geautoriseerd: Log opnieuw in.';
+                } else if (res && res.status === 413) {
+                    foutmelding = 'Bestand is te groot.';
+                }
+                showStatus(foutmelding, 'error');
             }
         } catch (error) {
             console.error('Upload fout:', error);
-            showStatus('Netwerkfout. Controleer je verbinding en probeer opnieuw.', 'error');
+            showStatus('Netwerkfout of server niet bereikbaar. Controleer je verbinding of log opnieuw in.', 'error');
         }
     });
 });

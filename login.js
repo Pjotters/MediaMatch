@@ -53,10 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Login via backup API');
             }
             
-            if (res.ok || data.success) {
+            if ((res.ok || data.success) && data.token) {
                 // Gebruiker opslaan in localStorage
                 localStorage.setItem('user', email);
-                
+                localStorage.setItem('token', data.token); // JWT-token opslaan voor upload!
                 showStatus('Login gelukt! Je wordt doorgestuurd...', 'success');
                 setTimeout(() => {
                     window.location.href = '/upload.html';
