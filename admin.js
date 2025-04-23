@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const adminGrid = document.querySelector('.admin-grid');
 
     async function loadSubmissions() {
-        const res = await fetch('/api/admin/photos');
+        const res = await fetch(`${window.config.apiUrl}/api/admin/photos`);
         const submissions = await res.json();
 
         adminGrid.innerHTML = '';
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.querySelectorAll('.reject-btn').forEach(btn => {
             btn.addEventListener('click', async () => {
                 const id = btn.getAttribute('data-id');
-                await fetch(`/api/admin/reject/${id}`, { method: 'DELETE' });
+                await fetch(`${window.config.apiUrl}/api/admin/reject/${id}`, { method: 'DELETE' });
                 loadSubmissions(); // refresh na verwijderen
             });
         });

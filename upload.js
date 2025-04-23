@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showStatus('Bezig met uploaden...', 'loading');
 
         const formData = new FormData(form);
-        const BASE = 'https://christopher-charter-tribal-automated.trycloudflare.com';
+        const BASE = window.config.apiUrl;
 
         try {
             // Probeer eerst de primaire API
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let data;
             
             try {
-                res = await fetch('/api/upload', {
+                res = await fetch(`${BASE}/api/upload`, {
                     method: 'POST',
                     credentials: 'include',  // zodat session-cookie meegaat
                     body: formData

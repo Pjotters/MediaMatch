@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaMatch - Foto Detail</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Foto detail pagina specifieke styling */
+        .photo-detail-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+        
+        .photo-detail {
+            display: flex;
+            flex-direction: column;
+            border-radius: var(--radius);
+            background-color: hsla(var(--surface)/0.5);
+            backdrop-filter: var(--blur);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid hsla(var(--primary)/0.2);
+            overflow: hidden;
+        }
+        
+        .detail-image {
+            width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            background-color: hsla(var(--surface)/0.8);
+        }
+        
+        .photo-info {
+            padding: 2rem;
+        }
+        
+        .photo-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, hsl(280, 80%, 60%), hsl(340, 80%, 55%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .metadata {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tag {
+            padding: 0.3rem 0.8rem;
+            background: linear-gradient(45deg, hsla(var(--primary)/0.3), hsla(var(--secondary)/0.3));
+            border-radius: 50px;
+            font-size: 0.8rem;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: hsla(var(--surface)/0.6);
+            border: 1px solid hsla(var(--primary)/0.3);
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .action-btn.liked {
+            background: linear-gradient(45deg, hsl(0, 80%, 40%), hsl(340, 80%, 40%));
+            border-color: transparent;
+        }
+        
+        .action-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            background: hsla(var(--surface)/0.4);
+            border: 1px solid hsla(var(--primary)/0.2);
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .back-button:hover {
+            background: hsla(var(--surface)/0.6);
+            transform: translateX(-5px);
+        }
+        
+        /* Comments styling */
+        .comments-section {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 1rem;
+        }
+        
+        .comments-container {
+            padding: 2rem;
+            border-radius: var(--radius);
+            background-color: hsla(var(--surface)/0.5);
+            backdrop-filter: var(--blur);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid hsla(var(--primary)/0.2);
+        }
+        
+        .comments-container h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            background: linear-gradient(to right, hsl(280, 80%, 60%), hsl(340, 80%, 55%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .comment {
+            padding: 1.5rem;
+            border-radius: calc(var(--radius) / 2);
+            background-color: hsla(var(--surface)/0.4);
+            backdrop-filter: var(--blur);
+            border: 1px solid hsla(var(--primary)/0.1);
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+        }
+        
+        .comment-author {
+            font-weight: 600;
+            color: hsl(var(--primary));
+        }
+        
+        .comment-date {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
+        .comment-body {
+            line-height: 1.6;
+        }
+        
+        .no-comments {
+            text-align: center;
+            padding: 2rem;
+            opacity: 0.7;
+        }
+        
+        .comment-form {
+            margin-top: 2rem;
+        }
+        
+        .comment-form textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: calc(var(--radius) / 2);
+            background-color: hsla(var(--surface)/0.4);
+            border: 1px solid hsla(var(--primary)/0.3);
+            color: white;
+            resize: vertical;
+        }
+        
+        .comment-form textarea:focus {
+            outline: none;
+            border-color: hsla(var(--primary)/0.8);
+            box-shadow: 0 0 0 3px hsla(var(--primary)/0.2);
+        }
+        
+        .comment-submit {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(45deg, hsl(280, 80%, 60%), hsl(340, 80%, 55%));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            float: right;
+        }
+        
+        .comment-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .login-prompt {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: calc(var(--radius) / 2);
+            background-color: hsla(var(--surface)/0.4);
+            border: 1px solid hsla(var(--primary)/0.2);
+        }
+        
+        .login-prompt a {
+            color: hsl(280, 80%, 70%);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .login-prompt a:hover {
+            color: hsl(280, 80%, 80%);
+            text-decoration: underline;
+        }
+        
+        /* Loading indicator */
+        .loading-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid hsla(var(--primary), 0.2);
+            border-top-color: hsl(var(--primary));
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-indicator p {
+            margin-top: 1rem;
+        }
+        
+        /* Error message */
+        .error-message {
+            padding: 2rem;
+            text-align: center;
+            background: hsla(0, 60%, 50%, 0.1);
+            border: 1px solid hsla(0, 60%, 50%, 0.3);
+            color: hsl(0, 60%, 80%);
+            border-radius: calc(var(--radius) / 2);
+        }
+        
+        /* Responsieve styling */
+        @media (min-width: 768px) {
+            .photo-detail {
+                flex-direction: row;
+            }
+            
+            .detail-image {
+                width: 60%;
+                max-height: none;
+                height: auto;
+            }
+            
+            .photo-info {
+                width: 40%;
+            }
+        }
+    </style>
+    <script src="config.js"></script>
+    <script src="photoDetail.js" defer></script>
+</head>
+<body>
+    <header class="glass">
+        <div class="logo"><img src="assets/MediaMatch.png" alt="MediaMatch Logo" height="40"></div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="gallery.html">Galerij</a>
+            <a href="upload.html">Upload</a>
+            <a href="login.html">Login</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="legal.html">Legal</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="photo-detail-container">
+            <button class="back-button">← Terug naar galerij</button>
+            <!-- Hier wordt de foto dynamisch ingeladen via JavaScript -->
+        </div>
+        
+        <section class="comments-section">
+            <div class="comments-container">
+                <!-- Hier worden de comments dynamisch ingeladen via JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="glass">
+        <p>© 2025 MediaMatch - Alle rechten voorbehouden</p>
+    </footer>
+</body>
+</html>

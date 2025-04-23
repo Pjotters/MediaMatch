@@ -4,6 +4,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingIndicator = document.createElement('div');
     loadingIndicator.className = 'loading-indicator';
     loadingIndicator.innerHTML = '<div class="spinner"></div><p>Foto\'s laden...</p>';
+    
+    // Helper functie voor API base URL
+    function getApiBaseUrl() {
+        // Probeer eerst lokale API, anders gebruik cloudflare URL
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            return '';
+        } else {
+            return 'https://christopher-charter-tribal-automated.trycloudflare.com';
+        }
+    }
 
     // Initialiseer filter knoppen
     filterButtons.forEach(button => {
@@ -23,13 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
             galleryGrid.appendChild(loadingIndicator);
 
             // Probeer eerst de primaire API endpoint, dan de backup
-            const BASE = 'https://christopher-charter-tribal-automated.trycloudflare.com';
+            const BASE = getApiBaseUrl();
             let response;
             let photos;
             let apiSource;
 
             try {
-                response = await fetch('/api/photos');
+                response = await fetch(`${window.config.apiUrl}/api/photos`);
                 if (response.ok) {
                     photos = await response.json();
                     apiSource = 'Primaire API';
@@ -38,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (primaryError) {
                 console.log('Fallback naar backup API endpoint', primaryError);
-                response = await fetch(`${BASE}/api/photos`);
+                response = await fetch(`${window.config.apiUrl}/api/photos`);
                 photos = await response.json();
                 apiSource = 'Backup API';
             }
@@ -62,15 +72,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     item.className = `gallery-item ${sizeClass}`;
                     item.setAttribute('data-category', photo.category || 'onbekend');
+                    item.setAttribute('data-id', photo.id); // Foto ID voor detailpagina
                     item.innerHTML = `
                         <img src="${photo.url}" alt="${photo.title || 'Afbeelding'}" loading="lazy">
                         <div class="overlay">
                             <h3>${photo.title || 'Geen titel'}</h3>
                             <p>${photo.description || ''}</p>
+                            <div class="photo-metadata">
+                                <span class="likes-count">❤️ ${photo.likeCount || 0}</span>
+                                <span class="comments-count">💬 ${photo.commentCount || 0}</span>
+                            </div>
                         </div>`;
                     
                     // Voeg item toe aan de galerij
                     galleryGrid.appendChild(item);
+                    
+                    // Voeg click event toe om naar detailpagina te navigeren
+                    item.addEventListener('click', () => {
+                        window.location.href = `photoDetail.html?id=${photo.id}`;
+                    });
                     
                     // Pas de grootte aan voor masonry layout
                     resizeGridItem(item);

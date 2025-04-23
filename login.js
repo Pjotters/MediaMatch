@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const email = form.email.value;
         const password = form.password.value;
-        const BASE = 'https://christopher-charter-tribal-automated.trycloudflare.com';
 
         try {
             // Probeer eerst de primaire API
@@ -31,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let data;
             
             try {
-                res = await fetch('/api/login', {
+                res = await fetch(`${window.config.apiUrl}/api/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
@@ -45,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Login via primaire API geslaagd');
             } catch (primaryError) {
                 console.log('Fallback naar backup API endpoint', primaryError);
-                res = await fetch(`${BASE}/api/login`, {
+                res = await fetch(`${window.config.apiUrl}/api/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
