@@ -20,6 +20,35 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    // Debug: Toon rol in console
+    async function debugUserRole() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            console.log('[DEBUG] Geen JWT-token gevonden.');
+            return;
+        }
+        try {
+            const res = await fetch(`${window.config.apiUrl}/api/subscription`, {
+                headers: { 'Authorization': `Bearer ${token}` },
+                credentials: 'include'
+            });
+            const data = await res.json();
+            if (data.subscription) {
+                console.log(`[DEBUG] API subscription response:`, data.subscription);
+                if (data.subscription.userRole) {
+                    console.log(`[DEBUG] userRole volgens backend:`, data.subscription.userRole);
+                } else {
+                    console.log('[DEBUG] userRole ontbreekt in subscription response!');
+                }
+            } else {
+                console.log('[DEBUG] Geen subscription info ontvangen:', data);
+            }
+        } catch (e) {
+            console.log('[DEBUG] Fout bij ophalen subscription info:', e);
+        }
+    }
+    debugUserRole();
+
     // Admin promote formulier tonen als je geen admin bent
     checkAdmin().then(isAdmin => {
         if (!isAdmin) {

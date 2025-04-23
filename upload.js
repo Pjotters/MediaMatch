@@ -47,46 +47,36 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Drag & drop ondersteuning
     const uploadArea = document.querySelector('.file-upload');
-    
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        uploadArea.addEventListener(eventName, preventDefaults, false);
-    });
-    
-    function preventDefaults(e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
-    
-    ['dragenter', 'dragover'].forEach(eventName => {
-        uploadArea.addEventListener(eventName, highlight, false);
-    });
-    
-    ['dragleave', 'drop'].forEach(eventName => {
-        uploadArea.addEventListener(eventName, unhighlight, false);
-    });
-    
-    function highlight() {
-        uploadArea.querySelector('.file-upload-label').classList.add('highlight');
-    }
-    
-    function unhighlight() {
-        uploadArea.querySelector('.file-upload-label').classList.remove('highlight');
-    }
-    
-    uploadArea.addEventListener('drop', handleDrop, false);
-    
-    function handleDrop(e) {
-        const dt = e.dataTransfer;
-        const files = dt.files;
-        
-        if (files.length) {
+    if (uploadArea) {
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, preventDefaults, false);
+        });
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, highlight, false);
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, unhighlight, false);
+        });
+        function highlight() {
+            uploadArea.querySelector('.file-upload-label').classList.add('highlight');
+        }
+        function unhighlight() {
+            uploadArea.querySelector('.file-upload-label').classList.remove('highlight');
+        }
+        uploadArea.addEventListener('drop', handleDrop, false);
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
             fileInput.files = files;
-            // Trigger het change event manueel
             const event = new Event('change');
             fileInput.dispatchEvent(event);
         }
     }
-
+    
     // Portrait form verwerking
     portraitFormInput.addEventListener('change', () => {
         const file = portraitFormInput.files[0];
