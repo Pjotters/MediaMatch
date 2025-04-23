@@ -42,9 +42,45 @@ document.addEventListener('DOMContentLoaded', () => {
             div.className = 'form-group';
             div.innerHTML = `<label>Geef een titel voor foto ${idx+1}:</label><input type="text" class="form-control photo-title" name="title_${idx}" value="${file.name.replace(/\.[^/.]+$/, '')}" required>`;
             dynamicTitles.appendChild(div);
+            generateAITitleAndDescription(file, idx); // Trigger AI direct
         });
     });
     
+    // AI: Genereer titel & beschrijving op basis van afbeelding
+    async function generateAITitleAndDescription(file, idx) {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+        try {
+            const formData = new FormData();
+            formData.append('photo', file);
+            const res = await fetch(`${window.config.apiUrl}/api/ai/generate-title-description`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}` },
+                body: formData
+            });
+            if (res.ok) {
+                const data = await res.json();
+                if (data.title && data.description) {
+                    // Vul de velden in
+                    const titleInput = document.querySelector(`input[name="title_${idx}"]`);
+                    if (titleInput) titleInput.value = data.title;
+                    let descInput = document.querySelector(`textarea[name="description_${idx}"]`);
+                    if (!descInput) {
+                        // Voeg beschrijving toe als die er nog niet is
+                        const descDiv = document.createElement('div');
+                        descDiv.className = 'form-group';
+                        descDiv.innerHTML = `<label>Automatische beschrijving voor foto ${idx+1}:</label><textarea class="form-control photo-description" name="description_${idx}" rows="2">${data.description}</textarea>`;
+                        titleInput.parentElement.after(descDiv);
+                    } else {
+                        descInput.value = data.description;
+                    }
+                }
+            }
+        } catch (e) {
+            console.log('[AI] Kan geen titel/beschrijving genereren:', e);
+        }
+    }
+
     // Drag & drop ondersteuning
     const uploadArea = document.querySelector('.file-upload');
     if (uploadArea) {
@@ -118,6 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('photo', file);
             const titleInput = dynamicTitles.querySelector(`[name="title_${idx}"]`);
             formData.append(`title_${idx}`, titleInput ? titleInput.value : file.name.replace(/\.[^/.]+$/, ''));
+            const descInput = dynamicTitles.querySelector(`[name="description_${idx}"]`);
+            if (descInput) formData.append(`description_${idx}`, descInput.value);
         });
         // Voeg portretrechten-formulier toe
         if (portraitFormInput.files[0]) {
