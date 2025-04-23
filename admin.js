@@ -47,8 +47,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
             const data = await res.json();
             if (data.success) {
-                promoteStatus.textContent = 'Je bent nu admin! Vernieuw de pagina.';
-                setTimeout(() => window.location.reload(), 1200);
+                promoteStatus.textContent = 'Je bent nu admin! Je wordt nu automatisch uitgelogd. Log opnieuw in voor admin-rechten.';
+                setTimeout(() => {
+                  localStorage.removeItem('token');
+                  window.location.href = '/login.html';
+                }, 1800);
             } else {
                 promoteStatus.textContent = data.message || 'Fout bij promoten.';
             }

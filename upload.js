@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewTitle = document.getElementById('previewTitle');
     const photoLabel = document.getElementById('photoLabel');
     const statusElement = document.getElementById('status');
+    const dynamicTitles = document.getElementById('dynamic-titles');
+    const uploadLimitInfo = document.getElementById('upload-limit-info');
+    const portraitFormInput = document.getElementById('portrait_form');
+    const portraitFormLabel = document.getElementById('portraitFormLabel');
     
     // Functie om status te tonen
     function showStatus(message, type) {
@@ -22,24 +26,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Voorvertoning wanneer een bestand wordt geselecteerd
-    fileInput.addEventListener('change', () => {
-        const file = fileInput.files[0];
-        
-        if (file) {
-            const reader = new FileReader();
-            
-            reader.onload = function(e) {
-                // Update preview-afbeelding
-                imagePreview.src = e.target.result;
-                previewTitle.textContent = file.name;
-                previewContainer.style.display = 'block';
-                
-                // Update label tekst
-                photoLabel.textContent = 'Wijzig afbeelding';
-            };
-            
-            reader.readAsDataURL(file);
+    fileInput.addEventListener('change', async () => {
+        const files = fileInput.files;
+        const limit = await getUserUploadLimit();
+        uploadLimitInfo.textContent = `Je mag maximaal ${limit} foto's tegelijk uploaden met jouw abonnement.`;
+        if (files.length > limit) {
+            showStatus(`Je mag maximaal ${limit} foto's tegelijk uploaden met jouw abonnement.`, 'error');
+            fileInput.value = '';
+            dynamicTitles.innerHTML = '';
+            return;
         }
+        dynamicTitles.innerHTML = '';
+        Array.from(files).forEach((file, idx) => {
+            const div = document.createElement('div');
+            div.className = 'form-group';
+            div.innerHTML = `<label>Geef een titel voor foto ${idx+1}:</label><input type="text" class="form-control photo-title" name="title_${idx}" value="${file.name.replace(/\.[^/.]+$/, '')}" required>`;
+            dynamicTitles.appendChild(div);
+        });
     });
     
     // Drag & drop ondersteuning
@@ -85,9 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Portrait form verwerking
-    const portraitFormInput = document.getElementById('portrait_form');
-    const portraitFormLabel = document.getElementById('portraitFormLabel');
-    
     portraitFormInput.addEventListener('change', () => {
         const file = portraitFormInput.files[0];
         if (file) {
@@ -96,45 +96,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // --- HIER START DE AANPASSING VOOR JWT EN UPLOAD ---
+    async function getUserUploadLimit() {
+        const token = localStorage.getItem('token');
+        if (!token) return 3; // fallback
+        try {
+            const res = await fetch(`${window.config.apiUrl}/api/subscription`, {
+                headers: { 'Authorization': `Bearer ${token}` },
+                credentials: 'include'
+            });
+            const data = await res.json();
+            if (data.subscription && data.subscription.type === 'pro') return 10;
+            if (data.subscription && data.subscription.type === 'unlimited') return 50; // UI limiet (backend = ∞)
+            return 3;
+        } catch {
+            return 3;
+        }
+    }
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         showStatus('Bezig met uploaden...', 'loading');
-        const formData = new FormData(form);
+        const formData = new FormData();
+        const files = fileInput.files;
+        const limit = await getUserUploadLimit();
+        if (files.length > limit) {
+            showStatus(`Je mag maximaal ${limit} foto's tegelijk uploaden met jouw abonnement.`, 'error');
+            return;
+        }
+        // Voeg foto's toe
+        Array.from(files).forEach((file, idx) => {
+            formData.append('photo', file);
+            const titleInput = dynamicTitles.querySelector(`[name="title_${idx}"]`);
+            formData.append(`title_${idx}`, titleInput ? titleInput.value : file.name.replace(/\.[^/.]+$/, ''));
+        });
+        // Voeg portretrechten-formulier toe
+        if (portraitFormInput.files[0]) {
+            formData.append('portrait_form', portraitFormInput.files[0]);
+        }
         const BASE = window.config.apiUrl;
-        // JWT ophalen uit localStorage (zoals bij login)
         const token = localStorage.getItem('token');
         let headers = {};
-        if (token) {
-            headers['Authorization'] = `Bearer ${token}`;
-        }
+        if (token) headers['Authorization'] = `Bearer ${token}`;
         try {
             if (!token) {
                 showStatus('Je bent niet ingelogd of je sessie is verlopen. Log opnieuw in voordat je een foto uploadt.', 'error');
                 return;
             }
-            let res, data;
-            try {
-                res = await fetch(`${BASE}/api/upload`, {
-                    method: 'POST',
-                    credentials: 'include',
-                    body: formData,
-                    headers
-                });
-                if (!res.ok) throw new Error('Primaire API niet beschikbaar');
-                data = await res.json();
-                showStatus('Upload via primaire API geslaagd', 'success');
-            } catch (primaryError) {
-                console.log('Fallback naar backup API endpoint', primaryError);
-                res = await fetch(`${BASE}/api/upload`, {
-                    method: 'POST',
-                    credentials: 'include',
-                    body: formData,
-                    headers
-                });
-                data = await res.json();
-                showStatus('Upload via backup API geslaagd', 'success');
-            }
+            let res = await fetch(`${BASE}/api/upload`, {
+                method: 'POST',
+                credentials: 'include',
+                body: formData,
+                headers
+            });
+            let data = await res.json();
             if (res.ok || (data && data.success)) {
+                showStatus('Upload geslaagd!', 'success');
                 setTimeout(() => {
                     window.location.href = '/gallery.html';
                 }, 1200);

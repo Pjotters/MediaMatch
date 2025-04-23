@@ -1,1 +1,150 @@
-<!DOCTYPE html><html><head><title>Zoeken</title></head><body><h1>Zoek op Gezicht</h1></body></html>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediaMatch - Foto Zoeken</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: linear-gradient(120deg, #18122B 0%, #3A235B 100%);
+      color: #fff;
+      min-height: 100vh;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    .search-container {
+      max-width: 700px;
+      margin: 4rem auto;
+      padding: 2.5rem;
+      border-radius: 1.5rem;
+      background: rgba(40,20,60,0.45);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.16);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(160,89,198,0.18);
+    }
+    .search-header {
+      text-align: center;
+      margin-bottom: 2.2rem;
+    }
+    .search-header h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.7rem;
+      background: linear-gradient(90deg,#a259c6,#f06292);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .search-header p {
+      opacity: 0.8;
+      font-size: 1.1rem;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-control {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-radius: 0.6rem;
+      background: rgba(30,0,40,0.18);
+      border: 1px solid #444;
+      color: #fff;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: #a259c6;
+      box-shadow: 0 0 0 3px rgba(160,89,198,0.18);
+    }
+    .btn-main {
+      display: block;
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 0.7rem;
+      background: linear-gradient(90deg,#a259c6,#f06292);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.2s;
+    }
+    .btn-main:hover {
+      background: linear-gradient(90deg,#f06292,#a259c6);
+    }
+    .results-container {
+      margin-top: 2.5rem;
+      padding: 2rem;
+      border-radius: 1.2rem;
+      background: rgba(30,0,40,0.23);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.09);
+      min-height: 120px;
+    }
+    .result-item {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
+      background: rgba(160,89,198,0.08);
+      border-radius: 0.8rem;
+      padding: 1rem;
+    }
+    .result-item img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 0.6rem;
+      border: 2px solid #a259c6;
+      background: #1e0d2b;
+    }
+    .result-details {
+      flex: 1;
+    }
+    .result-title {
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: #fff;
+    }
+    .result-meta {
+      color: #f06292;
+      font-size: 0.97rem;
+      margin-bottom: 0.2rem;
+    }
+    .ai-tags {
+      margin-top: 0.4rem;
+      color: #a259c6;
+      font-size: 0.95rem;
+    }
+    .status-message {
+      margin-top: 1.2rem;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #f06292;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="search-container glass">
+      <div class="search-header">
+        <h2>AI Foto Zoeken</h2>
+        <p>Upload een portretfoto en krijg direct matches en slimme suggesties. Werkt optimaal op jouw HP-laptop!</p>
+      </div>
+      <form id="searchForm">
+        <div class="form-group">
+          <label for="searchPhoto">Upload een foto (jpg/png):</label>
+          <input type="file" id="searchPhoto" name="searchPhoto" class="form-control" accept="image/*" required>
+        </div>
+        <button type="submit" class="btn-main">Zoek op gezicht</button>
+        <div id="searchStatus" class="status-message"></div>
+      </form>
+      <div class="results-container" id="resultsContainer">
+        <!-- Resultaten komen hier -->
+      </div>
+    </div>
+  </main>
+  <script src="search.js"></script>
+</body>
+</html>

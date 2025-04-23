@@ -198,28 +198,15 @@
       
       <form id="uploadForm">
         <div class="form-group">
-          <div class="file-upload">
-            <label for="photo" class="file-upload-label">
-              <span id="photoLabel">Sleep je foto hierheen of klik om te uploaden</span>
-            </label>
-            <input type="file" id="photo" name="photo" class="file-upload-input" accept="image/*" required>
-          </div>
-          
-          <div id="previewContainer" class="preview-container">
-            <img id="imagePreview" class="image-preview">
-            <div id="previewTitle" class="preview-title"></div>
-          </div>
+          <label for="photo" id="photoLabel">Kies foto('s) om te uploaden</label>
+          <input type="file" id="photo" name="photo" class="form-control" accept="image/*" multiple required>
+          <small id="upload-limit-info" style="color:#f06292;"></small>
         </div>
-        
+        <div id="dynamic-titles"></div>
         <div class="form-group">
-          <div class="file-upload">
-            <label for="portrait_form" class="file-upload-label">
-              <span id="portraitFormLabel">Portretrecht formulier (PDF of afbeelding)</span>
-            </label>
-            <input type="file" id="portrait_form" name="portrait_form" class="file-upload-input" accept=".pdf,image/*" required>
-          </div>
+          <label for="portrait_form" id="portraitFormLabel">Portretrechten-formulier (optioneel, PDF/JPG/PNG)</label>
+          <input type="file" id="portrait_form" name="portrait_form" class="form-control" accept="application/pdf,image/*">
         </div>
-        
         <div class="form-group">
           <label for="title">Titel</label>
           <input type="text" id="title" name="title" class="form-control" placeholder="Geef je foto een pakkende titel" required>
@@ -247,12 +234,16 @@
         <button type="submit" class="btn-upload">Uploaden</button>
       </form>
       
+      <div id="previewContainer" style="display:none">
+        <img id="imagePreview" src="#" alt="Preview" style="max-width:100%; border-radius:0.5rem; margin-bottom:1rem;">
+        <div id="previewTitle"></div>
+      </div>
       <div id="status" class="status-message"></div>
     </section>
   </main>
 
   <footer class="glass">
-      <p>© 2025 MediaMatch - Alle rechten voorbehouden</p>
+      <p> 2025 MediaMatch - Alle rechten voorbehouden</p>
   </footer>
 </body>
 </html>
