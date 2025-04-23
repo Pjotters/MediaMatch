@@ -78,23 +78,39 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.title && data.description) {
                     // Vul de velden in
                     const titleInput = document.querySelector(`input[name="title_${idx}"]`);
-                    if (titleInput) titleInput.value = data.title;
+                    if (titleInput) {
+                        titleInput.value = data.title;
+                        titleInput.classList.add('ai-animated');
+                        setTimeout(() => titleInput.classList.remove('ai-animated'), 1000);
+                    }
                     let descInput = document.querySelector(`textarea[name="description_${idx}"]`);
                     if (!descInput) {
-                        // Voeg beschrijving toe als die er nog niet is
                         const descDiv = document.createElement('div');
                         descDiv.className = 'form-group';
-                        descDiv.innerHTML = `<label>Automatische beschrijving voor foto ${idx+1}:</label><textarea class="form-control photo-description" name="description_${idx}" rows="2">${data.description}</textarea>`;
+                        descDiv.innerHTML = `<label>Automatische beschrijving voor foto ${idx+1}:</label><textarea class="form-control photo-description ai-animated" name="description_${idx}" rows="2">${data.description}</textarea>`;
                         titleInput.parentElement.after(descDiv);
+                        setTimeout(() => descDiv.querySelector('textarea').classList.remove('ai-animated'), 1000);
                     } else {
                         descInput.value = data.description;
+                        descInput.classList.add('ai-animated');
+                        setTimeout(() => descInput.classList.remove('ai-animated'), 1000);
                     }
                 }
             }
         } catch (e) {
-            console.log('[AI] Kan geen titel/beschrijving genereren:', e);
+            showStatus('[AI] Kan geen titel/beschrijving genereren: ' + e, 'error');
         }
     }
+
+    // Animatie voor previews
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .fade-in { animation: fadeIn 0.7s cubic-bezier(.4,0,.2,1); }
+      @keyframes fadeIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+      .ai-animated { animation: popAI 0.7s cubic-bezier(.4,0,.2,1); box-shadow: 0 0 0 3px #a259c6; }
+      @keyframes popAI { 0% { background: #a259c6; color: #fff; } 100% { background: inherit; color: inherit; } }
+    `;
+    document.head.appendChild(style);
 
     // Drag & drop ondersteuning
     const uploadArea = document.querySelector('.file-upload');
