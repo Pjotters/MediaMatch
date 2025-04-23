@@ -62,29 +62,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if (photos && photos.length > 0) {
                 photos.forEach(photo => {
                     const item = document.createElement('div');
-                    
-                    // Bepaal de grootte op basis van aspect ratio indien beschikbaar
-                    let sizeClass = 'medium';
-                    if (photo.aspectRatio) {
-                        if (photo.aspectRatio > 1.2) sizeClass = 'small';
-                        if (photo.aspectRatio < 0.8) sizeClass = 'tall';
-                    }
-                    
-                    item.className = `gallery-item ${sizeClass}`;
+                    item.className = 'gallery-item';
                     item.setAttribute('data-category', photo.category || 'onbekend');
                     item.setAttribute('data-id', photo.id); // Foto ID voor detailpagina
-                    item.innerHTML = `
-                        <img src="${photo.url}" alt="${photo.title || 'Afbeelding'}" loading="lazy">
-                        <div class="overlay">
-                            <h3>${photo.title || 'Geen titel'}</h3>
-                            <p>${photo.description || ''}</p>
-                            <div class="photo-metadata">
-                                <span class="likes-count">❤️ ${photo.likeCount || 0}</span>
-                                <span class="comments-count">💬 ${photo.commentCount || 0}</span>
-                            </div>
-                        </div>`;
-                    
-                    // Voeg item toe aan de galerij
+                    const img = document.createElement('img');
+                    img.src = photo.url;
+                    img.alt = photo.title || 'Afbeelding';
+                    img.loading = 'lazy';
+                    img.onload = function() {
+                        img.style.aspectRatio = img.naturalWidth + '/' + img.naturalHeight;
+                    };
+                    item.appendChild(img);
+                    const overlay = document.createElement('div');
+                    overlay.className = 'overlay';
+                    overlay.innerHTML = `<h3>${photo.title || 'Geen titel'}</h3><p>${photo.description || ''}</p><div class="photo-metadata"><span>${photo.userEmail || ''}</span></div>`;
+                    item.appendChild(overlay);
                     galleryGrid.appendChild(item);
                     
                     // Voeg click event toe om naar detailpagina te navigeren
@@ -96,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     resizeGridItem(item);
                     
                     // Voeg event listeners toe voor lazyloading perfectie
-                    const img = item.querySelector('img');
                     img.addEventListener('load', () => resizeGridItem(item));
                 });
             } else {

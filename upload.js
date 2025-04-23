@@ -34,15 +34,30 @@ document.addEventListener('DOMContentLoaded', () => {
             showStatus(`Je mag maximaal ${limit} foto's tegelijk uploaden met jouw abonnement.`, 'error');
             fileInput.value = '';
             dynamicTitles.innerHTML = '';
+            previewContainer.innerHTML = '';
             return;
         }
         dynamicTitles.innerHTML = '';
+        previewContainer.innerHTML = '';
         Array.from(files).forEach((file, idx) => {
             const div = document.createElement('div');
             div.className = 'form-group';
             div.innerHTML = `<label>Geef een titel voor foto ${idx+1}:</label><input type="text" class="form-control photo-title" name="title_${idx}" value="${file.name.replace(/\.[^/.]+$/, '')}" required>`;
             dynamicTitles.appendChild(div);
-            generateAITitleAndDescription(file, idx); // Trigger AI direct
+            generateAITitleAndDescription(file, idx);
+
+            // Preview met animatie en aspect ratio
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.className = 'preview-image fade-in';
+                img.onload = function() {
+                    img.style.aspectRatio = img.naturalWidth + '/' + img.naturalHeight;
+                };
+                previewContainer.appendChild(img);
+            };
+            reader.readAsDataURL(file);
         });
     });
     
@@ -121,6 +136,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
+    // Theme toggle
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+        window.toggleTheme && window.toggleTheme();
+    });
+
     // --- HIER START DE AANPASSING VOOR JWT EN UPLOAD ---
     async function getUserUploadLimit() {
         const token = localStorage.getItem('token');

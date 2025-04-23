@@ -172,82 +172,80 @@
       border: 1px solid hsla(200, 60%, 50%, 0.3);
       color: hsl(200, 60%, 80%);
     }
+    
+    .theme-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background-color: transparent;
+      border: none;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+    
+    .theme-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+      background-color: hsla(var(--primary)/0.5);
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+    
+    .theme-toggle:hover .theme-icon {
+      transform: rotate(180deg);
+    }
   </style>
   <script src="config.js"></script>
   <script src="upload.js" defer></script>
+  <script src="theme-toggle.js" defer></script>
 </head>
 <body>
   <header class="glass">
-      <div class="logo"><img src="assets/MediaMatch.png" alt="MediaMatch Logo" height="40"></div>
-      <nav>
-          <a href="index.html">Home</a>
-          <a href="gallery.html">Galerij</a>
-          <a href="upload.html" class="active">Upload</a>
-          <a href="login.html">Login</a>
-          <a href="pricing.html">Pricing</a>
-          <a href="legal.html">Legal</a>
-      </nav>
+    <div class="logo"><img src="assets/MediaMatch.png" alt="MediaMatch Logo" height="40"></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Galerij</a>
+      <a href="upload.html" class="active">Upload</a>
+      <a href="login.html">Login</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="legal.html">Legal</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Wissel kleurenschema" title="Wissel kleurenschema">
+      <span class="theme-icon"></span>
+    </button>
   </header>
 
   <main>
     <section class="upload-container glass">
       <div class="form-header">
-        <h2>Deel je beelden</h2>
-        <p>Upload je foto's en deel ze met de wereld</p>
+        <h2>Foto uploaden</h2>
+        <p>Upload je afbeelding, krijg automatisch een AI-titel & beschrijving, en bekijk direct een preview!</p>
       </div>
-      
-      <form id="uploadForm">
+      <form id="uploadForm" enctype="multipart/form-data">
         <div class="form-group">
+          <label for="photo" id="photoLabel">Foto(s) kiezen</label>
           <div class="file-upload">
             <label class="file-upload-label" for="photo">
-              Sleep je foto('s) hierheen of klik om te selecteren
+              <span>Klik of sleep je afbeelding(en) hier</span>
+              <input type="file" id="photo" name="photo" accept="image/*" multiple required class="form-control">
             </label>
-            <input type="file" id="photo" name="photo" class="form-control" accept="image/*" multiple required>
-            <small id="upload-limit-info" style="color:#f06292;"></small>
           </div>
         </div>
         <div id="dynamic-titles"></div>
         <div class="form-group">
-          <label for="portrait_form" id="portraitFormLabel">Portretrechten-formulier (optioneel, PDF/JPG/PNG)</label>
-          <input type="file" id="portrait_form" name="portrait_form" class="form-control" accept="application/pdf,image/*">
+          <label for="portrait_form" id="portraitFormLabel">Optioneel: portretformulier</label>
+          <input type="file" id="portrait_form" name="portrait_form" accept="application/pdf,image/*" class="form-control">
         </div>
-        <div class="form-group">
-          <label for="title">Titel</label>
-          <input type="text" id="title" name="title" class="form-control" placeholder="Geef je foto een pakkende titel" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="description">Beschrijving</label>
-          <textarea id="description" name="description" class="form-control" rows="3" placeholder="Vertel iets over je foto"></textarea>
-        </div>
-        
-        <div class="form-group">
-          <label for="category">Categorie</label>
-          <select id="category" name="category" class="form-control" required>
-            <option value="">Selecteer een categorie</option>
-            <option value="natuur">Natuur</option>
-            <option value="portret">Portret</option>
-            <option value="architectuur">Architectuur</option>
-            <option value="sport">Sport</option>
-            <option value="evenement">Evenement</option>
-            <option value="abstract">Abstract</option>
-            <option value="overig">Overig</option>
-          </select>
-        </div>
-        
-        <button type="submit" class="btn-upload">Uploaden</button>
+        <div id="previewContainer" class="preview-container"></div>
+        <div id="upload-limit-info" class="form-group"></div>
+        <button type="submit" class="btn-glass">Uploaden</button>
+        <div id="status" class="status-message"></div>
       </form>
-      
-      <div id="previewContainer" style="display:none">
-        <img id="imagePreview" src="#" alt="Preview" style="max-width:100%; border-radius:0.5rem; margin-bottom:1rem;">
-        <div id="previewTitle"></div>
-      </div>
-      <div id="status" class="status-message"></div>
     </section>
   </main>
 
   <footer class="glass">
-      <p> 2025 MediaMatch - Alle rechten voorbehouden</p>
+    <p> 2025 MediaMatch - Alle rechten voorbehouden</p>
   </footer>
 </body>
 </html>
