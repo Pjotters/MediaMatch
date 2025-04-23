@@ -84,6 +84,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Portrait form verwerking
+    const portraitFormInput = document.getElementById('portrait_form');
+    const portraitFormLabel = document.getElementById('portraitFormLabel');
+    
+    portraitFormInput.addEventListener('change', () => {
+        const file = portraitFormInput.files[0];
+        if (file) {
+            portraitFormLabel.textContent = file.name;
+        }
+    });
+    
     // Formulier verzenden
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -92,14 +103,36 @@ document.addEventListener('DOMContentLoaded', () => {
         showStatus('Bezig met uploaden...', 'loading');
 
         const formData = new FormData(form);
+        const BASE = 'https://christopher-charter-tribal-automated.trycloudflare.com';
 
         try {
-            const res = await fetch('/api/upload', {
-                method: 'POST',
-                body: formData
-            });
-
-            const data = await res.json();
+            // Probeer eerst de primaire API
+            let res;
+            let data;
+            
+            try {
+                res = await fetch('/api/upload', {
+                    method: 'POST',
+                    credentials: 'include',  // zodat session-cookie meegaat
+                    body: formData
+                });
+                
+                if (!res.ok) {
+                    throw new Error('Primaire API niet beschikbaar');
+                }
+                
+                data = await res.json();
+                console.log('Upload via primaire API geslaagd');
+            } catch (primaryError) {
+                console.log('Fallback naar backup API endpoint', primaryError);
+                res = await fetch(`${BASE}/api/upload`, {
+                    method: 'POST',
+                    credentials: 'include',  // zodat session-cookie meegaat
+                    body: formData
+                });
+                data = await res.json();
+                console.log('Upload via backup API geslaagd');
+            }
             
             if (res.ok) {
                 showStatus('Upload succesvol! Je wordt doorgestuurd...', 'success');
@@ -107,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     window.location.href = '/gallery.html';
                 }, 1500);
             } else {
-                showStatus(`Fout: ${data.message || 'Er is iets misgegaan'}`, 'error');
+                showStatus(`Fout: ${data.error || data.message || 'Er is iets misgegaan'}`, 'error');
             }
         } catch (error) {
             console.error('Upload fout:', error);

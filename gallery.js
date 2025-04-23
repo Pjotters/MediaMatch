@@ -15,14 +15,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Laad afbeeldingen van HP opslag API
+    // Laad afbeeldingen van API
     async function loadImagesFromAPI() {
         try {
             // Toon laadindicator
             galleryGrid.innerHTML = '';
             galleryGrid.appendChild(loadingIndicator);
 
-            // Probeer eerst de nieuwe HP opslag API endpoint
+            // Probeer eerst de primaire API endpoint, dan de backup
+            const BASE = 'https://christopher-charter-tribal-automated.trycloudflare.com';
             let response;
             let photos;
             let apiSource;
@@ -31,13 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 response = await fetch('/api/photos');
                 if (response.ok) {
                     photos = await response.json();
-                    apiSource = 'HP opslag API';
+                    apiSource = 'Primaire API';
                 } else {
                     throw new Error('Primaire API niet beschikbaar');
                 }
             } catch (primaryError) {
                 console.log('Fallback naar backup API endpoint', primaryError);
-                response = await fetch('https://constraints-greensboro-converted-jon.trycloudflare.com/api/photos');
+                response = await fetch(`${BASE}/api/photos`);
                 photos = await response.json();
                 apiSource = 'Backup API';
             }
