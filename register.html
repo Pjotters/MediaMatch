@@ -145,67 +145,78 @@
     </style>
     <script src="config.js"></script>
     <script src="register.js" defer></script>
+    <script src="register-plans.js" defer></script>
 </head>
 <body>
     <header class="glass">
         <div class="logo"><img src="assets/MediaMatch.png" alt="MediaMatch Logo" height="40"></div>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="gallery.html">Galerij</a>
-            <a href="upload.html">Upload</a>
-            <a href="login.html">Login</a>
-            <a href="pricing.html">Pricing</a>
-            <a href="legal.html">Legal</a>
+          <a href="index.html">Home</a>
+          <a href="gallery.html">Galerij</a>
+          <a href="search.html">Zoeken</a>
+          <a href="upload-wizard.html">Upload</a>
+          <a href="beheer-albums.html">Albumbeheer</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="login.html">Login</a>
+          <a href="legal.html">Legal</a>
         </nav>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Wissel kleurenschema" title="Wissel kleurenschema">
+          <span class="theme-icon"></span>
+        </button>
     </header>
     
     <main>
         <section class="register-container glass">
             <div class="form-header">
                 <h2>Maak een account</h2>
-                <p>Word lid van onze community</p>
+                <p>Kies eerst of je klant of fotograaf wilt worden, selecteer je plan en vul dan je gegevens in.</p>
             </div>
             
             <div id="status" class="status-message"></div>
             
             <form id="registerForm">
                 <div class="form-group">
-                    <label for="name">Volledige naam</label>
-                    <input type="text" id="name" class="form-control" required>
+                    <label for="role">Ik wil mij registreren als:</label>
+                    <select id="role" class="form-control" required>
+                        <option value="">Maak een keuze...</option>
+                        <option value="klant">Klant</option>
+                        <option value="fotograaf">Fotograaf</option>
+                    </select>
                 </div>
-                
-                <div class="form-group">
-                    <label for="email">E-mailadres</label>
-                    <input type="email" id="email" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Wachtwoord</label>
-                    <input type="password" id="password" class="form-control" required>
-                    <div class="password-strength">
-                        <div id="password-strength" class="password-strength-meter"></div>
+                <div class="form-group" id="planGroup" style="display:none;"></div>
+                <div id="registerFields" style="display:none;">
+                    <div class="form-group">
+                        <label for="name">Volledige naam</label>
+                        <input type="text" id="name" class="form-control" required>
                     </div>
-                    <div id="passwordFeedback" class="password-feedback"></div>
-                    <div class="password-requirements">
-                        Wachtwoord moet minimaal 8 tekens bevatten, inclusief een hoofdletter, een cijfer en een speciaal teken.
+                    <div class="form-group">
+                        <label for="email">E-mailadres</label>
+                        <input type="email" id="email" class="form-control" required>
                     </div>
+                    <div class="form-group">
+                        <label for="password">Wachtwoord</label>
+                        <input type="password" id="password" class="form-control" required>
+                        <div class="password-strength">
+                            <div id="password-strength" class="password-strength-meter"></div>
+                        </div>
+                        <div id="passwordFeedback" class="password-feedback"></div>
+                        <div class="password-requirements">
+                            Wachtwoord moet minimaal 8 tekens bevatten, inclusief een hoofdletter, een cijfer en een speciaal teken.
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Bevestig wachtwoord</label>
+                        <input type="password" id="confirmPassword" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="termsAgreement" required>
+                            Ik ga akkoord met de <a href="legal.html" target="_blank">Algemene Voorwaarden</a> en het <a href="legal.html#privacy" target="_blank">Privacybeleid</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-register">Registreren</button>
                 </div>
-                
-                <div class="form-group">
-                    <label for="confirmPassword">Bevestig wachtwoord</label>
-                    <input type="password" id="confirmPassword" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" id="termsAgreement" required>
-                        Ik ga akkoord met de <a href="legal.html" target="_blank">Algemene Voorwaarden</a> en het <a href="legal.html#privacy" target="_blank">Privacybeleid</a>
-                    </label>
-                </div>
-                
-                <button type="submit" class="btn-register">Registreren</button>
             </form>
-            
             <div class="form-toggle">
                 Heb je al een account? <a href="login.html">Inloggen</a>
             </div>
@@ -213,7 +224,17 @@
     </main>
     
     <footer class="glass">
-        <p>© 2025 MediaMatch - Alle rechten voorbehouden</p>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="gallery.html">Galerij</a>
+          <a href="search.html">Zoeken</a>
+          <a href="upload-wizard.html">Upload</a>
+          <a href="beheer-albums.html">Albumbeheer</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="login.html">Login</a>
+          <a href="legal.html">Legal</a>
+        </nav>
+        <p>2025 MediaMatch - Alle rechten voorbehouden</p>
     </footer>
 </body>
 </html>

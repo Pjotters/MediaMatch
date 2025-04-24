@@ -183,6 +183,35 @@
             align-items: center;
             cursor: pointer;
         }
+        
+        /* Vergelijkingstabel styling */
+        .pricing-compare {
+            margin-top: 4rem;
+        }
+        
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-table th, .pricing-table td {
+            padding: 1rem;
+            border: 1px solid hsl(var(--surface)/0.3);
+        }
+        
+        .pricing-table th {
+            background: hsl(var(--surface)/0.8);
+            font-weight: bold;
+        }
+        
+        .pricing-table td {
+            background: hsl(var(--surface)/0.9);
+        }
+        
+        .pricing-table tr:nth-child(even) td {
+            background: hsl(var(--surface)/0.95);
+        }
     </style>
     <script src="config.js"></script>
 </head>
@@ -269,6 +298,45 @@
             </div>
         </section>
         
+        <hr style="margin: 3rem 0 2rem; border: none; border-top: 2px solid #a259c6; opacity:0.4;">
+        
+        <section class="pricing-header glass">
+            <h2>Klant Prijsplannen</h2>
+            <p>Of kies een plan als klant om te chatten met fotografen en foto's te delen.</p>
+        </section>
+        
+        <section class="pricing-grid" id="customerPricingGrid"></section>
+        
+        <section class="pricing-compare glass">
+            <h2>Vergelijk onze klant-abonnementen</h2>
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Basic</th>
+                        <th>Plus</th>
+                        <th>Unlimited</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Chat met fotografen</td><td>1 tegelijk</td><td>10 tegelijk</td><td>Onbeperkt</td></tr>
+                    <tr><td>Foto uploads per chat</td><td>2</td><td>5</td><td>20</td></tr>
+                    <tr><td>Support</td><td>Standaard</td><td>Sneller (24u)</td><td>Premium (4u)</td></tr>
+                    <tr><td>Downloadkwaliteit</td><td>Standaard</td><td>Hoog</td><td>Origineel / zonder watermerk</td></tr>
+                    <tr><td>AI-zoekhulp</td><td>Basis</td><td>Uitgebreid</td><td>Volledig</td></tr>
+                    <tr><td>Moodboard maken</td><td>✔️</td><td>✔️</td><td>✔️</td></tr>
+                    <tr><td>Favorieten opslaan</td><td>-</td><td>✔️</td><td>✔️</td></tr>
+                    <tr><td>Notificaties/alerts</td><td>-</td><td>✔️</td><td>✔️</td></tr>
+                    <tr><td>Privé-albums</td><td>-</td><td>✔️</td><td>✔️</td></tr>
+                    <tr><td>AI-matching</td><td>-</td><td>✔️</td><td>✔️</td></tr>
+                    <tr><td>Gedeelde chatrooms</td><td>-</td><td>✔️</td><td>✔️</td></tr>
+                    <tr><td>Review-systeem</td><td>-</td><td>-</td><td>✔️</td></tr>
+                    <tr><td>Early access features</td><td>-</td><td>-</td><td>✔️</td></tr>
+                    <tr><td>Veilig & privacy</td><td>✔️</td><td>✔️</td><td>✔️</td></tr>
+                </tbody>
+            </table>
+        </section>
+        
         <section class="features-comparison glass">
             <h2>Alle plannen bevatten</h2>
             <div class="features-grid">
@@ -289,7 +357,10 @@
     </main>
     
     <footer class="glass">
-        <p>© 2025 MediaMatch - Alle rechten voorbehouden</p>
+        <p> 2025 MediaMatch - Alle rechten voorbehouden</p>
     </footer>
+    
+    <script src="pricing.js"></script>
+    <script src="pricing-klant.js"></script>
 </body>
 </html>

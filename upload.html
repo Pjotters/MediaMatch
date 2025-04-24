@@ -196,8 +196,10 @@
     }
   </style>
   <script src="config.js"></script>
-  <script src="upload.js" defer></script>
+  <script src="libs/ml5.min.js"></script>
+  <script src="libs/tesseract.min.js"></script>
   <script src="theme-toggle.js" defer></script>
+  <script src="upload.js" defer></script>
 </head>
 <body>
   <header class="glass">
@@ -205,9 +207,11 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="gallery.html">Galerij</a>
-      <a href="upload.html" class="active">Upload</a>
-      <a href="login.html">Login</a>
+      <a href="search.html">Zoeken</a>
+      <a href="upload-wizard.html" class="active">Upload</a>
+      <a href="beheer-albums.html">Albumbeheer</a>
       <a href="pricing.html">Pricing</a>
+      <a href="login.html">Login</a>
       <a href="legal.html">Legal</a>
     </nav>
     <button id="theme-toggle" class="theme-toggle" aria-label="Wissel kleurenschema" title="Wissel kleurenschema">
@@ -245,7 +249,17 @@
   </main>
 
   <footer class="glass">
-    <p> 2025 MediaMatch - Alle rechten voorbehouden</p>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Galerij</a>
+      <a href="search.html">Zoeken</a>
+      <a href="upload-wizard.html" class="active">Upload</a>
+      <a href="beheer-albums.html">Albumbeheer</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="login.html">Login</a>
+      <a href="legal.html">Legal</a>
+    </nav>
+    <p>2025 MediaMatch - Alle rechten voorbehouden</p>
   </footer>
 </body>
 </html>

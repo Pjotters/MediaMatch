@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediaMatch - Nieuwe Upload Wizard</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: linear-gradient(120deg, #18122B 0%, #3A235B 100%); color: #fff; }
+    .wizard-container { max-width: 600px; margin: 3rem auto; padding: 2.5rem; border-radius: 2rem; background: hsla(var(--surface)/0.7); box-shadow: 0 8px 32px rgba(0,0,0,0.18); backdrop-filter: blur(12px); border: 1px solid hsla(var(--primary)/0.2); position: relative; }
+    .wizard-step { display: none; animation: fadeInStep 0.7s; }
+    .wizard-step.active { display: block; }
+    @keyframes fadeInStep { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .wizard-progress { display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 2rem; }
+    .wizard-dot { width: 18px; height: 18px; border-radius: 50%; background: #444; border: 2px solid #a259c6; transition: background 0.3s; }
+    .wizard-dot.active { background: linear-gradient(90deg,#a259c6,#f06292); }
+    .wizard-btn { padding: 0.8rem 2.2rem; border-radius: 1.2rem; background: linear-gradient(90deg,#a259c6,#f06292); color: #fff; border: none; font-size: 1.1rem; cursor: pointer; margin-top: 1.5rem; transition: background 0.2s; }
+    .wizard-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .photo-preview { width: 100%; max-width: 400px; max-height: 300px; object-fit: contain; margin: 1rem auto 2rem; border-radius: 1rem; box-shadow: 0 4px 16px rgba(160,89,198,0.09); background: #222; display: block; }
+    .ocr-status { margin-top: 0.5rem; font-size: 0.95rem; }
+    .ai-suggestion { background: #222; border-radius: 0.7rem; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(160,89,198,0.07); }
+    .checkbox-group { margin: 1.5rem 0; }
+    .checkbox-group label { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.7rem; }
+    .confetti { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 99; }
+  </style>
+  <script src="config.js"></script>
+  <script src="libs/ml5.min.js"></script>
+  <script src="libs/tesseract.min.js"></script>
+  <script src="theme-toggle.js" defer></script>
+  <script src="upload-wizard.js" defer></script>
+</head>
+<body>
+  <header class="glass">
+    <div class="logo"><img src="assets/MediaMatch.png" alt="MediaMatch Logo" height="40"></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Galerij</a>
+      <a href="upload-wizard.html" class="active">Upload</a>
+      <a href="login.html">Login</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="legal.html">Legal</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Wissel kleurenschema" title="Wissel kleurenschema">
+      <span class="theme-icon"></span>
+    </button>
+  </header>
+  <main>
+    <div class="wizard-container">
+      <div class="wizard-progress" id="wizardProgress"></div>
+      <form id="uploadWizardForm" autocomplete="off">
+        <!-- Stap 1: Fotograaf-naam & album -->
+        <div class="wizard-step" id="step-1">
+          <h2>Fotograaf & Album</h2>
+          <label for="photographerName">Onder welke naam wilt u als fotograaf vermeld worden?</label>
+          <input type="text" id="photographerName" name="photographerName" class="form-control" required placeholder="Uw naam of bedrijfsnaam">
+          <div style="margin-top:1.5rem;"></div>
+          <label for="albumName">Kies of maak een album</label>
+          <input type="text" id="albumName" name="albumName" class="form-control" required placeholder="Albumnaam (max. aantal albums per plan)">
+          <div style="margin-top:1.2rem;"></div>
+          <label for="albumDescription">Album beschrijving (optioneel)</label>
+          <textarea id="albumDescription" name="albumDescription" class="form-control" rows="2" placeholder="Korte omschrijving van het album"></textarea>
+          <div style="margin-top:1.2rem;"></div>
+          <label for="albumCover">Album cover (optioneel)</label>
+          <input type="file" id="albumCover" name="albumCover" class="form-control" accept="image/*">
+          <div id="albumLimitInfo" style="margin-top:1rem;"></div>
+          <button type="button" class="wizard-btn" id="toStep2">Volgende</button>
+        </div>
+        <!-- Stap 2: Bestanden kiezen -->
+        <div class="wizard-step" id="step-2">
+          <h2>Kies uw foto's</h2>
+          <label class="file-upload-label" for="photoFiles">
+            <span>Sleep uw foto's hier of klik om te selecteren</span>
+            <input type="file" id="photoFiles" name="photoFiles" class="form-control file-upload-input" accept="image/*" multiple required>
+          </label>
+          <div id="photoPreviews"></div>
+          <div id="fileLimitInfo" style="margin-top:1rem;"></div>
+          <button type="button" class="wizard-btn" id="toStep3" disabled>Volgende</button>
+        </div>
+        <!-- Stap 3: Per foto wizard -->
+        <div class="wizard-step" id="step-3">
+          <h2>Foto details</h2>
+          <img id="currentPhotoPreview" class="photo-preview" src="#" alt="Preview">
+          <div class="ai-suggestion" id="aiSuggestionBox" style="display:none;"></div>
+          <label for="photoTitle">Titel</label>
+          <input type="text" id="photoTitle" name="photoTitle" class="form-control" required>
+          <label for="photoDescription">Beschrijving</label>
+          <textarea id="photoDescription" name="photoDescription" class="form-control" rows="2" required></textarea>
+          <button type="button" class="wizard-btn" id="aiSuggestBtn">Suggesties toevoegen</button>
+          <div style="margin-top:1.5rem;"><button type="button" class="wizard-btn" id="nextPhotoBtn">Volgende foto</button></div>
+        </div>
+        <!-- Stap 4: Portretrechten-formulier -->
+        <div class="wizard-step" id="step-4">
+          <h2>Portretrechten-formulier</h2>
+          <label for="portraitForm">Upload een portretrechten-formulier (PDF, JPG, PNG)</label>
+          <input type="file" id="portraitForm" name="portraitForm" class="form-control" accept="application/pdf,image/*" required>
+          <div class="ocr-status" id="ocrStatus"></div>
+          <button type="button" class="wizard-btn" id="checkPortraitFormBtn">Controleer formulier</button>
+          <button type="button" class="wizard-btn" id="toStep5" disabled>Volgende</button>
+        </div>
+        <!-- Stap 5: Akkoord-checkboxen -->
+        <div class="wizard-step" id="step-5">
+          <h2>Voorwaarden & Akkoord</h2>
+          <div class="checkbox-group">
+            <label><input type="checkbox" id="termsCheck" required> Ik ga akkoord met de <a href="#" target="_blank">algemene voorwaarden</a> van MediaMatch. (verplicht, wegen AVG-wetgeving!)</label>
+            <label><input type="checkbox" id="aiCheck" required> Ik ga akkoord met het gebruik van AI Search voor mijn uploads. (verplicht, wegen het plan!)</label>
+            <label><input type="checkbox" id="trainCheck"> Mijn uploads mogen gebruikt worden om de AI te trainen. (optioneel, de AI verbeteren en Gratis voor iedereen en zo MediaMatch verbeteren!)</label>
+          </div>
+          <button type="submit" class="wizard-btn" id="uploadBtn" disabled>Uploaden</button>
+        </div>
+      </form>
+      <canvas class="confetti" id="confettiCanvas" style="display:none;"></canvas>
+    </div>
+  </main>
+  <footer class="glass">
+    <p>2025 MediaMatch - Alle rechten voorbehouden</p>
+  </footer>
+</body>
+</html>

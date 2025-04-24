@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
             return '';
         } else {
-            return 'https://christopher-charter-tribal-automated.trycloudflare.com';
+            return 'https://lucy-ball-listen-kerry.trycloudflare.com';
         }
     }
 

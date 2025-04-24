@@ -370,19 +370,63 @@
     <script src="config.js"></script>
     <script src="main.js" defer></script>
     <script src="theme-toggle.js" defer></script>
+    <script>
+      setTimeout(() => {
+        const popup = document.createElement('div');
+        popup.className = 'update-popup-glass';
+        popup.innerHTML = `<div class='update-popup-content'>
+          <h2>MediaMatch is geüpdate</h2>
+          <p>Dit is wat er is geupdate:</p>
+          <ul>
+            <li>Nieuwe klant-prijsplannen en registratie-flow</li>
+            <li>Update van de MediaMatch-AI van gezichtherkenning<li>
+            <li>Chatfunctie tussen klant en fotograaf met foto-upload</li>
+             <li>Nieuwe en fotograaf vriendelijke upload-pagina<li>
+            <li>Uitgebreid albumbeheer: beschrijving, verwijderen, overzicht</li>
+          </ul>
+          <button id='closeUpdatePopup'>Sluiten</button>
+        </div>`;
+        document.body.appendChild(popup);
+        document.getElementById('closeUpdatePopup').onclick = () => popup.remove();
+      }, 10000);
+    </script>
+    <style>
+      .update-popup-glass {
+        position: fixed; z-index: 9999; left: 0; top: 0; width: 100vw; height: 100vh;
+        display: flex; align-items: center; justify-content: center;
+        background: rgba(24,18,43,0.68); backdrop-filter: blur(8px);
+      }
+      .update-popup-content {
+        background: hsla(var(--surface)/0.85, #23203b, 0.92);
+        border-radius: 1.5rem; padding: 2.2rem 2.5rem; box-shadow: 0 8px 32px rgba(160,89,198,0.18);
+        color: #fff; text-align: center; max-width: 380px;
+      }
+      .update-popup-content h2 {
+        margin-bottom: 1rem; color: #a259c6;
+      }
+      .update-popup-content ul { text-align: left; margin: 1rem 0 1.5rem 1.2rem; }
+      .update-popup-content button {
+        background: linear-gradient(90deg,#a259c6,#f06292); color: #fff; border: none;
+        border-radius: 1rem; padding: 0.7rem 2rem; font-size: 1.1rem; cursor: pointer;
+      }
+    </style>
 </head>
 <body>
     <header class="glass">
         <div class="logo"><img src="assets/MediaMatch.png" alt="MediaMatch Logo" height="40"></div>
+        <nav>
+          <a href="index.html" class="active">Home</a>
+          <a href="gallery.html">Galerij</a>
+          <a href="search.html">Zoeken</a>
+          <a href="upload-wizard.html">Upload</a>
+          <a href="beheer-albums.html">Albumbeheer</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="login.html">Login</a>
+          <a href="legal.html">Legal</a>
+        </nav>
         <button id="theme-toggle" class="theme-toggle" aria-label="Wissel kleurenschema" title="Wissel kleurenschema">
           <span class="theme-icon"></span>
         </button>
-        <nav>
-            <a href="index.html" class="active">Home</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="upload.html">Upload</a>
-            <a href="pricing-policy.html">Prijzen</a>
-        </nav>
     </header>
 
     <main>
@@ -524,7 +568,17 @@
     </main>
 
     <footer class="glass">
-        <p> 2025 MediaMatch - Alle rechten voorbehouden</p>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="gallery.html">Galerij</a>
+          <a href="search.html">Zoeken</a>
+          <a href="upload-wizard.html">Upload</a>
+          <a href="beheer-albums.html">Albumbeheer</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="login.html">Login</a>
+          <a href="legal.html">Legal</a>
+        </nav>
+        <p>2025 MediaMatch - Alle rechten voorbehouden</p>
     </footer>
 </body>
 </html>

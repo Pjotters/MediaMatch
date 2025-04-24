@@ -1,6 +1,6 @@
 // config.js
 const config = {
-  apiUrl: 'https://lady-contacts-treasures-shell.trycloudflare.com'
+  apiUrl: 'https://lucy-ball-listen-kerry.trycloudflare.com'
 };
 
 // Maak config globaal beschikbaar

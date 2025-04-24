@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat met Fotograaf</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: linear-gradient(120deg, #18122B 0%, #3A235B 100%); color: #fff; }
+    .chat-container { max-width: 800px; margin: 3rem auto; padding: 2.5rem; border-radius: 2rem; background: hsla(var(--surface)/0.7); box-shadow: 0 8px 32px rgba(0,0,0,0.18); backdrop-filter: blur(12px); border: 1px solid hsla(var(--primary)/0.2); position: relative; }
+    .chat-header { font-size: 1.7rem; font-weight: 600; margin-bottom: 1.2rem; text-align: center; }
+    .chat-messages { min-height: 320px; max-height: 400px; overflow-y: auto; margin-bottom: 1.2rem; background: rgba(32,24,56,0.7); border-radius: 1.3rem; padding: 1.2rem; box-shadow: 0 2px 8px rgba(160,89,198,0.07); }
+    .chat-message { margin-bottom: 1.2rem; display: flex; align-items: flex-end; }
+    .chat-message.user { justify-content: flex-end; }
+    .chat-bubble { max-width: 65%; padding: 1rem 1.3rem; border-radius: 1.2rem; background: linear-gradient(90deg,#a259c6,#f06292); color: #fff; font-size: 1.08rem; box-shadow: 0 2px 8px rgba(160,89,198,0.07); }
+    .chat-message.user .chat-bubble { background: linear-gradient(90deg,#f06292,#a259c6); align-self: flex-end; }
+    .chat-message.fotograaf .chat-bubble { background: #23203b; color: #fff; align-self: flex-start; }
+    .chat-photo-thumb { width: 70px; height: 50px; object-fit: cover; border-radius: 0.7rem; margin-left: 0.7rem; border: 1px solid #a259c6; background: #19132a; }
+    .chat-input-row { display: flex; gap: 0.7rem; }
+    .chat-input { flex: 1; padding: 1rem; border-radius: 1.2rem; border: none; font-size: 1.1rem; background: hsla(var(--surface)/0.6); color: #fff; }
+    .chat-input:focus { outline: none; box-shadow: 0 0 0 3px #a259c6; }
+    .chat-send-btn { padding: 0.8rem 2.2rem; border-radius: 1.2rem; background: linear-gradient(90deg,#a259c6,#f06292); color: #fff; border: none; font-size: 1.1rem; cursor: pointer; }
+    .chat-upload-btn { background: none; border: none; cursor: pointer; font-size: 1.4rem; color: #a259c6; }
+    .chat-upload-btn:hover { color: #f06292; }
+    .chat-photo-preview { max-width: 120px; max-height: 80px; margin-top: 0.7rem; border-radius: 0.7rem; border: 1px solid #a259c6; }
+  </style>
+  <script src="config.js"></script>
+  <script src="chat-fotograaf.js" defer></script>
+  <script src="theme-toggle.js" defer></script>
+</head>
+<body>
+  <header class="glass">
+    <div class="logo"><img src="assets/MediaMatch.png" alt="MediaMatch Logo" height="40"></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Galerij</a>
+      <a href="upload-wizard.html">Upload</a>
+      <a href="chat-fotograaf.html" class="active">Chat</a>
+      <a href="login.html">Login</a>
+      <a href="pricing.html">Pricing</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Wissel kleurenschema" title="Wissel kleurenschema">
+      <span class="theme-icon"></span>
+    </button>
+  </header>
+  <main>
+    <div class="chat-container">
+      <div class="chat-header">Chat met Fotograaf</div>
+      <div class="chat-messages" id="chatMessages"></div>
+      <form id="chatForm" autocomplete="off">
+        <div class="chat-input-row">
+          <input type="text" class="chat-input" id="chatInput" placeholder="Typ een bericht..." required>
+          <label class="chat-upload-btn" title="Foto uploaden">
+            <input type="file" id="chatPhotoInput" accept="image/*" style="display:none;">
+            📷
+          </label>
+          <button type="submit" class="chat-send-btn">Verzenden</button>
+        </div>
+        <img id="chatPhotoPreview" class="chat-photo-preview" style="display:none;" />
+      </form>
+    </div>
+  </main>
+  <footer class="glass">
+    <p>2025 MediaMatch - Alle rechten voorbehouden</p>
+  </footer>
+</body>
+</html>

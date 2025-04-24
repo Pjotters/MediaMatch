@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediaMatch - Klant Pricing</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: linear-gradient(120deg, #18122B 0%, #3A235B 100%); color: #fff; }
+    .pricing-container { max-width: 900px; margin: 3rem auto; padding: 2.5rem; border-radius: 2rem; background: hsla(var(--surface)/0.7); box-shadow: 0 8px 32px rgba(0,0,0,0.18); backdrop-filter: blur(12px); border: 1px solid hsla(var(--primary)/0.2); }
+    .pricing-header { text-align: center; font-size: 2.2rem; font-weight: 700; margin-bottom: 2.2rem; }
+    .pricing-grid { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+    .pricing-card { flex: 1 1 260px; background: #23203b; border-radius: 1.5rem; padding: 2rem 1.5rem; box-shadow: 0 4px 16px rgba(160,89,198,0.09); text-align: center; transition: transform 0.15s; border: 2px solid transparent; }
+    .pricing-card:hover { transform: translateY(-8px) scale(1.03); border-color: #a259c6; }
+    .pricing-title { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.7rem; color: #a259c6; }
+    .pricing-price { font-size: 2.3rem; font-weight: 700; margin-bottom: 1.2rem; background: linear-gradient(90deg,#a259c6,#f06292); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .pricing-features { list-style: none; padding: 0; margin-bottom: 1.2rem; }
+    .pricing-features li { margin-bottom: 0.5rem; font-size: 1.07rem; }
+    .pricing-action { padding: 0.9rem 2.4rem; border-radius: 1.2rem; background: linear-gradient(90deg,#a259c6,#f06292); color: #fff; border: none; font-size: 1.1rem; cursor: pointer; margin-top: 1.2rem; transition: background 0.2s; }
+    .pricing-action:disabled { opacity: 0.5; cursor: not-allowed; }
+    @media (max-width: 800px) { .pricing-grid { flex-direction: column; gap: 1.2rem; } }
+  </style>
+  <script src="config.js"></script>
+  <script src="pricing-klant.js" defer></script>
+  <script src="theme-toggle.js" defer></script>
+</head>
+<body>
+  <header class="glass">
+    <div class="logo"><img src="assets/MediaMatch.png" alt="MediaMatch Logo" height="40"></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Galerij</a>
+      <a href="upload-wizard.html">Upload</a>
+      <a href="chat-fotograaf.html">Chat</a>
+      <a href="pricing-klant.html" class="active">Klant Pricing</a>
+      <a href="login.html">Login</a>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Wissel kleurenschema" title="Wissel kleurenschema">
+      <span class="theme-icon"></span>
+    </button>
+  </header>
+  <main>
+    <div class="pricing-container">
+      <div class="pricing-header">Word klant bij MediaMatch</div>
+      <div class="pricing-grid" id="pricingGrid"></div>
+    </div>
+  </main>
+  <footer class="glass">
+    <p>2025 MediaMatch - Alle rechten voorbehouden</p>
+  </footer>
+</body>
+</html>
