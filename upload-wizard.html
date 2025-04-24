@@ -22,12 +22,36 @@
     .checkbox-group { margin: 1.5rem 0; }
     .checkbox-group label { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.7rem; }
     .confetti { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 99; }
+    .themed-input {
+      background: rgba(40,20,60,0.45);
+      border: 1px solid rgba(160,89,198,0.18);
+      color: #fff;
+      border-radius: 1rem;
+      font-size: 1.1rem;
+      padding: 0.8rem 1.1rem;
+      margin-bottom: 1.1rem;
+      transition: border 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+    .themed-input:focus {
+      outline: none;
+      border-color: #a259c6;
+      box-shadow: 0 0 0 3px rgba(160,89,198,0.18);
+      background: rgba(60,30,80,0.55);
+    }
+    .themed-input::placeholder {
+      color: rgba(220,220,235,0.7);
+      opacity: 1;
+    }
   </style>
+  <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+  <script src="https://unpkg.com/tesseract.js@2.3.0/dist/tesseract.min.js"></script>
   <script src="config.js"></script>
   <script src="libs/ml5.min.js"></script>
   <script src="libs/tesseract.min.js"></script>
   <script src="theme-toggle.js" defer></script>
   <script src="upload-wizard.js" defer></script>
+  <script src="upload-wizard.js"></script>
 </head>
 <body>
   <header class="glass">
@@ -52,16 +76,16 @@
         <div class="wizard-step" id="step-1">
           <h2>Fotograaf & Album</h2>
           <label for="photographerName">Onder welke naam wilt u als fotograaf vermeld worden?</label>
-          <input type="text" id="photographerName" name="photographerName" class="form-control" required placeholder="Uw naam of bedrijfsnaam">
+          <input type="text" id="photographerName" class="form-control themed-input" placeholder="Uw naam of bedrijfsnaam" required>
           <div style="margin-top:1.5rem;"></div>
           <label for="albumName">Kies of maak een album</label>
-          <input type="text" id="albumName" name="albumName" class="form-control" required placeholder="Albumnaam (max. aantal albums per plan)">
+          <input type="text" id="albumName" class="form-control themed-input" placeholder="Albumnaam (max. aantal albums)" required>
           <div style="margin-top:1.2rem;"></div>
           <label for="albumDescription">Album beschrijving (optioneel)</label>
-          <textarea id="albumDescription" name="albumDescription" class="form-control" rows="2" placeholder="Korte omschrijving van het album"></textarea>
+          <textarea id="albumDescription" class="form-control themed-input" placeholder="Korte omschrijving van het album (optioneel)" rows="2"></textarea>
           <div style="margin-top:1.2rem;"></div>
           <label for="albumCover">Album cover (optioneel)</label>
-          <input type="file" id="albumCover" name="albumCover" class="form-control" accept="image/*">
+          <input type="file" id="albumCover" class="form-control themed-input" accept="image/*">
           <div id="albumLimitInfo" style="margin-top:1rem;"></div>
           <button type="button" class="wizard-btn" id="toStep2">Volgende</button>
         </div>
@@ -82,9 +106,9 @@
           <img id="currentPhotoPreview" class="photo-preview" src="#" alt="Preview">
           <div class="ai-suggestion" id="aiSuggestionBox" style="display:none;"></div>
           <label for="photoTitle">Titel</label>
-          <input type="text" id="photoTitle" name="photoTitle" class="form-control" required>
+          <input type="text" id="photoTitle" name="photoTitle" class="form-control themed-input" required>
           <label for="photoDescription">Beschrijving</label>
-          <textarea id="photoDescription" name="photoDescription" class="form-control" rows="2" required></textarea>
+          <textarea id="photoDescription" name="photoDescription" class="form-control themed-input" rows="2" required></textarea>
           <button type="button" class="wizard-btn" id="aiSuggestBtn">Suggesties toevoegen</button>
           <div style="margin-top:1.5rem;"><button type="button" class="wizard-btn" id="nextPhotoBtn">Volgende foto</button></div>
         </div>
@@ -92,7 +116,7 @@
         <div class="wizard-step" id="step-4">
           <h2>Portretrechten-formulier</h2>
           <label for="portraitForm">Upload een portretrechten-formulier (PDF, JPG, PNG)</label>
-          <input type="file" id="portraitForm" name="portraitForm" class="form-control" accept="application/pdf,image/*" required>
+          <input type="file" id="portraitForm" name="portraitForm" class="form-control themed-input" accept="application/pdf,image/*" required>
           <div class="ocr-status" id="ocrStatus"></div>
           <button type="button" class="wizard-btn" id="checkPortraitFormBtn">Controleer formulier</button>
           <button type="button" class="wizard-btn" id="toStep5" disabled>Volgende</button>

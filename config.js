@@ -1,6 +1,6 @@
 // config.js
 const config = {
-  apiUrl: 'https://lucy-ball-listen-kerry.trycloudflare.com'
+  apiUrl: 'https://fight-welsh-draws-delight.trycloudflare.com'
 };
 
 // Maak config globaal beschikbaar
