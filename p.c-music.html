@@ -1,0 +1,42 @@
+<!-- Muziek tab/dashboard voor MediaMatch -->
+<div id="music-tab" class="tab-content" style="display:none;">
+  <h2>Muziek maken & luisteren</h2>
+  <div id="ai-music-maker">
+    <h3>Maak je eigen AI muziek</h3>
+    <form id="music-gen-form">
+      <label>Wil je instrumentaal of met tekst?</label><br>
+      <select id="music-type" name="type" required>
+        <option value="instrumentaal">Instrumentaal</option>
+        <option value="tekst">Met tekst/vocals</option>
+      </select><br><br>
+      <div id="music-followup-instrumental">
+        <label>Genre:</label> <input type="text" name="genre" placeholder="Bijv. jazz, pop, klassiek"><br>
+        <label>Sfeer:</label> <input type="text" name="sfeer" placeholder="Bijv. vrolijk, donker, relaxed"><br>
+        <label>Duur (seconden):</label> <input type="number" name="lengte" min="5" max="60" value="10"><br>
+      </div>
+      <div id="music-followup-tekst" style="display:none;">
+        <label>Genre:</label> <input type="text" name="genre_t" placeholder="Bijv. rap, pop, opera"><br>
+        <label>Sfeer:</label> <input type="text" name="sfeer_t" placeholder="Bijv. emotioneel, krachtig"><br>
+        <label>Tekst/Lyrics:</label><br>
+        <textarea name="tekst" rows="3" placeholder="Schrijf hier je songtekst..."></textarea><br>
+        <label>Duur (seconden):</label> <input type="number" name="lengte_t" min="5" max="60" value="10"><br>
+      </div>
+      <button type="submit">Genereer Muziek</button>
+    </form>
+    <div id="music-gen-result"></div>
+  </div>
+  <hr>
+  <div id="music-upload">
+    <h3>Upload je eigen muziek (.mp3/.wav)</h3>
+    <form id="music-upload-form" enctype="multipart/form-data">
+      <input type="file" name="music" accept="audio/mp3, audio/wav" required>
+      <button type="submit">Upload</button>
+    </form>
+    <div id="music-upload-result"></div>
+  </div>
+  <hr>
+  <div id="music-library">
+    <h3>Publieke Muziek Bibliotheek</h3>
+    <div id="music-list"></div>
+  </div>
+</div>
