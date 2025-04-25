@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediaMatch Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <header class="glass">
+    <div class="logo"><img src="assets/MediaMatch.png" alt="MediaMatch Logo" height="40"></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Galerij</a>
+      <a href="search.html">Zoeken</a>
+      <a href="upload-wizard.html">Upload</a>
+      <a href="beheer-albums.html">Albumbeheer</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="dashboard.html" class="active">Dashboard</a>
+      <a href="Pjotters-Currenty.html">Pjotters Currenty</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </header>
+  <main class="dashboard-main glass">
+    <h2>Persoonlijk Dashboard</h2>
+    <div class="dashboard-tabs">
+      <button class="tab-btn active" data-tab="home">Home</button>
+      <button class="tab-btn" data-tab="gokgeschiedenis">Gokgeschiedenis</button>
+      <button class="tab-btn" data-tab="uitgaven">Uitgaven</button>
+      <button class="tab-btn" data-tab="inkomen">Inkomen</button>
+    </div>
+    <section class="tab-content" id="tab-home">
+      <h3>Samenvatting</h3>
+      <div id="summary-info"></div>
+      <canvas id="saldo-grafiek" height="120"></canvas>
+    </section>
+    <section class="tab-content" id="tab-gokgeschiedenis" style="display:none;">
+      <h3>Gokgeschiedenis</h3>
+      <div class="filter-row">
+        <input type="date" id="filter-from"> tot <input type="date" id="filter-to">
+        <select id="filter-type"><option value="">Alle types</option><option value="gok">Gok</option><option value="game">Game</option><option value="shop">Shop</option><option value="clicker">Clicker</option></select>
+        <input type="text" id="filter-spel" placeholder="Spelnaam">
+        <select id="filter-result"><option value="">Alles</option><option value="win">Win</option><option value="loss">Loss</option></select>
+        <button id="filter-apply">Filter</button>
+      </div>
+      <table class="history-table"><thead><tr><th>Datum</th><th>Activiteit</th><th>Coins</th></tr></thead><tbody id="history-tbody"></tbody></table>
+    </section>
+    <section class="tab-content" id="tab-uitgaven" style="display:none;">
+      <h3>Uitgaven</h3>
+      <div id="uitgaven-info"></div>
+      <table class="history-table"><thead><tr><th>Datum</th><th>Activiteit</th><th>Coins</th></tr></thead><tbody id="uitgaven-tbody"></tbody></table>
+    </section>
+    <section class="tab-content" id="tab-inkomen" style="display:none;">
+      <h3>Inkomen</h3>
+      <div id="inkomen-info"></div>
+      <table class="history-table"><thead><tr><th>Datum</th><th>Activiteit</th><th>Coins</th></tr></thead><tbody id="inkomen-tbody"></tbody></table>
+    </section>
+    <section class="dashboard-abonnement">
+      <h3>Abonnement</h3>
+      <div id="abo-status"></div>
+      <button id="upgrade-btn" class="dashboard-btn">Upgrade abonnement</button>
+    </section>
+    <section class="dashboard-gallery">
+      <h3>Gallery Statistieken</h3>
+      <div id="gallery-stats"></div>
+    </section>
+    <section class="dashboard-pjotters">
+      <h3>Pjotters (Coins)</h3>
+      <div id="dashboard-saldo"></div>
+      <button id="to-pc" class="dashboard-btn">Verdien meer pjotters</button>
+    </section>
+    <section class="dashboard-fotograaf" style="display:none;">
+      <h3>Fotograaf Statistieken</h3>
+      <div id="fotograaf-stats"></div>
+    </section>
+  </main>
+  <footer class="glass">
+    <p>2025 MediaMatch - Alle rechten voorbehouden</p>
+  </footer>
+  <script src="dashboard.js"></script>
+</body>
+</html>

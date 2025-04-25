@@ -247,7 +247,39 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     ocrStatus.textContent = 'AI controleert formulier...';
-    // OCR met tesseract.js
+
+    // Fallback AI functie
+    function fallbackAI(file) {
+      // Simuleer totale AI-failure: automatisch bezwaar indienen
+      const reden = 'AI-systemen konden het formulier niet controleren. Automatisch doorgestuurd naar admins ter beoordeling.';
+      const formData = new FormData();
+      formData.append('user', localStorage.getItem('userEmail') || 'onbekend');
+      formData.append('file', file);
+      formData.append('reason', reden);
+
+      fetch(`${window.config.apiUrl}/api/admin/bezwaar`, {
+        method: 'POST',
+        body: formData,
+        credentials: 'include'
+      })
+      .then(() => {
+        ocrStatus.innerHTML = `<span style='color:#f06292;'>Geen enkele AI kon het formulier controleren. Uw bestand is automatisch doorgestuurd naar de admins voor handmatige beoordeling. Binnen 24 uur ontvangt u een update op de website en per e-mail.</span>`;
+        toStep5Btn.disabled = true;
+        setTimeout(() => {
+          window.location.href = 'admin.html';
+        }, 3500);
+      })
+      .catch(() => {
+        ocrStatus.innerHTML = `<span style='color:#f06292;'>Er is iets misgegaan bij het versturen naar de admins. Probeer het later opnieuw of neem contact op.</span>`;
+      });
+    }
+
+    // Eerst proberen met Tesseract
+    if (!window.Tesseract || typeof window.Tesseract.recognize !== 'function') {
+      ocrStatus.textContent = 'AI kon niet geladen worden, probeer alternatieve AI...';
+      fallbackAI(file);
+      return;
+    }
     window.Tesseract.recognize(file, 'nld')
       .then(({ data: { text } }) => {
         ocrResult = text;
@@ -260,13 +292,13 @@ document.addEventListener('DOMContentLoaded', () => {
           ocrStatus.textContent = 'Formulier lijkt geldig!';
           toStep5Btn.disabled = false;
         } else {
-          ocrStatus.textContent = 'Formulier mist belangrijke onderdelen. Wordt doorgestuurd voor admin-check.';
-          toStep5Btn.disabled = false;
+          // AI keurt af
+          fallbackAI(file);
         }
       })
-      .catch(() => {
-        ocrStatus.textContent = 'AI kon het formulier niet lezen. Probeer een andere scan of neem contact op.';
-        toStep5Btn.disabled = false;
+      .catch((err) => {
+        ocrStatus.textContent = 'AI controle mislukt, probeer alternatieve AI...';
+        fallbackAI(file);
       });
   };
   toStep5Btn.onclick = () => showStep(5);
@@ -345,6 +377,36 @@ document.addEventListener('DOMContentLoaded', () => {
       else confettiCanvas.style.display = 'none';
     }
     draw();
+  }
+
+  // Voeg reden tot bezwaar toe aan de bezwaar-flow
+  function showBezwaarPopup(callback) {
+    const popup = document.createElement('div');
+    popup.style.position = 'fixed';
+    popup.style.top = '0';
+    popup.style.left = '0';
+    popup.style.width = '100vw';
+    popup.style.height = '100vh';
+    popup.style.background = 'rgba(0,0,0,0.5)';
+    popup.style.zIndex = '9999';
+    popup.innerHTML = `
+      <div style="background:#22142e;padding:2rem 2.5rem;border-radius:1.2rem;max-width:420px;margin:8vh auto;box-shadow:0 4px 40px #0008;color:#fff;position:relative;">
+        <h3 style='margin-top:0'>Bezwaarschrift indienen</h3>
+        <label for='bezwaarReden'>Geef uw reden tot bezwaar op:</label><br>
+        <textarea id='bezwaarReden' rows='4' style='width:100%;margin:0.7rem 0 1.2rem 0;border-radius:0.7rem;padding:0.7rem;'></textarea>
+        <button id='bezwaarVerzend' class='wizard-btn' style='margin-right:1rem;'>Verzenden</button>
+        <button id='bezwaarAnnuleer' class='wizard-btn'>Annuleren</button>
+      </div>
+    `;
+    document.body.appendChild(popup);
+    document.getElementById('bezwaarVerzend').onclick = () => {
+      const reden = document.getElementById('bezwaarReden').value.trim();
+      callback(reden);
+      document.body.removeChild(popup);
+    };
+    document.getElementById('bezwaarAnnuleer').onclick = () => {
+      document.body.removeChild(popup);
+    };
   }
 
   // Init

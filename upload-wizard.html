@@ -136,5 +136,15 @@
   <footer class="glass">
     <p>2025 MediaMatch - Alle rechten voorbehouden</p>
   </footer>
+  <!-- CHAT VENSTER TOEVOEGEN -->
+  <div id="chatbox" style="position:fixed;bottom:2rem;right:2rem;max-width:350px;width:95vw;background:rgba(34,20,46,0.95);backdrop-filter:blur(8px);border-radius:1.2rem;box-shadow:0 4px 40px #0008;color:#fff;z-index:9999;padding:1rem 1rem 0.5rem 1rem;">
+    <div id="messages" style="max-height:220px;overflow-y:auto;margin-bottom:0.7rem;"></div>
+    <div style="display:flex;gap:0.5rem;">
+      <input id="chatinput" placeholder="Typ je bericht..." style="flex:1;border-radius:0.7rem;padding:0.6rem 1rem;border:none;background:#31204a;color:#fff;" />
+      <button id="sendbtn" class="wizard-btn" style="background:#f06292;">Verzend</button>
+    </div>
+  </div>
+  <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+  <script src="chat.js"></script>
 </body>
 </html>

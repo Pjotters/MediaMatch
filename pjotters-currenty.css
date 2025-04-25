@@ -1,0 +1,126 @@
+body {
+  margin: 0;
+  background: linear-gradient(135deg,#1e1b2c 0%,#3a2c4c 100%);
+  font-family: 'Segoe UI',Arial,sans-serif;
+  color: #fff;
+}
+.pjotters-header {
+  background: rgba(34,20,46,0.97);
+  padding: 1.5rem 2rem;
+  border-radius: 0 0 1.2rem 1.2rem;
+  box-shadow: 0 4px 40px #000a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pjotters-header nav a {
+  color: #ffd700;
+  text-decoration: none;
+  margin-left: 2rem;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+.pjotters-header nav a.active,
+.pjotters-header nav a:hover {
+  color: #f06292;
+}
+.pjotters-main {
+  max-width: 900px;
+  margin: 2.5rem auto 2rem auto;
+  background: rgba(34,20,46,0.95);
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 40px #0008;
+  padding: 2.5rem 2rem;
+}
+.pjotters-welcome {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.pjotters-munt {
+  color: #ffd700;
+  font-weight: bold;
+  font-size: 1.15em;
+}
+.pjotters-saldo {
+  margin: 1.2rem 0 2rem 0;
+  font-size: 1.25em;
+  background: rgba(49,32,74,0.93);
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  border-radius: 2rem;
+  box-shadow: 0 2px 16px #0005;
+}
+.pjotters-abos {
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+.abo-card {
+  background: rgba(49,32,74,0.93);
+  border-radius: 1rem;
+  padding: 1.2rem 1.5rem;
+  min-width: 220px;
+  box-shadow: 0 2px 16px #0005;
+  text-align: center;
+}
+.abo-prijs { color: #f06292; font-weight: bold; }
+.abo-pjotters { color: #ffd700; font-weight: bold; }
+.abo-upgrade-btn {
+  margin-top: 1rem;
+  background: linear-gradient(45deg,#ffd700,#f06292);
+  color: #22142e;
+  border: none;
+  border-radius: 50px;
+  padding: 0.7rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.abo-upgrade-btn:hover {
+  background: linear-gradient(45deg,#f06292,#ffd700);
+  color: #fff;
+}
+.pjotters-games {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+.games-list {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.game-btn {
+  background: #31204a;
+  color: #ffd700;
+  border: none;
+  border-radius: 1.2rem;
+  padding: 0.8rem 2rem;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 12px #0005;
+  transition: background 0.2s, color 0.2s;
+}
+.game-btn:hover {
+  background: #ffd700;
+  color: #31204a;
+}
+.pjotters-leaderboard {
+  background: rgba(49,32,74,0.93);
+  border-radius: 1rem;
+  padding: 1.2rem 1.5rem;
+  box-shadow: 0 2px 16px #0005;
+  max-width: 400px;
+  margin: 0 auto 2rem auto;
+  text-align: center;
+}
+.pjotters-footer {
+  background: rgba(34,20,46,0.97);
+  padding: 1rem 2rem;
+  border-radius: 1.2rem 1.2rem 0 0;
+  box-shadow: 0 -4px 40px #000a;
+  text-align: center;
+  color: #ffd700;
+}
