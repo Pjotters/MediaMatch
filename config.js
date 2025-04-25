@@ -1,6 +1,6 @@
 // config.js
 const config = {
-  apiUrl: 'https://fight-welsh-draws-delight.trycloudflare.com'
+  apiUrl: 'https://earlier-simpson-sorted-feed.trycloudflare.com'
 };
 
 // Maak config globaal beschikbaar
