@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>MediaMatch - Zoeken</title>
+  <link rel="stylesheet" href="spotify-theme.css">
+  <script src="config.js"></script>
+  <script src="MediaMatch-search.js" defer></script>
+</head>
+<body class="spotify-bg">
+  <nav class="spotify-sidebar">
+    <a href="MusicMatch.html" class="logo">MediaMatch</a>
+    <a href="MusicMatch.html" class="nav-link">Home</a>
+    <a href="MediaMatch-search.html" class="nav-link active">Zoeken</a>
+    <a href="MediaMatch-library.html" class="nav-link">Bibliotheek</a>
+    <a href="p.c-dashboard.html" class="nav-link">Dashboard</a>
+  </nav>
+  <main class="spotify-main">
+    <header class="spotify-header">
+      <h1>Zoek muziek op MediaMatch</h1>
+      <input type="text" id="search-input" placeholder="Zoek op titel, artiest, genre...">
+      <button id="search-btn">Zoek</button>
+    </header>
+    <section id="search-results" class="spotify-results"></section>
+  </main>
+</body>
+</html>

@@ -39,8 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
         
         showStatus('Bezig met registreren...', 'loading');
 
-        const email = form.email.value;
-        const password = form.password.value;
+        const body = {
+            name: form.name.value,
+            email: form.email.value,
+            password: form.password.value,
+            role: form.role.value,
+            subscriptionType: form.subscriptionType.value
+        };
 
         try {
             // Probeer eerst de primaire API
@@ -51,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 res = await fetch(`${window.config.apiUrl}/api/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
+                    body: JSON.stringify(body)
                 });
                 
                 if (!res.ok) {
@@ -65,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 res = await fetch(`${window.config.apiUrl}/api/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
+                    body: JSON.stringify(body)
                 });
                 data = await res.json();
                 console.log('Registratie via backup API');

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>MediaMatch - Muziek maken</title>
+  <link rel="stylesheet" href="spotify-theme.css">
+  <script src="config.js"></script>
+  <script src="MediaMatch-make.js" defer></script>
+</head>
+<body class="spotify-bg">
+  <nav class="spotify-sidebar">
+    <a href="MusicMatch.html" class="logo">MediaMatch</a>
+    <a href="MusicMatch.html" class="nav-link">Home</a>
+    <a href="MediaMatch-search.html" class="nav-link">Zoeken</a>
+    <a href="MediaMatch-library.html" class="nav-link">Bibliotheek</a>
+    <a href="MediaMatch-make.html" class="nav-link active">Muziek maken</a>
+    <a href="p.c-dashboard.html" class="nav-link">Dashboard</a>
+  </nav>
+  <main class="spotify-main">
+    <header class="spotify-header">
+      <h1>Maak of upload je eigen muziek</h1>
+    </header>
+    <section id="ai-music-maker" class="musicmatch-section">
+      <h2>AI Muziek genereren</h2>
+      <form id="music-gen-form">
+        <label>Wil je instrumentaal of met tekst?</label><br>
+        <select id="music-type" name="type" required>
+          <option value="instrumentaal">Instrumentaal</option>
+          <option value="tekst">Met tekst/vocals</option>
+        </select><br><br>
+        <div id="music-followup-instrumental">
+          <label>Genre:</label> <input type="text" name="genre" placeholder="Bijv. jazz, pop, klassiek"><br>
+          <label>Sfeer:</label> <input type="text" name="sfeer" placeholder="Bijv. vrolijk, donker, relaxed"><br>
+          <label>Duur (seconden):</label> <input type="number" name="lengte" min="5" max="60" value="10"><br>
+        </div>
+        <div id="music-followup-tekst" style="display:none;">
+          <label>Genre:</label> <input type="text" name="genre_t" placeholder="Bijv. rap, pop, opera"><br>
+          <label>Sfeer:</label> <input type="text" name="sfeer_t" placeholder="Bijv. emotioneel, krachtig"><br>
+          <label>Tekst/Lyrics:</label><br>
+          <textarea name="tekst" rows="3" placeholder="Schrijf hier je songtekst..."></textarea><br>
+          <label>Duur (seconden):</label> <input type="number" name="lengte_t" min="5" max="60" value="10"><br>
+        </div>
+        <button type="submit">Genereer Muziek</button>
+      </form>
+      <div id="music-gen-result"></div>
+    </section>
+    <hr>
+    <section id="music-upload" class="musicmatch-section">
+      <h2>Upload je eigen muziek (.mp3/.wav)</h2>
+      <form id="music-upload-form" enctype="multipart/form-data">
+        <input type="file" name="music" accept="audio/mp3, audio/wav" required>
+        <button type="submit">Upload</button>
+      </form>
+      <div id="music-upload-result"></div>
+    </section>
+  </main>
+</body>
+</html>

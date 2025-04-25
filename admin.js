@@ -224,4 +224,48 @@ document.addEventListener('DOMContentLoaded', async () => {
         adminChatBox.innerHTML = '';
         msgs.forEach(msgObj => appendAdminMsg(msgObj, msgObj.user === 'ADMIN'));
     });
+
+    // === GEBRUIKERSBEHEER EN VERIFICATIE ===
+    async function loadUsers(roleFilter = 'all') {
+        const token = localStorage.getItem('token');
+        const res = await fetch(`${window.config.apiUrl}/api/admin/users`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        let users = await res.json();
+        if (roleFilter !== 'all') users = users.filter(u => u.role === roleFilter);
+        renderUsers(users);
+    }
+
+    window.filterUsers = loadUsers;
+
+    function renderUsers(users) {
+        const el = document.getElementById('user-overview');
+        if (!el) return;
+        if (!users.length) { el.innerHTML = '<em>Geen profielen gevonden.</em>'; return; }
+        el.innerHTML = `<table style="width:100%;background:rgba(40,30,60,0.94);border-radius:10px;"><thead><tr><th>Naam</th><th>Email</th><th>Rol</th><th>Abonnement</th><th>Verified</th><th>Actie</th></tr></thead><tbody>
+` +
+            users.map(u => `<tr>
+              <td>${u.name||''}</td>
+              <td>${u.email}</td>
+              <td>${u.role}</td>
+              <td>${u.subscriptionType||''}</td>
+              <td>${u.verified ? '✔️' : ''}</td>
+              <td>${u.verified ? '' : `<button class="approve-btn" onclick="verifyUser('${u.email}')">Verifieer</button>`}</td>
+            </tr>`).join('') + '</tbody></table>';
+    }
+
+    window.verifyUser = async function(email) {
+        const token = localStorage.getItem('token');
+        await fetch(`${window.config.apiUrl}/api/admin/verify-user`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({ email })
+        });
+        loadUsers(window.lastRoleFilter||'all');
+    };
+
+    // Init gebruikersbeheer bij laden
+    if (document.getElementById('user-overview')) {
+        loadUsers('all');
+    }
 });

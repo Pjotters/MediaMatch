@@ -213,6 +213,16 @@
 
     <main class="glass" id="admin-main" style="padding:2rem;max-width:1100px;margin:3rem auto 2rem auto;border-radius:1.5rem;box-shadow:0 4px 40px #0008;background:rgba(34,20,46,0.97);color:#fff;">
         <h2 style="margin-top:0">Admin Dashboard</h2>
+        <section id="user-section" style="margin-bottom:2.5rem;">
+            <h3>Gebruikersbeheer</h3>
+            <div style="margin-bottom:1rem;">
+                <button class="admin-btn" onclick="filterUsers('all')">Alle profielen</button>
+                <button class="admin-btn" onclick="filterUsers('artiest')">Artiesten</button>
+                <button class="admin-btn" onclick="filterUsers('fotograaf')">Fotografen</button>
+                <button class="admin-btn" onclick="filterUsers('klant')">Klanten</button>
+            </div>
+            <div id="user-overview" style="overflow-x:auto;"></div>
+        </section>
         <section id="bundel-section" style="margin-bottom:2.5rem;">
             <h3>Bundelbeheer</h3>
             <div id="bundel-overview" style="display:flex;gap:2rem;flex-wrap:wrap;"></div>

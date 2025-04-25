@@ -1,0 +1,105 @@
+body.spotify-bg {
+  background: linear-gradient(135deg, #181818 0%, #282828 100%);
+  color: #fff;
+  font-family: 'Circular Std', system-ui, sans-serif;
+  margin: 0;
+}
+.spotify-sidebar {
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: 220px;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 30px 15px 15px 15px;
+  z-index: 10;
+}
+.spotify-sidebar .logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1db954;
+  text-decoration: none;
+  margin-bottom: 30px;
+}
+.spotify-sidebar .nav-link {
+  color: #b3b3b3;
+  text-decoration: none;
+  font-size: 1.1rem;
+  margin: 10px 0;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+.spotify-sidebar .nav-link.active, .spotify-sidebar .nav-link:hover {
+  background: #282828;
+  color: #fff;
+}
+.spotify-main {
+  margin-left: 220px;
+  min-height: 100vh;
+  padding: 30px 40px;
+}
+.spotify-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+.spotify-header h1 {
+  font-size: 2.2rem;
+  margin: 0 0 10px 0;
+}
+#search-input {
+  background: #222;
+  border: none;
+  color: #fff;
+  padding: 12px;
+  border-radius: 24px;
+  font-size: 1.1rem;
+  width: 350px;
+  margin-right: 12px;
+}
+#search-btn {
+  background: #1db954;
+  color: #fff;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 24px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#search-btn:hover {
+  background: #1ed760;
+}
+.spotify-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+.musicmatch-track {
+  background: #222;
+  border-radius: 12px;
+  padding: 18px 20px;
+  min-width: 220px;
+  max-width: 260px;
+  box-shadow: 0 2px 12px #0004;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.musicmatch-track b {
+  color: #1db954;
+}
+.fav-btn, .playlist-btn {
+  background: none;
+  border: none;
+  color: #1db954;
+  font-size: 1.2rem;
+  margin-left: 6px;
+  cursor: pointer;
+}
+.fav-btn:hover, .playlist-btn:hover {
+  color: #fff;
+}

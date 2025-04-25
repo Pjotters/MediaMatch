@@ -212,6 +212,94 @@
         .pricing-table tr:nth-child(even) td {
             background: hsl(var(--surface)/0.95);
         }
+        
+        .pricing-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: #f7f7f7;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .pricing-nav a {
+            text-decoration: none;
+            color: #337ab7;
+            transition: color 0.2s ease;
+        }
+        
+        .pricing-nav a:hover {
+            color: #23527c;
+        }
+        
+        .pricing-section {
+            padding: 2rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .pricing-section h2 {
+            margin-top: 0;
+        }
+        
+        .pricing-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .pricing-section li {
+            margin-bottom: 1rem;
+        }
+        
+        .pricing-section button {
+            background-color: #337ab7;
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        
+        .pricing-section button:hover {
+            background-color: #23527c;
+        }
+        
+        .pricing-nav { display: flex; gap: 1.2rem; justify-content: center; margin-bottom: 2rem; }
+        .pricing-nav a { background: #a259c6; color: #fff; padding: 0.5rem 1.2rem; border-radius: 18px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: background 0.2s; }
+        .pricing-nav a:hover { background: #1db954; }
+        .pricing-grid { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+        .pricing-card {
+            background: linear-gradient(135deg, #23243d 60%, #181826 100%);
+            border-radius: 18px;
+            box-shadow: 0 6px 32px #0007;
+            padding: 2rem 1.5rem;
+            min-width: 240px;
+            max-width: 320px;
+            color: #fff;
+            margin-bottom: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            animation: popin 0.8s cubic-bezier(.7,-0.4,.5,1.5);
+            border: 3px solid #a259c6;
+        }
+        .pricing-card:hover {
+            transform: scale(1.05) rotate(-1deg);
+            box-shadow: 0 12px 40px #a259c6cc;
+        }
+        .pricing-card h3 { margin-top: 0; font-size: 1.3rem; }
+        .pricing-card ul { list-style: none; padding: 0; margin: 1rem 0; }
+        .pricing-card li { font-size: 1.05rem; margin: 0.7rem 0; display: flex; align-items: center; }
+        .check { color: #1db954; font-size: 1.2em; margin-right: 0.6em; }
+        .plus { color: #f5d300; font-size: 1.2em; margin-right: 0.6em; }
+        .cross { color: #e74c3c; font-size: 1.2em; margin-right: 0.6em; }
+        .price { font-size: 1.5rem; font-weight: bold; margin: 1rem 0; color: #a259c6; }
+        @keyframes popin { 0% { opacity: 0; transform: scale(0.7) translateY(40px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        .animated-section { animation: popin 1.2s cubic-bezier(.7,-0.4,.5,1.5); }
+        .pricing-card.plan-basic { border-color: #1db954; }
+        .pricing-card.plan-plus { border-color: #f5d300; }
+        .pricing-card.plan-pro { border-color: #e74c3c; }
+        .pricing-card button { background: #a259c6; color: #fff; border: none; border-radius: 50px; padding: 0.7rem 2rem; font-size: 1.1rem; cursor: pointer; margin-top: 1rem; transition: background 0.2s; }
+        .pricing-card button:hover { background: #1db954; }
     </style>
     <script src="config.js"></script>
 </head>
@@ -232,6 +320,88 @@
             <h1>Kies het perfecte plan voor jouw fotografie</h1>
             <p>Flexibele opslag voor elke professionele fotograaf</p>
             <p>Geveriveerde fotografen van Pjotters kunnen oneindig uploaden</p>
+        </section>
+        
+        <nav class="pricing-nav">
+            <a href="#ai">#music-ai</a>
+            <a href="#artiest">#artiest</a>
+            <a href="#klant">#klant</a>
+            <a href="#fotograaf">#fotograaf</a>
+        </nav>
+        
+        <section id="ai" class="pricing-section animated-section">
+            <h2>Music AI Creator Plannen</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card plan-basic">
+                    <h3>AI Basic</h3>
+                    <ul>
+                        <li><span class="check">✔️</span> 3 AI-tracks per maand</li>
+                        <li><span class="plus">➕</span> Instrumentaal</li>
+                        <li><span class="cross">✖️</span> Geen vocals/lyrics</li>
+                        <li><span class="cross">✖️</span> Geen commercieel gebruik</li>
+                    </ul>
+                    <div class="price">Gratis</div>
+                    <button class="choose-plan" data-type="ai-basic">Kies AI Basic</button>
+                </div>
+                <div class="pricing-card plan-plus">
+                    <h3>AI Plus</h3>
+                    <ul>
+                        <li><span class="check">✔️</span> 30 AI-tracks per maand</li>
+                        <li><span class="plus">➕</span> Instrumentaal & vocals</li>
+                        <li><span class="check">✔️</span> Lyrics generator</li>
+                        <li><span class="cross">✖️</span> Geen commercieel gebruik</li>
+                    </ul>
+                    <div class="price">€7,99/mnd</div>
+                    <button class="choose-plan" data-type="ai-plus">Kies AI Plus</button>
+                </div>
+                <div class="pricing-card plan-pro">
+                    <h3>AI Pro</h3>
+                    <ul>
+                        <li><span class="check">✔️</span> Onbeperkt AI-tracks</li>
+                        <li><span class="check">✔️</span> Instrumentaal & vocals</li>
+                        <li><span class="check">✔️</span> Lyrics generator</li>
+                        <li><span class="check">✔️</span> Commercieel gebruik toegestaan</li>
+                    </ul>
+                    <div class="price">€19,99/mnd</div>
+                    <button class="choose-plan" data-type="ai-pro">Kies AI Pro</button>
+                </div>
+            </div>
+        </section>
+        
+        <section id="artiest" class="pricing-section">
+            <h2>Artiest</h2>
+            <p>Voor muzikanten die hun muziek willen delen en verkopen.</p>
+            <ul>
+                <li>Onbeperkt muziek uploaden</li>
+                <li>Eigen artiestenpagina</li>
+                <li>Spotify integratie</li>
+                <li>Badge na verificatie</li>
+                <li>€19,99/maand</li>
+            </ul>
+            <button class="choose-plan" data-type="artiest">Kies Artiest</button>
+        </section>
+        
+        <section id="klant" class="pricing-section">
+            <h2>Klant</h2>
+            <p>Voor luisteraars en kopers.</p>
+            <ul>
+                <li>Toegang tot alle muziek</li>
+                <li>Favorieten en playlists</li>
+                <li>€4,99/maand</li>
+            </ul>
+            <button class="choose-plan" data-type="klant">Kies Klant</button>
+        </section>
+        
+        <section id="fotograaf" class="pricing-section">
+            <h2>Fotograaf</h2>
+            <p>Voor fotografen die hun werk willen verkopen.</p>
+            <ul>
+                <li>Onbeperkt foto's uploaden</li>
+                <li>Eigen portfolio</li>
+                <li>Badge na verificatie</li>
+                <li>€9,99/maand</li>
+            </ul>
+            <button class="choose-plan" data-type="fotograaf">Kies Fotograaf</button>
         </section>
         
         <section class="pricing-grid">
