@@ -63,6 +63,35 @@ document.addEventListener('DOMContentLoaded', () => {
     updateProgress();
   }
 
+  // === AI & OCR LIBRARY LOADING ===
+  // Zorg dat ml5.min.js en tesseract.min.js lokaal worden geladen vóór gebruik
+  if (!window.ml5) {
+    var ml5Script = document.createElement('script');
+    ml5Script.src = 'libs/ml5.min.js';
+    ml5Script.onload = function() { window.ml5Loaded = true; };
+    document.head.appendChild(ml5Script);
+  }
+  if (!window.Tesseract) {
+    var tessScript = document.createElement('script');
+    tessScript.src = 'libs/tesseract.min.js';
+    tessScript.onload = function() { window.tesseractLoaded = true; };
+    document.head.appendChild(tessScript);
+  }
+
+  // === AI MODEL INITIALISATIE ===
+  let aiModel = null;
+  function loadAiModel(cb) {
+    if (window.ml5 && window.ml5.imageClassifier) {
+      window.ml5.imageClassifier('MobileNet', function() {
+        aiModel = this;
+        if (cb) cb();
+      });
+    } else {
+      setTimeout(() => loadAiModel(cb), 300);
+    }
+  }
+  loadAiModel();
+
   // --- Stap 1: Fotograaf-naam & album ---
   toStep2Btn.onclick = async () => {
     if (photographerNameInput.value.trim().length < 2) {
@@ -172,63 +201,36 @@ document.addEventListener('DOMContentLoaded', () => {
     getAiSuggestions(file, currentPhotoIdx);
   }
 
+  // --- AI Suggesties ---
   function getAiSuggestions(file, idx) {
-    // Gebruik ml5.js imageClassifier (MobileNet)
-    if (!window.ml5) {
-      aiSuggestionBox.innerHTML = 'AI niet beschikbaar.';
+    if (!aiModel) {
+      aiSuggestionBox.innerHTML = 'AI-model wordt geladen...';
       aiSuggestBtn.disabled = true;
+      loadAiModel(() => getAiSuggestions(file, idx));
       return;
     }
-    aiSuggestionBox.style.display = 'block';
-    aiSuggestBtn.disabled = true;
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = function(e) {
       const img = new window.Image();
       img.src = e.target.result;
-      img.onload = () => {
-        if (!aiModel) {
-          window.ml5.imageClassifier('MobileNet', function() {
-            aiModel = this;
-            if (typeof aiModel.classify === 'function') {
-              classifyImage(img, idx);
-            } else {
-              aiSuggestionBox.innerHTML = 'AI-model niet geschikt voor classificatie.';
-              aiSuggestBtn.disabled = true;
-            }
-          });
-        } else {
-          if (typeof aiModel.classify === 'function') {
-            classifyImage(img, idx);
-          } else {
-            aiSuggestionBox.innerHTML = 'AI-model niet geschikt voor classificatie.';
+      img.onload = function() {
+        aiModel.classify(img, (err, results) => {
+          if (err || !results || !results.length) {
+            aiSuggestionBox.innerHTML = 'Geen AI suggesties gevonden.';
             aiSuggestBtn.disabled = true;
+            return;
           }
-        }
+          // Suggestie: hoogste label als titel, rest als beschrijving
+          const top = results[0].label;
+          const desc = results.slice(0, 3).map(r => r.label).join(', ');
+          aiSuggestionBox.innerHTML = `<strong>AI suggestie:</strong><br>Titel: <em>${top}</em><br>Beschrijving: <em>${desc}</em>`;
+          aiSuggestionBox.style.display = 'block';
+          aiSuggestBtn.disabled = false;
+          photoMeta[idx].ai = { title: top, description: desc };
+        });
       };
     };
     reader.readAsDataURL(file);
-  }
-
-  function classifyImage(img, idx) {
-    if (!aiModel || typeof aiModel.classify !== 'function') {
-      aiSuggestionBox.innerHTML = 'AI-model niet geladen of niet geschikt voor classificatie.';
-      aiSuggestBtn.disabled = true;
-      return;
-    }
-    aiModel.classify(img, (err, results) => {
-      if (err || !results || !results.length) {
-        aiSuggestionBox.innerHTML = 'Geen AI suggesties gevonden.';
-        aiSuggestBtn.disabled = true;
-        return;
-      }
-      // Suggestie: hoogste label als titel, rest als beschrijving
-      const top = results[0].label;
-      const desc = results.slice(0, 3).map(r => r.label).join(', ');
-      aiSuggestionBox.innerHTML = `<strong>AI suggestie:</strong><br>Titel: <em>${top}</em><br>Beschrijving: <em>${desc}</em>`;
-      aiSuggestionBox.style.display = 'block';
-      aiSuggestBtn.disabled = false;
-      photoMeta[idx].ai = { title: top, description: desc };
-    });
   }
 
   aiSuggestBtn.onclick = () => {
@@ -293,13 +295,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Eerst proberen met Tesseract
-    if (!window.Tesseract || typeof window.Tesseract.recognize !== 'function') {
-      ocrStatus.textContent = 'AI kon niet geladen worden, probeer alternatieve AI...';
-      fallbackAI(file);
-      return;
+    function runOCR(imgDataUrl, cb) {
+      if (!window.Tesseract) {
+        ocrStatus.innerHTML = 'OCR wordt geladen...';
+        setTimeout(() => runOCR(imgDataUrl, cb), 500);
+        return;
+      }
+      window.Tesseract.recognize(imgDataUrl, 'nld', {
+        logger: m => { ocrStatus.innerHTML = 'OCR: ' + (m.status || '...'); }
+      }).then(({ data: { text } }) => {
+        cb(text);
+      }).catch(() => {
+        ocrStatus.innerHTML = 'OCR mislukt.';
+        cb('');
+      });
     }
-    window.Tesseract.recognize(file, 'nld')
-      .then(({ data: { text } }) => {
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      runOCR(e.target.result, (text) => {
         ocrResult = text;
         // Simpele check op trefwoorden
         const lower = text.toLowerCase();
@@ -313,11 +327,9 @@ document.addEventListener('DOMContentLoaded', () => {
           // AI keurt af
           fallbackAI(file);
         }
-      })
-      .catch((err) => {
-        ocrStatus.textContent = 'AI controle mislukt, probeer alternatieve AI...';
-        fallbackAI(file);
       });
+    };
+    reader.readAsDataURL(file);
   };
   toStep5Btn.onclick = () => showStep(5);
 

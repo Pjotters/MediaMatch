@@ -160,6 +160,135 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // === AI & OCR LIBRARY LOADING ===
+    if (!window.ml5) {
+        var ml5Script = document.createElement('script');
+        ml5Script.src = 'libs/ml5.min.js';
+        document.head.appendChild(ml5Script);
+    }
+    if (!window.Tesseract) {
+        var tessScript = document.createElement('script');
+        tessScript.src = 'libs/tesseract.min.js';
+        document.head.appendChild(tessScript);
+    }
+
+    // === AI MODELS ===
+    let aiClassifier = null;
+    let faceApi = null;
+    function loadAiModels(cb) {
+        function checkLoaded() {
+            if (window.ml5 && window.ml5.imageClassifier && window.ml5.faceApi) {
+                if (!aiClassifier) {
+                    window.ml5.imageClassifier('MobileNet', function() {
+                        aiClassifier = this;
+                        if (faceApi) return cb && cb();
+                    });
+                }
+                if (!faceApi) {
+                    const options = { withLandmarks: true, withDescriptors: false };
+                    window.ml5.faceApi(options, function() {
+                        faceApi = this;
+                        if (aiClassifier) return cb && cb();
+                    });
+                }
+                if (aiClassifier && faceApi) cb && cb();
+            } else {
+                setTimeout(checkLoaded, 300);
+            }
+        }
+        checkLoaded();
+    }
+    loadAiModels();
+
+    // === OCR ===
+    function runOCR(imgDataUrl, cb) {
+        if (!window.Tesseract) {
+            setTimeout(() => runOCR(imgDataUrl, cb), 500);
+            return;
+        }
+        window.Tesseract.recognize(imgDataUrl, 'nld', {
+            logger: m => {}
+        }).then(({ data: { text } }) => {
+            cb(text);
+        }).catch(() => {
+            cb('');
+        });
+    }
+
+    // === UI: Voeg AI-buttons toe aan gallery-items ===
+    function addAiButtons(item, img, overlay) {
+        // Container
+        let aiBar = document.createElement('div');
+        aiBar.className = 'ai-bar';
+        // Auto-tag
+        let tagBtn = document.createElement('button');
+        tagBtn.innerHTML = 'Auto-tag';
+        tagBtn.className = 'ai-btn';
+        tagBtn.onclick = function(e) {
+            e.stopPropagation();
+            overlay.innerHTML += '<div class="ai-status">AI bezig...</div>';
+            if (!aiClassifier) return;
+            aiClassifier.classify(img, (err, results) => {
+                overlay.querySelector('.ai-status').remove();
+                if (err || !results || !results.length) {
+                    overlay.innerHTML += '<div class="ai-status">Geen tags gevonden</div>';
+                    return;
+                }
+                const tags = results.slice(0,3).map(r=>r.label).join(', ');
+                overlay.innerHTML += `<div class="ai-status"><b>Tags:</b> ${tags}</div>`;
+            });
+        };
+        // OCR
+        let ocrBtn = document.createElement('button');
+        ocrBtn.innerHTML = 'OCR';
+        ocrBtn.className = 'ai-btn';
+        ocrBtn.onclick = function(e) {
+            e.stopPropagation();
+            overlay.innerHTML += '<div class="ai-status">OCR bezig...</div>';
+            // Convert img to dataURL
+            let canvas = document.createElement('canvas');
+            canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+            canvas.getContext('2d').drawImage(img,0,0);
+            let dataUrl = canvas.toDataURL('image/png');
+            runOCR(dataUrl, (text) => {
+                overlay.querySelector('.ai-status').remove();
+                overlay.innerHTML += `<div class="ai-status"><b>OCR:</b> ${text ? text : 'Geen tekst gevonden'}</div>`;
+            });
+        };
+        // Face detection
+        let faceBtn = document.createElement('button');
+        faceBtn.innerHTML = 'Gezichten';
+        faceBtn.className = 'ai-btn';
+        faceBtn.onclick = function(e) {
+            e.stopPropagation();
+            overlay.innerHTML += '<div class="ai-status">Zoeken naar gezichten...</div>';
+            if (!faceApi) return;
+            faceApi.detectSingle(img, (err, result) => {
+                overlay.querySelector('.ai-status').remove();
+                if (err || !result) {
+                    overlay.innerHTML += '<div class="ai-status">Geen gezichten gevonden</div>';
+                    return;
+                }
+                overlay.innerHTML += `<div class="ai-status"><b>Gezicht gedetecteerd!</b></div>`;
+            });
+        };
+        aiBar.appendChild(tagBtn);
+        aiBar.appendChild(ocrBtn);
+        aiBar.appendChild(faceBtn);
+        overlay.appendChild(aiBar);
+    }
+
+    // Patch: voeg AI-buttons toe na laden images
+    const origLoadImagesFromAPI = window.loadImagesFromAPI;
+    window.loadImagesFromAPI = async function() {
+        await origLoadImagesFromAPI.apply(this, arguments);
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            const img = item.querySelector('img');
+            const overlay = item.querySelector('.overlay');
+            addAiButtons(item, img, overlay);
+        });
+    };
+
     // Start het laden van de afbeeldingen
     loadImagesFromAPI();
 });
