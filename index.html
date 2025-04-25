@@ -231,51 +231,35 @@
             padding: 3rem 2rem;
         }
         
-        .preview-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        
-        .preview-item {
-            height: 200px;
-            border-radius: calc(var(--radius) * 0.7);
-            overflow: hidden;
+        .carousel-wrapper {
             position: relative;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        
-        .preview-item:hover {
-            transform: scale(1.05);
-        }
-        
-        .preview-item img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .carousel-track {
+            display: flex;
+            gap: 1rem;
             transition: transform 0.5s;
         }
         
-        .preview-item:hover img {
-            transform: scale(1.1);
-        }
-        
-        .preview-item::after {
-            content: '';
+        .carousel-btn {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 50%;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
         }
         
-        .preview-item:hover::after {
-            opacity: 1;
+        .carousel-btn.left {
+            left: 0;
+        }
+        
+        .carousel-btn.right {
+            right: 0;
         }
         
         .gallery-cta {
@@ -345,6 +329,33 @@
             opacity: 0.8;
         }
         
+        /* Extra blokken */
+        .pjotters-story, .musicmatch-story, .abonnementen-story, .pjotters-company-story {
+            padding: 3rem 2rem;
+            margin-bottom: 4rem;
+            border-radius: var(--radius);
+        }
+        
+        .pjotters-story h2, .musicmatch-story h2, .abonnementen-story h2, .pjotters-company-story h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .pjotters-story p, .musicmatch-story p, .abonnementen-story p, .pjotters-company-story p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .abonnementen-story ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .abonnementen-story li {
+            margin-bottom: 0.5rem;
+        }
+        
         /* Responsieve aanpassingen */
         @media (max-width: 768px) {
             .story-container {
@@ -379,10 +390,11 @@
           <p>Dit is wat er is geupdate:</p>
           <ul>
             <li>Nieuwe klant-prijsplannen en registratie-flow</li>
-            <li>Update van de MediaMatch-AI van gezichtherkenning<li>
+            <li>Update van de MusicMatch-AI van muziek maken met AI</li>
             <li>Chatfunctie tussen klant en fotograaf met foto-upload</li>
              <li>Nieuwe en fotograaf vriendelijke upload-pagina<li>
             <li>Uitgebreid albumbeheer: beschrijving, verwijderen, overzicht</li>
+             <li>LET OP: MediaMatch-AI-Search (gezichtsherkenning) is tijdelijk niet beschikbaar wegen training</li>
           </ul>
           <button id='closeUpdatePopup'>Sluiten</button>
         </div>`;
@@ -511,33 +523,66 @@
         <section class="gallery-preview glass">
             <div class="section-title">
                 <h2>Recente Toevoegingen</h2>
-                <p>Een voorproefje van onze nieuwste sportfoto's</p>
+                <p>Bekijk de nieuwste uploads van onze community en fotografen. Swipe of klik voor meer!</p>
             </div>
-            
-            <div class="preview-grid">
-                <div class="preview-item">
-                    <img src="https://source.unsplash.com/random/400x400?rowing" alt="Roeien">
-                </div>
-                <div class="preview-item">
-                    <img src="https://source.unsplash.com/random/400x400?hockey" alt="Hockey">
-                </div>
-                <div class="preview-item">
-                    <img src="https://source.unsplash.com/random/400x400?sailing" alt="Zeilen">
-                </div>
-                <div class="preview-item">
-                    <img src="https://source.unsplash.com/random/400x400?athletics" alt="Atletiek">
-                </div>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn left" id="carouselPrev">&#8592;</button>
+                <div class="carousel-track" id="galleryPreviewCarousel"></div>
+                <button class="carousel-btn right" id="carouselNext">&#8594;</button>
             </div>
-            
             <div class="gallery-cta">
                 <a href="gallery.html" class="btn-primary">Bekijk Alle Foto's</a>
             </div>
         </section>
 
-        <!-- Story/About Sectie -->
+        <!-- Extra blokken -->
+        <section class="pjotters-story glass">
+            <h2>Pjotters-Currenty</h2>
+            <p>Een revolutionair spaarsysteem. Verdien coins door actief te zijn en wissel ze in voor unieke voordelen. Ideaal voor wie liever niet (altijd) betaalt! <a href="plans.html">Lees meer</a></p>
+        </section>
+        <section class="musicmatch-story glass">
+            <h2>MusicMatch</h2>
+            <p>Het platform waar artiesten, fotografen, AI en klanten samenkomen. Ontdek, deel, verkoop en creëer samen. <a href="about.html">Lees meer</a></p>
+        </section>
+        <section class="abonnementen-story glass">
+            <h2>Waarom onze abonnementen zo gunstig zijn</h2>
+            <ul>
+                <li>Betaal alleen voor wat je écht gebruikt</li>
+                <li>Unieke features voor elke rol</li>
+                <li>Upgrade met coins of euro’s</li>
+                <li>Extra voordelig voor actieve gebruikers</li>
+            </ul>
+            <a href="plans.html" class="btn-primary">Bekijk alle abonnementen</a>
+        </section>
+        <section class="pjotters-company-story glass">
+            <h2>Over de Pjotters-Company</h2>
+            <p id="companyInfo">De Pjotters-Company is opgericht door Pieter Oosterling. Hij kwam er achter dat veel diensten veel geld kosten om er gebruik van te maken als consument. Daarom bedacht hij verschillende bedrijven als:</p>
+            <ul>
+                <li>MediaMatch</li>
+                <li>ZipZop</li>
+                <li>Pjotters-Vibe</li>
+                <li>Pjotters-Ai</li>
+                <li>Securis</li>
+                <li>Pjotters-Games</li>
+                <li>MusicMatch</li>
+                <li>Pjotters-Chat(-web)</li>
+                <li>Pjotters-Currenty</li>
+                <li>MovieMatch en Famlix</li>
+                <li>Pjotters-Hack</li>
+
+                
+            </ul>
+            <p>Deze bedrijven hebben allemaal één ding gemeen: zij zijn ontstaan om te zorgen dat iedereen gelijk is en dat iedereen de mogelijkheden heeft om te gebruiken. </p>
+            <p>Om deze reden is er altijd een gratis optie bij deze bedrijven!</p><p>De Pjotters-Company verdiept zicht niet alleen in online bedrijven, want binnenkort komt Rowchoachs wat roeiers helpt bij het vast leggen van elke meter voor een goedkope prijs. Ook komt er een High-Tech product genaamt: ZipZop-AR</p>
+            <p>Dit is een AR-bril waar je veel informatie kan zien, videos op kan kijken maar ook chats mee kan sturen met gebruik van je stem (Pjotters AI) en gebruik van je handen (Pjotters Handscan)</p>
+            <p>De Pjotters-Company is een bedrijf dat zich richt op het zorgvuldig ontwikkelen van nieuwe producten en diensten die iedereen gelijk kunnen gebruiken. </p>
+            <p>De Pjotters-Company - Iedereen gelijk - Iedereen goedkoop!</p>
+        </section>
+
+        <!-- Story/About sectie -->
         <section class="story-container glass">
             <div class="story-image">
-                <img src="https://source.unsplash.com/random/800x600?rowing-race" alt="Roeiwedstrijd">
+                <img src="assets/pjotters.png" alt="pjotters">
             </div>
             
             <div class="story-content">
@@ -582,5 +627,6 @@
         </nav>
         <p>2025 MediaMatch - Alle rechten voorbehouden</p>
     </footer>
+    <script src="gallery-preview.js"></script>
 </body>
 </html>

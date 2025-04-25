@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Alle abonnementen | MusicMatch</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="config.js"></script>
+  <script src="analytics.js"></script>
+  <style>
+    .plans-hero { background: rgba(30,20,40,0.94); color: #f5d300; border-radius: 20px; margin: 2em auto 2em auto; padding: 2em 2em 1em 2em; max-width: 900px; box-shadow: 0 8px 40px #000b; }
+    .plans-grid { display: flex; flex-wrap: wrap; gap: 2em; justify-content: center; }
+    .plan-card { background: rgba(40,30,60,0.97); border-radius: 18px; box-shadow: 0 4px 24px #000a; padding: 2em 1.5em; min-width: 240px; max-width: 320px; color: #fff; position:relative; }
+    .plan-card h3 { color: #f5d300; font-size: 1.3em; }
+    .plan-card .price { color: #a259c6; font-size: 1.1em; margin-bottom: 0.6em; }
+    .plan-card ul { margin: 0.7em 0 0.5em 0; padding: 0; list-style: none; font-size: 0.99em; }
+    .plan-card li { margin-bottom: 0.2em; }
+    .plan-card .cta { background: #a259c6; color: #fff; border: none; border-radius: 50px; padding: 0.6em 1.5em; margin-top: 1em; cursor: pointer; font-size: 1em; transition: background 0.2s; }
+    .plan-card .cta:hover { background: #1db954; }
+    .plan-story { background: rgba(50,40,60,0.97); color: #fff; border-radius: 16px; margin: 2em auto; padding: 1.5em; max-width: 700px; font-size: 1.08em; box-shadow: 0 2px 16px #0007; }
+    @media (max-width:900px) { .plans-grid { flex-direction: column; align-items:center; } }
+  </style>
+</head>
+<body>
+  <nav id="main-nav"></nav>
+  <div class="plans-hero">
+    <h1>Alle abonnementen & voordelen</h1>
+    <p>Ontdek welk abonnement het beste bij jou past. Elke rol heeft unieke voordelen, prijzen en extra's. <b>Pjotters-Currenty</b> en <b>MusicMatch</b> zijn unieke concepten van de <b>Pjotters-Company</b>.</p>
+  </div>
+  <section class="plans-grid" id="plansGrid"></section>
+  <div class="plan-story" id="pjottersStory"></div>
+  <div class="plan-story" id="musicMatchStory"></div>
+  <footer class="glass" style="margin-top:3em;text-align:center;">Project van de <b>Pjotters-Company</b> | <span id="companyInfo">[Hier komt jouw uitleg]</span></footer>
+  <script src="plans.js"></script>
+</body>
+</html>

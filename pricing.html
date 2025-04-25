@@ -6,300 +6,37 @@
     <title>MediaMatch - Prijsplannen</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Pricing page specifieke styling */
-        .pricing-header {
-            text-align: center;
-            padding: 4rem 2rem 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .pricing-tier {
-            transition: var(--transition);
-            min-height: 450px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .pricing-tier:hover {
-            transform: translateY(-8px);
-        }
-        
-        .pricing-tier.popular {
-            position: relative;
-            transform: scale(1.05);
-        }
-        
-        .pricing-tier.popular:hover {
-            transform: scale(1.05) translateY(-8px);
-        }
-        
-        .pricing-tier.popular::after {
-            content: 'Populair';
-            position: absolute;
-            top: -12px;
-            right: 20px;
-            background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)));
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        
-        .tier-basic::before {
-            background: linear-gradient(135deg, hsl(152, 89%, 48%), hsl(204, 89%, 58%));
-            opacity: 0.2;
-        }
-        
-        .tier-pro::before {
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(326, 89%, 48%));
-            opacity: 0.2;
-        }
-        
-        .tier-ultimate::before {
-            background: linear-gradient(135deg, hsl(326, 89%, 48%), hsl(36, 89%, 58%));
-            opacity: 0.2;
-        }
-        
-        .tier-header {
-            text-align: center;
-            padding: 1.5rem;
-            border-bottom: 1px solid hsl(var(--surface)/0.3);
-        }
-        
-        .tier-price {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin: 0.5rem 0;
-        }
-        
-        .tier-period {
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-        
-        .tier-features {
-            padding: 2rem;
-            flex-grow: 1;
-        }
-        
-        .tier-features li {
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .tier-features li::before {
-            content: '✓';
-            display: inline-block;
-            margin-right: 0.5rem;
-            color: hsl(152, 89%, 48%);
-        }
-        
-        .tier-cta {
-            padding: 1.5rem;
-            text-align: center;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background: linear-gradient(45deg, hsl(var(--primary)/0.8), hsl(var(--secondary)/0.8));
-            color: white;
-            border-radius: var(--radius);
-            text-decoration: none;
-            font-weight: bold;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)));
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px hsl(var(--primary)/0.4);
-        }
-        
-        .btn-outline {
-            background: transparent;
-            border: 1px solid hsl(var(--primary)/0.5);
-        }
-        
-        .btn-outline:hover {
-            background: hsl(var(--primary)/0.1);
-        }
-        
-        /* Header en navigatie */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--secondary)));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        nav {
-            display: flex;
-            gap: 1.5rem;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            opacity: 0.8;
-            transition: var(--transition);
-        }
-        
-        nav a:hover {
-            opacity: 1;
-            transform: translateY(-2px);
-        }
-        
-        .toggle-mode {
-            background: hsl(var(--surface)/0.8);
-            border-radius: 50px;
-            padding: 0.3rem;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-        
-        /* Vergelijkingstabel styling */
-        .pricing-compare {
-            margin-top: 4rem;
-        }
-        
-        .pricing-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 2rem;
-        }
-        
-        .pricing-table th, .pricing-table td {
-            padding: 1rem;
-            border: 1px solid hsl(var(--surface)/0.3);
-        }
-        
-        .pricing-table th {
-            background: hsl(var(--surface)/0.8);
-            font-weight: bold;
-        }
-        
-        .pricing-table td {
-            background: hsl(var(--surface)/0.9);
-        }
-        
-        .pricing-table tr:nth-child(even) td {
-            background: hsl(var(--surface)/0.95);
-        }
-        
-        .pricing-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            background-color: #f7f7f7;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .pricing-nav a {
-            text-decoration: none;
-            color: #337ab7;
-            transition: color 0.2s ease;
-        }
-        
-        .pricing-nav a:hover {
-            color: #23527c;
-        }
-        
-        .pricing-section {
-            padding: 2rem;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .pricing-section h2 {
-            margin-top: 0;
-        }
-        
-        .pricing-section ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .pricing-section li {
-            margin-bottom: 1rem;
-        }
-        
-        .pricing-section button {
-            background-color: #337ab7;
-            color: #fff;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-        
-        .pricing-section button:hover {
-            background-color: #23527c;
-        }
-        
-        .pricing-nav { display: flex; gap: 1.2rem; justify-content: center; margin-bottom: 2rem; }
-        .pricing-nav a { background: #a259c6; color: #fff; padding: 0.5rem 1.2rem; border-radius: 18px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: background 0.2s; }
-        .pricing-nav a:hover { background: #1db954; }
-        .pricing-grid { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
-        .pricing-card {
-            background: linear-gradient(135deg, #23243d 60%, #181826 100%);
-            border-radius: 18px;
-            box-shadow: 0 6px 32px #0007;
-            padding: 2rem 1.5rem;
-            min-width: 240px;
-            max-width: 320px;
-            color: #fff;
-            margin-bottom: 2rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            animation: popin 0.8s cubic-bezier(.7,-0.4,.5,1.5);
-            border: 3px solid #a259c6;
-        }
-        .pricing-card:hover {
-            transform: scale(1.05) rotate(-1deg);
-            box-shadow: 0 12px 40px #a259c6cc;
-        }
+        /* Nieuwe eigen styling voor pricing */
+        body { background: #181826; color: #fff; font-family: 'Segoe UI', Arial, sans-serif; }
+        .pricing-header { background: rgba(30,20,40,0.96); border-radius: 18px; margin: 2rem auto 2rem auto; box-shadow: 0 6px 32px #0008; }
+        .role-selector { display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; }
+        .role-btn { background: linear-gradient(135deg, #a259c6, #1db954); color: #fff; border: none; border-radius: 18px; padding: 1.2rem 2.4rem; font-size: 1.3rem; font-weight: bold; box-shadow: 0 4px 24px #0006; cursor: pointer; transition: background 0.2s, transform 0.2s; }
+        .role-btn.active, .role-btn:hover { background: linear-gradient(135deg, #1db954, #a259c6); transform: scale(1.07); }
+        .pricing-tier-grid { display: flex; gap: 2.5rem; flex-wrap: wrap; justify-content: center; margin-bottom: 2.5rem; }
+        .pricing-card { background: rgba(30,20,40,0.98); border-radius: 18px; box-shadow: 0 6px 32px #0008; padding: 2rem 1.5rem; min-width: 210px; max-width: 270px; color: #fff; margin-bottom: 2rem; transition: transform 0.3s, box-shadow 0.3s; position: relative; border: 3px solid #a259c6; text-align: center; }
         .pricing-card h3 { margin-top: 0; font-size: 1.3rem; }
-        .pricing-card ul { list-style: none; padding: 0; margin: 1rem 0; }
-        .pricing-card li { font-size: 1.05rem; margin: 0.7rem 0; display: flex; align-items: center; }
-        .check { color: #1db954; font-size: 1.2em; margin-right: 0.6em; }
-        .plus { color: #f5d300; font-size: 1.2em; margin-right: 0.6em; }
-        .cross { color: #e74c3c; font-size: 1.2em; margin-right: 0.6em; }
-        .price { font-size: 1.5rem; font-weight: bold; margin: 1rem 0; color: #a259c6; }
-        @keyframes popin { 0% { opacity: 0; transform: scale(0.7) translateY(40px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
-        .animated-section { animation: popin 1.2s cubic-bezier(.7,-0.4,.5,1.5); }
-        .pricing-card.plan-basic { border-color: #1db954; }
-        .pricing-card.plan-plus { border-color: #f5d300; }
-        .pricing-card.plan-pro { border-color: #e74c3c; }
+        .pricing-card .price { font-size: 1.4rem; color: #f5d300; margin: 1.1rem 0 0.7rem 0; }
         .pricing-card button { background: #a259c6; color: #fff; border: none; border-radius: 50px; padding: 0.7rem 2rem; font-size: 1.1rem; cursor: pointer; margin-top: 1rem; transition: background 0.2s; }
         .pricing-card button:hover { background: #1db954; }
+        .pricing-compare { margin-top: 2.5rem; background: rgba(30,20,40,0.98); border-radius: 18px; box-shadow: 0 6px 32px #0008; }
+        .pricing-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+        .pricing-table th, .pricing-table td { padding: 1rem; border: 1px solid #a259c6; }
+        .pricing-table th { background: #23243d; color: #f5d300; font-weight: bold; }
+        .pricing-table td { background: #181826; color: #fff; }
+        .pricing-table tr:nth-child(even) td { background: #23243d; }
+        @media (max-width: 900px) { .pricing-tier-grid { flex-direction: column; align-items: center; } .pricing-card { min-width: 90vw; max-width: 98vw; } .pricing-table th, .pricing-table td { padding: 0.7rem; font-size: 0.98rem; } }
+        
+        /* Extra CSS voor tooltips, features, popup */
+        .plan-features { list-style:none; margin:0.7em 0 0.5em 0; padding:0; font-size:0.98em; color:#fff; }
+        .plan-features li { margin-bottom:0.2em; }
+        .plan-tooltip { position:absolute; background:rgba(30,20,40,0.99); color:#f5d300; padding:0.9em 1.4em; border-radius:14px; box-shadow:0 6px 24px #000b; font-size:1em; z-index:10000; pointer-events:none; transition:opacity 0.2s; min-width:180px; max-width:260px; text-align:center; }
+        .plan-popup-bg { position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);z-index:9998; }
+        .plan-popup { position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(30,20,40,0.99);color:#fff;padding:2.5em 2em;border-radius:18px;box-shadow:0 8px 36px #000c;z-index:9999;min-width:260px;max-width:90vw;text-align:center; }
+        .plan-popup h2 { font-size:1.6em;margin-bottom:0.5em;color:#f5d300; }
+        .plan-popup .price { font-size:1.2em;color:#a259c6;margin-bottom:0.7em; }
+        .plan-popup ul { text-align:left; margin:1em auto 1.5em auto; display:inline-block; }
+        .plan-popup button { background:#a259c6;color:#fff;border:none;border-radius:50px;padding:0.7rem 2rem;font-size:1.1rem;cursor:pointer;transition:background 0.2s; }
+        .plan-popup button:hover { background:#1db954; }
     </style>
     <script src="config.js"></script>
 </head>
@@ -316,236 +53,220 @@
     </header>
     
     <main>
-        <section class="pricing-header glass">
-            <h1>Kies het perfecte plan voor jouw fotografie</h1>
-            <p>Flexibele opslag voor elke professionele fotograaf</p>
-            <p>Geveriveerde fotografen van Pjotters kunnen oneindig uploaden</p>
-        </section>
-        
-        <nav class="pricing-nav">
-            <a href="#ai">#music-ai</a>
-            <a href="#artiest">#artiest</a>
-            <a href="#klant">#klant</a>
-            <a href="#fotograaf">#fotograaf</a>
-        </nav>
-        
-        <section id="ai" class="pricing-section animated-section">
-            <h2>Music AI Creator Plannen</h2>
-            <div class="pricing-grid">
-                <div class="pricing-card plan-basic">
-                    <h3>AI Basic</h3>
-                    <ul>
-                        <li><span class="check">✔️</span> 3 AI-tracks per maand</li>
-                        <li><span class="plus">➕</span> Instrumentaal</li>
-                        <li><span class="cross">✖️</span> Geen vocals/lyrics</li>
-                        <li><span class="cross">✖️</span> Geen commercieel gebruik</li>
-                    </ul>
-                    <div class="price">Gratis</div>
-                    <button class="choose-plan" data-type="ai-basic">Kies AI Basic</button>
-                </div>
-                <div class="pricing-card plan-plus">
-                    <h3>AI Plus</h3>
-                    <ul>
-                        <li><span class="check">✔️</span> 30 AI-tracks per maand</li>
-                        <li><span class="plus">➕</span> Instrumentaal & vocals</li>
-                        <li><span class="check">✔️</span> Lyrics generator</li>
-                        <li><span class="cross">✖️</span> Geen commercieel gebruik</li>
-                    </ul>
-                    <div class="price">€7,99/mnd</div>
-                    <button class="choose-plan" data-type="ai-plus">Kies AI Plus</button>
-                </div>
-                <div class="pricing-card plan-pro">
-                    <h3>AI Pro</h3>
-                    <ul>
-                        <li><span class="check">✔️</span> Onbeperkt AI-tracks</li>
-                        <li><span class="check">✔️</span> Instrumentaal & vocals</li>
-                        <li><span class="check">✔️</span> Lyrics generator</li>
-                        <li><span class="check">✔️</span> Commercieel gebruik toegestaan</li>
-                    </ul>
-                    <div class="price">€19,99/mnd</div>
-                    <button class="choose-plan" data-type="ai-pro">Kies AI Pro</button>
-                </div>
-            </div>
-        </section>
-        
-        <div class="commercial-warning glass" style="max-width:700px;margin:2rem auto 1.5rem auto;padding:1.5rem 2rem;background:rgba(30,20,40,0.92);border-radius:18px;color:#fff;box-shadow:0 4px 24px #0006;font-size:1.1rem;">
-          <b>Let op:</b> <span style="color:#f5d300;">Commercieel gebruik (zoals uploaden naar Spotify, YouTube, etc.) is <u>toegestaan</u> voor zowel Basic- als Pro-accounts, maar:</span><br>
-          <span style="color:#fff;">- <b>Basic:</b> Je commerciële licentie is 30 dagen geldig per track, daarna moet je opnieuw aanvragen.<br>
-          - <b>Pro:</b> Je commerciële licentie is 1 jaar geldig per track, automatisch verlengd met 1 jaar. Daarna opnieuw aanvragen.</span><br>
-          Lees onze <a href="terms.html" style="color:#a259c6;text-decoration:underline;">gebruikersvoorwaarden</a> voor alle details.
+      <section class="pricing-header glass animated-section">
+        <h1>Kies je type gebruiker</h1>
+        <div class="role-selector">
+          <button class="role-btn" data-role="artiest">Artiest</button>
+          <button class="role-btn" data-role="fotograaf">Fotograaf</button>
+          <button class="role-btn" data-role="musicai">Music AI</button>
+          <button class="role-btn" data-role="klant">Klant</button>
         </div>
-        
-        <section id="artiest" class="pricing-section">
-            <h2>Artiest</h2>
-            <p>Voor muzikanten die hun muziek willen delen en verkopen.</p>
-            <ul>
-                <li>Onbeperkt muziek uploaden</li>
-                <li>Eigen artiestenpagina</li>
-                <li>Spotify integratie</li>
-                <li>Badge na verificatie</li>
-                <li>€19,99/maand</li>
-            </ul>
-            <button class="choose-plan" data-type="artiest">Kies Artiest</button>
-        </section>
-        
-        <section id="klant" class="pricing-section">
-            <h2>Klant</h2>
-            <p>Voor luisteraars en kopers.</p>
-            <ul>
-                <li>Toegang tot alle muziek</li>
-                <li>Favorieten en playlists</li>
-                <li>€4,99/maand</li>
-            </ul>
-            <button class="choose-plan" data-type="klant">Kies Klant</button>
-        </section>
-        
-        <section id="fotograaf" class="pricing-section">
-            <h2>Fotograaf</h2>
-            <p>Voor fotografen die hun werk willen verkopen.</p>
-            <ul>
-                <li>Onbeperkt foto's uploaden</li>
-                <li>Eigen portfolio</li>
-                <li>Badge na verificatie</li>
-                <li>€9,99/maand</li>
-            </ul>
-            <button class="choose-plan" data-type="fotograaf">Kies Fotograaf</button>
-        </section>
-        
-        <section class="pricing-grid">
-            <!-- Starter Plan -->
-            <div class="pricing-tier glass tier-basic">
-                <div class="tier-header">
-                    <h2>Starter</h2>
-                    <div class="tier-price">€0,00</div>
-                    <div class="tier-period">per maand</div>
-                </div>
-                <ul class="tier-features">
-                    <li>1GB cloudopslag - 1.000 foto's</li>
-                    <li>Mag maximaal oplopen tot 3.5GB cloudopslag - €10 per GB</li>
-                    <li>Basis AI-fotocategorisatie</li>
-                    <li>Tot 250MB upload per dag</li>
-                    <li>Web toegang</li>
-                    <li>30 dagen geschiedenis</li>
-                </ul>
-                <div class="tier-cta">
-                    <a href="#" class="btn btn-outline">Kies Starter</a>
-                </div>
-            </div>
-            
-            <!-- Pro Plan -->
-            <div class="pricing-tier glass tier-pro popular">
-                <div class="tier-header">
-                    <h2>Pro</h2>
-                    <div class="tier-price">€19,99</div>
-                    <div class="tier-period">per maand</div>
-                </div>
-                <ul class="tier-features">
-                    <li>5GB cloudopslag - 10.000 foto's </li>
-                    <li>Mag maximaal oplopen tot 17.5GB cloudopslag - €5 per GB</li>
-                    <li>Geavanceerde AI-fotocategorisatie</li>
-                    <li>Tot 1GB upload per dag</li>
-                    <li>Web & mobiele toegang</li>
-                    <li>90 dagen geschiedenis</li>
-                    <li>Prioriteit ondersteuning</li>
-                </ul>
-                <div class="tier-cta">
-                    <a href="#" class="btn">Kies Pro</a>
-                </div>
-            </div>
-            
-            <!-- Ultimate Plan -->
-            <div class="pricing-tier glass tier-ultimate">
-                <div class="tier-header">
-                    <h2>Ultimate</h2>
-                    <div class="tier-price">€39,99</div>
-                    <div class="tier-period">per maand</div>
-                </div>
-                <ul class="tier-features">
-                    <li>20GB cloudopslag</li>
-                    <li>Premium AI-fotocategorisatie</li>
-                    <li>Onbeperkte dagelijkse uploads</li>
-                    <li>Web, mobiele & desktop toegang</li>
-                    <li>Onbeperkte geschiedenis</li>
-                    <li>24/7 prioriteit ondersteuning</li>
-                    <li>Geavanceerde bewerkingstools</li>
-                </ul>
-                <div class="tier-cta">
-                    <a href="#" class="btn">Kies Ultimate</a>
-                </div>
-            </div>
-        </section>
-        
-        <hr style="margin: 3rem 0 2rem; border: none; border-top: 2px solid #a259c6; opacity:0.4;">
-        
-        <section class="pricing-header glass">
-            <h2>Klant Prijsplannen</h2>
-            <p>Of kies een plan als klant om te chatten met fotografen en foto's te delen.</p>
-        </section>
-        
-        <section class="pricing-grid" id="customerPricingGrid"></section>
-        
-        <section class="pricing-compare glass">
-            <h2>Vergelijk onze klant-abonnementen</h2>
-            <table class="pricing-table">
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Basic</th>
-                        <th>Plus</th>
-                        <th>Unlimited</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>Chat met fotografen</td><td>1 tegelijk</td><td>10 tegelijk</td><td>Onbeperkt</td></tr>
-                    <tr><td>Foto uploads per chat</td><td>2</td><td>5</td><td>20</td></tr>
-                    <tr><td>Support</td><td>Standaard</td><td>Sneller (24u)</td><td>Premium (4u)</td></tr>
-                    <tr><td>Downloadkwaliteit</td><td>Standaard</td><td>Hoog</td><td>Origineel / zonder watermerk</td></tr>
-                    <tr><td>AI-zoekhulp</td><td>Basis</td><td>Uitgebreid</td><td>Volledig</td></tr>
-                    <tr><td>Moodboard maken</td><td>✔️</td><td>✔️</td><td>✔️</td></tr>
-                    <tr><td>Favorieten opslaan</td><td>-</td><td>✔️</td><td>✔️</td></tr>
-                    <tr><td>Notificaties/alerts</td><td>-</td><td>✔️</td><td>✔️</td></tr>
-                    <tr><td>Privé-albums</td><td>-</td><td>✔️</td><td>✔️</td></tr>
-                    <tr><td>AI-matching</td><td>-</td><td>✔️</td><td>✔️</td></tr>
-                    <tr><td>Gedeelde chatrooms</td><td>-</td><td>✔️</td><td>✔️</td></tr>
-                    <tr><td>Review-systeem</td><td>-</td><td>-</td><td>✔️</td></tr>
-                    <tr><td>Early access features</td><td>-</td><td>-</td><td>✔️</td></tr>
-                    <tr><td>Veilig & privacy</td><td>✔️</td><td>✔️</td><td>✔️</td></tr>
-                </tbody>
-            </table>
-        </section>
-        
-        <section class="features-comparison glass">
-            <h2>Alle plannen bevatten</h2>
-            <div class="features-grid">
-                <div class="feature">
-                    <h3>🔒 Veilige opslag</h3>
-                    <p>End-to-end encryptie voor al je bestanden</p>
-                </div>
-                <div class="feature">
-                    <h3>⚡ Snelle toegang</h3>
-                    <p>Bliksemsnelle loading tijden door onze CDN</p>
-                </div>
-                <div class="feature">
-                    <h3>🔄 Automatische backups</h3>
-                    <p>Nooit meer zorgen over verloren foto's</p>
-                </div>
-            </div>
-        </section>
-        
-        <section class="glass" style="margin:2rem auto;max-width:900px;">
-            <h2 style="text-align:center;color:#ffd700;">Upgrade met Pjotters-Currenty!</h2>
-            <div style="text-align:center;margin-bottom:2rem;">
-                <span style="font-size:1.1em;">Je kunt nu ook upgraden met <span style="color:#ffd700;font-weight:bold;">10.000 pjotters</span> (coins verdiend via <a href='Pjotters-Currenty.html' style='color:#f06292;'>games</a>) of voor <span style="color:#f06292;">€4,99/mnd</span>.</span>
-            </div>
-            <div id="pricing-bundels"></div>
-        </section>
+      </section>
+      <section id="pricing-tiers" class="animated-section"></section>
+      <section id="pricing-comparisons" class="animated-section"></section>
     </main>
     
     <footer class="glass">
-        <p> 2025 MediaMatch - Alle rechten voorbehouden</p>
+      <p> 2025 MediaMatch - Alle rechten voorbehouden</p>
     </footer>
     
     <script src="pricing.js"></script>
     <script src="pricing-klant.js"></script>
+    <script>
+      // --- Pricing Data ---
+      const PRICING_GROUPS = {
+        artiest: {
+          label: 'Artiest',
+          tiers: ['Basis','Pjotters-Currenty','Plus','Pro','Premium'],
+          comparison: [
+            ['Commerciële licentie', '30 dagen', '30 dagen (coins)', '90 dagen', '1 jaar', '2 jaar'],
+            ['AI-muziek genereren', '✔️', '✔️', '✔️', '✔️', '✔️'],
+            ['Aantal tracks per maand', '10', '10', '50', 'Onbeperkt', 'Onbeperkt'],
+            ['Royaltyvrij', '✔️', '✔️', '✔️', '✔️', '✔️'],
+            ['Support', 'Standaard', 'Standaard', 'Sneller (24u)', 'Premium (4u)', 'Premium (1u)'],
+            ['Licentie verlengen', 'Elke 30 dagen', 'Elke 30 dagen', 'Elke 90 dagen', 'Jaarlijks', '2 jaar'],
+          ]
+        },
+        fotograaf: {
+          label: 'Fotograaf',
+          tiers: ['Basis','Pjotters-Currenty','Plus','Pro','Premium'],
+          comparison: [
+            ['Foto uploads per maand', '50', '50', '250', 'Onbeperkt', 'Onbeperkt'],
+            ['Watermerk verwijderen', '-', '-', '✔️', '✔️', '✔️'],
+            ['Portfolio website', '-', '-', '✔️', '✔️', '✔️'],
+            ['AI-zoekhulp', 'Basis', 'Basis', 'Uitgebreid', 'Volledig', 'Volledig'],
+            ['Support', 'Standaard', 'Standaard', 'Sneller (24u)', 'Premium (4u)', 'Premium (1u)'],
+            ['Privé-albums', '-', '-', '✔️', '✔️', '✔️'],
+          ]
+        },
+        musicai: {
+          label: 'Music AI',
+          tiers: ['Basis','Pjotters-Currenty','Plus','Pro','Premium'],
+          comparison: [
+            ['Commerciële licentie', '30 dagen', '30 dagen (coins)', '90 dagen', '1 jaar', '2 jaar'],
+            ['AI-muziek genereren', '✔️', '✔️', '✔️', '✔️', '✔️'],
+            ['Tracks per maand', '10', '10', '50', 'Onbeperkt', 'Onbeperkt'],
+            ['Lyrics generator', '-', '-', '✔️', '✔️', '✔️'],
+            ['Instrumentaal & vocals', 'Instrumentaal', 'Instrumentaal', 'Instrumentaal', 'Beide', 'Beide'],
+            ['Support', 'Standaard', 'Standaard', 'Sneller (24u)', 'Premium (4u)', 'Premium (1u)'],
+          ]
+        },
+        klant: {
+          label: 'Klant',
+          tiers: ['Basis','Pjotters-Currenty','Plus','Pro','Premium'],
+          comparison: [
+            ['Chat met fotografen', '1 tegelijk', '1 tegelijk', '10 tegelijk', 'Onbeperkt', 'Onbeperkt'],
+            ['Foto uploads per chat', '2', '2', '5', '20', '50'],
+            ['Support', 'Standaard', 'Standaard', 'Sneller (24u)', 'Premium (4u)', 'Premium (1u)'],
+            ['Downloadkwaliteit', 'Standaard', 'Standaard', 'Hoog', 'Origineel', 'Origineel'],
+            ['AI-zoekhulp', 'Basis', 'Basis', 'Uitgebreid', 'Volledig', 'Volledig'],
+            ['Moodboard maken', '✔️', '✔️', '✔️', '✔️', '✔️'],
+            ['Favorieten opslaan', '-', '-', '✔️', '✔️', '✔️'],
+            ['Notificaties/alerts', '-', '-', '✔️', '✔️', '✔️'],
+            ['Privé-albums', '-', '-', '✔️', '✔️', '✔️'],
+            ['AI-matching', '-', '-', '✔️', '✔️', '✔️'],
+            ['Gedeelde chatrooms', '-', '-', '✔️', '✔️', '✔️'],
+            ['Review-systeem', '-', '-', '-', '✔️', '✔️'],
+            ['Early access features', '-', '-', '-', '✔️', '✔️'],
+            ['Veilig & privacy', '✔️', '✔️', '✔️', '✔️', '✔️'],
+          ]
+        }
+      };
+      // --- Tooltip data per plan ---
+      const PLAN_TOOLTIPS = {
+        Basis: 'Perfect om gratis te starten en kennis te maken. Bevat basisfuncties en beperkte support.',
+        'Pjotters-Currenty': 'Upgrade met coins! Zelfde voordelen als gratis, maar sneller support en extra features.',
+        Plus: 'Meer uploads, betere support en extra opties. Ideaal voor wie meer wil.',
+        Pro: 'Voor de serieuze gebruiker: snelle support, meer vrijheid, uitgebreidere tools.',
+        Premium: 'Maximaal alles: hoogste limieten, premium support, alle features zonder beperkingen.'
+      };
+      // --- Feature-lijst per plan (voorbeeld, per groep kun je uitbreiden) ---
+      const PLAN_FEATURES = {
+        artiest: {
+          Basis: ['10 tracks/maand','Commercieel: 30 dagen','Royaltyvrij','Standaard support'],
+          'Pjotters-Currenty': ['10 tracks/maand','Commercieel: 30 dagen (coins)','Royaltyvrij','Snellere support'],
+          Plus: ['50 tracks/maand','Commercieel: 90 dagen','Royaltyvrij','Snellere support'],
+          Pro: ['Onbeperkt tracks','Commercieel: 1 jaar','Royaltyvrij','Premium support'],
+          Premium: ['Onbeperkt tracks','Commercieel: 2 jaar','Royaltyvrij','Premium support (1u)']
+        },
+        fotograaf: {
+          Basis: ['50 uploads/maand','Watermerk','Portfolio basis','Standaard support'],
+          'Pjotters-Currenty': ['50 uploads/maand','Watermerk','Portfolio basis','Snellere support'],
+          Plus: ['250 uploads/maand','Geen watermerk','Portfolio uitgebreid','Snellere support'],
+          Pro: ['Onbeperkt uploads','Geen watermerk','Portfolio pro','Premium support'],
+          Premium: ['Onbeperkt uploads','Geen watermerk','Portfolio premium','Premium support (1u)']
+        },
+        musicai: {
+          Basis: ['10 tracks/maand','Instrumentaal','Commercieel: 30 dagen','Standaard support'],
+          'Pjotters-Currenty': ['10 tracks/maand','Instrumentaal','Commercieel: 30 dagen (coins)','Snellere support'],
+          Plus: ['50 tracks/maand','Instrumentaal','Commercieel: 90 dagen','Snellere support'],
+          Pro: ['Onbeperkt tracks','Instrumentaal & vocals','Commercieel: 1 jaar','Premium support'],
+          Premium: ['Onbeperkt tracks','Instrumentaal & vocals','Commercieel: 2 jaar','Premium support (1u)']
+        },
+        klant: {
+          Basis: ['1 chat tegelijk','2 uploads/chat','Standaard kwaliteit','Standaard support'],
+          'Pjotters-Currenty': ['1 chat tegelijk','2 uploads/chat','Standaard kwaliteit','Snellere support'],
+          Plus: ['10 chats tegelijk','5 uploads/chat','Hoge kwaliteit','Snellere support'],
+          Pro: ['Onbeperkt chats','20 uploads/chat','Origineel','Premium support'],
+          Premium: ['Onbeperkt chats','50 uploads/chat','Origineel','Premium support (1u)']
+        }
+      };
+      // --- Interactieve UI ---
+      const pricingTiers = document.getElementById('pricing-tiers');
+      const pricingComparisons = document.getElementById('pricing-comparisons');
+      const roleBtns = document.querySelectorAll('.role-btn');
+      const icons = {
+        'Basis': '🟢',
+        'Pjotters-Currenty': '💰',
+        'Plus': '✨',
+        'Pro': '🚀',
+        'Premium': '👑'
+      };
+      const ctas = {
+        'Basis': 'Start gratis en ontdek de basis!',
+        'Pjotters-Currenty': 'Upgrade met je verdiende coins! (beter dan gratis)',
+        'Plus': 'Meer mogelijkheden voor een klein bedrag.',
+        'Pro': 'Voor de serieuze gebruiker met extra power.',
+        'Premium': 'Maximale vrijheid, support en features!'
+      };
+      const prijzen = {
+        'Basis': '€0,00',
+        'Pjotters-Currenty': '10.000 pjotters',
+        'Plus': '€4,99',
+        'Pro': '€14,99',
+        'Premium': '€29,99'
+      };
+      // Tooltip & feature rendering
+      function renderTiers(role) {
+        const group = PRICING_GROUPS[role];
+        const uitleg = {
+          'artiest': 'Maak, beheer en verkoop je eigen muziek. Voor elke creatieve artiest die meer uit zijn tracks wil halen.',
+          'fotograaf': 'De plek voor fotografen om hun portfolio te delen, te verkopen en te laten groeien.',
+          'musicai': 'Genereer unieke AI-muziek, van instrumentaal tot met vocals, royaltyvrij en klaar voor gebruik.',
+          'klant': 'Word klant en krijg toegang tot chat, downloads, moodboards, en alle voordelen voor jouw creatieve projecten.'
+        };
+        pricingTiers.innerHTML = `
+          <div class='pricing-uitleg animated-section' style='text-align:center;max-width:700px;margin:0 auto 2rem auto;font-size:1.15em;color:#f5d300;'>${uitleg[role]}</div>
+          <div class='pricing-tier-grid'>
+            ${group.tiers.map(tier => `
+              <div class='pricing-card plan-${tier.toLowerCase().replace(/[^a-z]/g,'')}' tabindex="0" onmouseenter="showTooltip(event,'${tier}')" onmouseleave="hideTooltip()" onfocus="showTooltip(event,'${tier}')" onblur="hideTooltip()">
+                <h3>${icons[tier]||''} ${tier}</h3>
+                <div class='price'>${prijzen[tier]}</div>
+                <ul class='plan-features'>${PLAN_FEATURES[role][tier].map(f=>`<li>${f}</li>`).join('')}</ul>
+                <div class='cta-text' style='margin:1rem 0 0.5rem 0;color:#a259c6;font-size:1.01em;'>${ctas[tier]}</div>
+                <button onclick="planDetails('${role}','${tier}')">Kies ${tier}</button>
+              </div>`).join('')}
+          </div>
+          <div id="plan-tooltip" class="plan-tooltip" style="display:none;"></div>`;
+      }
+      // Tooltip helpers
+      window.showTooltip = function(e, tier) {
+        const card = e.currentTarget;
+        const tooltip = document.getElementById('plan-tooltip');
+        tooltip.textContent = PLAN_TOOLTIPS[tier];
+        tooltip.style.display = 'block';
+        const rect = card.getBoundingClientRect();
+        tooltip.style.left = (rect.left + rect.width/2 - 120) + 'px';
+        tooltip.style.top = (rect.top + window.scrollY - 60) + 'px';
+      };
+      window.hideTooltip = function() {
+        document.getElementById('plan-tooltip').style.display = 'none';
+      };
+      // Plan details popup
+      window.planDetails = function(role, tier) {
+        const features = PLAN_FEATURES[role][tier].map(f=>`<li>${f}</li>`).join('');
+        const html = `<div class='plan-popup-bg' onclick='closePlanPopup()'></div><div class='plan-popup'><h2>${icons[tier]||''} ${tier}</h2><div class='price'>${prijzen[tier]}</div><ul>${features}</ul><button onclick='closePlanPopup()'>Sluiten</button></div>`;
+        const popup = document.createElement('div');
+        popup.id = 'plan-popup-wrap';
+        popup.innerHTML = html;
+        document.body.appendChild(popup);
+      }
+      window.closePlanPopup = function() {
+        const popup = document.getElementById('plan-popup-wrap');
+        if (popup) popup.remove();
+      };
+      // Icon cell rendering
+      function iconCell(val) {
+        if (val==='✔️') return `<span style='color:#1db954;font-size:1.3em;'>✔️</span>`;
+        if (val==='-') return `<span style='color:#e74c3c;font-size:1.3em;'>✖️</span>`;
+        return val;
+      }
+      // Comparison rendering
+      function renderComparison(role) {
+        const group = PRICING_GROUPS[role];
+        const head = `<tr><th>Feature</th>${group.tiers.map(t=>`<th>${icons[t]||''} ${t}</th>`).join('')}</tr>`;
+        const rows = group.comparison.map(arr => `<tr>${arr.map((cell,i)=>i===0?`<td>${cell}</td>`:`<td>${iconCell(cell)}</td>`).join('')}</tr>`).join('');
+        pricingComparisons.innerHTML = `<section class='pricing-compare glass'><h2>Vergelijk ${group.label}-abonnementen</h2><table class='pricing-table'>${head}${rows}</table></section>`;
+      }
+      roleBtns.forEach(btn => btn.addEventListener('click', e => {
+        roleBtns.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        renderTiers(btn.dataset.role);
+        renderComparison(btn.dataset.role);
+      }));
+      // Init: start met artiest
+      renderTiers('artiest');
+      renderComparison('artiest');
+    </script>
 </body>
 </html>

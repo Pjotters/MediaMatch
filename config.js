@@ -1,6 +1,6 @@
 // config.js
 const config = {
-  apiUrl: 'https://earlier-simpson-sorted-feed.trycloudflare.com'
+  apiUrl: 'https://sellers-keyword-happened-cliff.trycloudflare.com'
 };
 
 // Maak config globaal beschikbaar
