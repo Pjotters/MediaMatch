@@ -67,3 +67,27 @@
   .main-nav {flex-wrap:wrap;gap:1rem;}
 }
 </style>
+
+<script>
+// Fix dropdowns na dynamisch includen
+(function(){
+  document.querySelectorAll('.main-nav .dropdown').forEach(function(drop){
+    var btn = drop.querySelector('.dropbtn');
+    var content = drop.querySelector('.dropdown-content');
+    btn.onclick = function(e){
+      e.preventDefault();
+      // Sluit andere dropdowns
+      document.querySelectorAll('.main-nav .dropdown-content').forEach(function(dc){
+        if(dc!==content) dc.style.display='none';
+      });
+      content.style.display = (content.style.display==='block') ? 'none' : 'block';
+    };
+  });
+  // Sluit dropdowns bij klikken buiten menu
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('.main-nav .dropdown')){
+      document.querySelectorAll('.main-nav .dropdown-content').forEach(function(dc){dc.style.display='none';});
+    }
+  });
+})();
+</script>
