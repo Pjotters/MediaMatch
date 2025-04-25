@@ -187,18 +187,34 @@ document.addEventListener('DOMContentLoaded', () => {
       img.src = e.target.result;
       img.onload = () => {
         if (!aiModel) {
-          window.ml5.imageClassifier('MobileNet', () => {
+          window.ml5.imageClassifier('MobileNet', function() {
             aiModel = this;
-            classifyImage(img, idx);
+            if (typeof aiModel.classify === 'function') {
+              classifyImage(img, idx);
+            } else {
+              aiSuggestionBox.innerHTML = 'AI-model niet geschikt voor classificatie.';
+              aiSuggestBtn.disabled = true;
+            }
           });
         } else {
-          classifyImage(img, idx);
+          if (typeof aiModel.classify === 'function') {
+            classifyImage(img, idx);
+          } else {
+            aiSuggestionBox.innerHTML = 'AI-model niet geschikt voor classificatie.';
+            aiSuggestBtn.disabled = true;
+          }
         }
       };
     };
     reader.readAsDataURL(file);
   }
+
   function classifyImage(img, idx) {
+    if (!aiModel || typeof aiModel.classify !== 'function') {
+      aiSuggestionBox.innerHTML = 'AI-model niet geladen of niet geschikt voor classificatie.';
+      aiSuggestBtn.disabled = true;
+      return;
+    }
     aiModel.classify(img, (err, results) => {
       if (err || !results || !results.length) {
         aiSuggestionBox.innerHTML = 'Geen AI suggesties gevonden.';
@@ -214,6 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
       photoMeta[idx].ai = { title: top, description: desc };
     });
   }
+
   aiSuggestBtn.onclick = () => {
     const ai = photoMeta[currentPhotoIdx].ai;
     if (!ai) return;
@@ -226,6 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
       photoDescriptionInput.classList.remove('ai-animated');
     }, 900);
   };
+
   nextPhotoBtn.onclick = () => {
     // Sla huidige titel/omschrijving op
     photoMeta[currentPhotoIdx].title = photoTitleInput.value;

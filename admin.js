@@ -57,6 +57,39 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     debugUserRole();
 
+    // --- ADMIN GATE: alleen tonen als backend zegt dat je admin bent ---
+    let isAdmin = false;
+    async function enforceAdminGate() {
+        isAdmin = await checkAdmin();
+        // Verberg ALLE admin-only elementen als je geen admin bent
+        const adminOnlyEls = document.querySelectorAll('.admin-only');
+        adminOnlyEls.forEach(el => {
+            el.style.display = isAdmin ? '' : 'none';
+        });
+        // Verberg adminGrid, bundelOverview, bezwarenOverview, gebruikersbeheer, chatbox etc.
+        if (!isAdmin) {
+            if (adminGrid) adminGrid.style.display = 'none';
+            if (bundelOverview) bundelOverview.style.display = 'none';
+            if (bezwarenOverview) bezwarenOverview.style.display = 'none';
+            if (adminChatBox) adminChatBox.style.display = 'none';
+            if (addBundelBtn) addBundelBtn.style.display = 'none';
+            // Gebruikersbeheer
+            const userOverview = document.getElementById('user-overview');
+            if (userOverview) userOverview.style.display = 'none';
+        } else {
+            if (adminGrid) adminGrid.style.display = '';
+            if (bundelOverview) bundelOverview.style.display = '';
+            if (bezwarenOverview) bezwarenOverview.style.display = '';
+            if (adminChatBox) adminChatBox.style.display = '';
+            if (addBundelBtn) addBundelBtn.style.display = '';
+            const userOverview = document.getElementById('user-overview');
+            if (userOverview) userOverview.style.display = '';
+        }
+    }
+    // Roep direct aan en na login/promotie
+    enforceAdminGate();
+    // --- EINDE ADMIN GATE ---
+
     // Admin promote formulier tonen als je geen admin bent
     checkAdmin().then(isAdmin => {
         if (!isAdmin) {
@@ -198,7 +231,110 @@ document.addEventListener('DOMContentLoaded', async () => {
             bezwarenOverview.innerHTML = '<em>Fout bij laden van bezwaren.</em>';
         });
 
-    // Admin promote formulier altijd tonen in hoek
+    // Alleen admin mag chatten
+    adminSendBtn.onclick = () => {
+        if (!isAdmin) {
+            alert('Alleen admins mogen chatten in de live-chat.');
+            return;
+        }
+        const msg = adminInput.value.trim();
+        if (!msg) return;
+        const user = 'ADMIN';
+        const msgObj = { user, message: msg };
+        socket.emit('chat message', msgObj);
+        appendAdminMsg(msgObj, true);
+        adminInput.value = '';
+    };
+
+    // Alleen admin mag gebruikersbeheer zien/laden
+    if (document.getElementById('user-overview')) {
+        if (isAdmin) {
+            loadUsers('all');
+        } else {
+            document.getElementById('user-overview').innerHTML = '<em>Alleen zichtbaar voor admins</em>';
+        }
+    }
+
+    const socket = io(window.config.apiUrl, { withCredentials: true });
+
+    function appendAdminMsg(msgObj, self) {
+        const el = document.createElement('div');
+        el.className = 'chat-msg' + (self ? ' self' : '');
+        // Status indicator
+        let statusDot = '';
+        if (msgObj.status === 'unread') {
+            statusDot = '<span class="chat-status-dot unread" title="Ongelezen"></span>';
+        } else if (msgObj.status === 'urgent') {
+            statusDot = '<span class="chat-status-dot urgent" title="Urgent"></span>';
+        } else if (msgObj.status === 'resolved') {
+            statusDot = '<span class="chat-status-dot resolved" title="Afgehandeld"></span>';
+        }
+        el.innerHTML = `${statusDot}<strong>${msgObj.user || 'Gast'}:</strong> ${msgObj.message}`;
+        adminChatBox.appendChild(el);
+        adminChatBox.scrollTop = adminChatBox.scrollHeight;
+    }
+
+    socket.on('chat message', (msgObj) => {
+        appendAdminMsg(msgObj, false);
+    });
+
+    // Haal chatgeschiedenis op
+    socket.emit('get history');
+    socket.on('chat history', (msgs) => {
+        adminChatBox.innerHTML = '';
+        // Prioriteer: urgent > unread > resolved
+        msgs.sort((a, b) => {
+            const order = { urgent: 0, unread: 1, resolved: 2 };
+            return (order[a.status] ?? 3) - (order[b.status] ?? 3);
+        });
+        msgs.forEach(msgObj => appendAdminMsg(msgObj, msgObj.user === 'ADMIN'));
+    });
+
+    // === GEBRUIKERSBEHEER EN VERIFICATIE ===
+    async function loadUsers(roleFilter = 'all') {
+        const token = localStorage.getItem('token');
+        const res = await fetch(`${window.config.apiUrl}/api/admin/users`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        let users = await res.json();
+        if (roleFilter !== 'all') users = users.filter(u => u.role === roleFilter);
+        renderUsers(users);
+    }
+
+    window.filterUsers = loadUsers;
+
+    function renderUsers(users) {
+        const el = document.getElementById('user-overview');
+        if (!el) return;
+        if (!users.length) { el.innerHTML = '<em>Geen profielen gevonden.</em>'; return; }
+        el.innerHTML = `<table style="width:100%;background:rgba(40,30,60,0.94);border-radius:10px;"><thead><tr><th>Naam</th><th>Email</th><th>Rol</th><th>Abonnement</th><th>Verified</th><th>Actie</th></tr></thead><tbody>
+` +
+            users.map(u => `<tr>
+              <td>${u.name||''}</td>
+              <td>${u.email}</td>
+              <td>${u.role}</td>
+              <td>${u.subscriptionType||''}</td>
+              <td>${u.verified ? '✔️' : ''}</td>
+              <td>${u.verified ? '' : `<button class="approve-btn" onclick="verifyUser('${u.email}')">Verifieer</button>`}</td>
+            </tr>`).join('') + '</tbody></table>';
+    }
+
+    window.verifyUser = async function(email) {
+        const token = localStorage.getItem('token');
+        await fetch(`${window.config.apiUrl}/api/admin/verify-user`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({ email })
+        });
+        loadUsers(window.lastRoleFilter||'all');
+    };
+
+    // Init gebruikersbeheer bij laden
+    if (document.getElementById('user-overview')) {
+        loadUsers('all');
+    }
+
+    // Toon promote-form altijd rechtsonder
     if (!document.getElementById('promote-container')) {
         const promoteDiv = document.createElement('div');
         promoteDiv.id = 'promote-container';
@@ -247,80 +383,5 @@ document.addEventListener('DOMContentLoaded', async () => {
             promoteStatus.textContent = data.message || 'Fout bij promoten.';
           }
         });
-    }
-
-    const socket = io(window.config.apiUrl, { withCredentials: true });
-
-    function appendAdminMsg(msgObj, self) {
-        const el = document.createElement('div');
-        el.className = 'chat-msg' + (self ? ' self' : '');
-        el.innerHTML = `<strong>${msgObj.user || 'Gast'}:</strong> ${msgObj.message}`;
-        adminChatBox.appendChild(el);
-        adminChatBox.scrollTop = adminChatBox.scrollHeight;
-    }
-
-    adminSendBtn.onclick = () => {
-        const msg = adminInput.value.trim();
-        if (!msg) return;
-        const user = 'ADMIN';
-        const msgObj = { user, message: msg };
-        socket.emit('chat message', msgObj);
-        appendAdminMsg(msgObj, true);
-        adminInput.value = '';
-    };
-
-    socket.on('chat message', (msgObj) => {
-        appendAdminMsg(msgObj, false);
-    });
-
-    // Haal chatgeschiedenis op
-    socket.emit('get history');
-    socket.on('chat history', (msgs) => {
-        adminChatBox.innerHTML = '';
-        msgs.forEach(msgObj => appendAdminMsg(msgObj, msgObj.user === 'ADMIN'));
-    });
-
-    // === GEBRUIKERSBEHEER EN VERIFICATIE ===
-    async function loadUsers(roleFilter = 'all') {
-        const token = localStorage.getItem('token');
-        const res = await fetch(`${window.config.apiUrl}/api/admin/users`, {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        let users = await res.json();
-        if (roleFilter !== 'all') users = users.filter(u => u.role === roleFilter);
-        renderUsers(users);
-    }
-
-    window.filterUsers = loadUsers;
-
-    function renderUsers(users) {
-        const el = document.getElementById('user-overview');
-        if (!el) return;
-        if (!users.length) { el.innerHTML = '<em>Geen profielen gevonden.</em>'; return; }
-        el.innerHTML = `<table style="width:100%;background:rgba(40,30,60,0.94);border-radius:10px;"><thead><tr><th>Naam</th><th>Email</th><th>Rol</th><th>Abonnement</th><th>Verified</th><th>Actie</th></tr></thead><tbody>
-` +
-            users.map(u => `<tr>
-              <td>${u.name||''}</td>
-              <td>${u.email}</td>
-              <td>${u.role}</td>
-              <td>${u.subscriptionType||''}</td>
-              <td>${u.verified ? '✔️' : ''}</td>
-              <td>${u.verified ? '' : `<button class="approve-btn" onclick="verifyUser('${u.email}')">Verifieer</button>`}</td>
-            </tr>`).join('') + '</tbody></table>';
-    }
-
-    window.verifyUser = async function(email) {
-        const token = localStorage.getItem('token');
-        await fetch(`${window.config.apiUrl}/api/admin/verify-user`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-            body: JSON.stringify({ email })
-        });
-        loadUsers(window.lastRoleFilter||'all');
-    };
-
-    // Init gebruikersbeheer bij laden
-    if (document.getElementById('user-overview')) {
-        loadUsers('all');
     }
 });

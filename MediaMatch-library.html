@@ -8,6 +8,7 @@
   <script src="MediaMatch-library.js" defer></script>
 </head>
 <body class="spotify-bg">
+  <div id="header-include"></div>
   <nav class="spotify-sidebar">
     <a href="MusicMatch.html" class="logo">MediaMatch</a>
     <a href="MusicMatch.html" class="nav-link">Home</a>
@@ -21,5 +22,10 @@
     </header>
     <section id="library-list" class="spotify-results"></section>
   </main>
+  <script>
+  fetch('header.html').then(r=>r.text()).then(html=>{
+    document.getElementById('header-include').innerHTML = html;
+  });
+  </script>
 </body>
 </html>

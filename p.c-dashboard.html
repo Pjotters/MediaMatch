@@ -69,15 +69,7 @@
   </style>
 </head>
 <body>
-  <header class="pjotters-header">
-    <h1><span style="color:#ffd700;">Pjotters</span>-Currenty</h1>
-    <nav>
-      <a href="Pjotters-Currenty.html">Home</a>
-      <a href="p.c-games.html">Games</a>
-      <a href="p.c-dashboard.html" class="active">Dashboard</a>
-      <a href="p.c-shop.html">Shop</a>
-    </nav>
-  </header>
+  <div id="header-include"></div>
   <main class="pjotters-main">
     <div class="dashboard-tabs">
       <button class="tab-btn active" data-tab="home">Home</button>
@@ -134,6 +126,11 @@
         document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
         tabContent.style.display = 'block';
       });
+    });
+  </script>
+  <script>
+    fetch('header.html').then(r=>r.text()).then(html=>{
+      document.getElementById('header-include').innerHTML = html;
     });
   </script>
 </body>

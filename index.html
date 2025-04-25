@@ -424,25 +424,7 @@
     </style>
 </head>
 <body>
-    <header class="glass">
-        <div class="logo"><img src="assets/MediaMatch.png" alt="MediaMatch Logo" height="40"></div>
-        <nav>
-          <a href="index.html" class="active">Home</a>
-          <a href="gallery.html">Galerij</a>
-          <a href="search.html">Zoeken</a>
-          <a href="upload-wizard.html">Upload</a>
-          <a href="beheer-albums.html">Albumbeheer</a>
-          <a href="pricing.html">Pricing</a>
-          <a href="login.html">Login</a>
-          <a href="legal.html">Legal</a>
-          <a href="admin.html">Admin</a>
-          <a href="Pjotters-Currenty.html">Pjotters Currenty</a>
-        </nav>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Wissel kleurenschema" title="Wissel kleurenschema">
-          <span class="theme-icon"></span>
-        </button>
-    </header>
-
+    <div id="header-include"></div>
     <main>
         <!-- Hero Sectie -->
         <section id="hero" class="glass">
@@ -533,6 +515,13 @@
             <div class="gallery-cta">
                 <a href="gallery.html" class="btn-primary">Bekijk Alle Foto's</a>
             </div>
+        </section>
+
+        <!-- Music section on home tab -->
+        <section id="music-home-section" class="glass" style="margin:3rem auto 2rem auto;max-width:900px;">
+          <h2>Muziek ontdekken & luisteren</h2>
+          <div id="music-home-list"></div>
+          <a href="MusicMatch.html" class="wizard-btn" style="margin-top:1.2rem;">Bekijk alle muziek</a>
         </section>
 
         <!-- Extra blokken -->
@@ -628,5 +617,26 @@
         <p>2025 MediaMatch - Alle rechten voorbehouden</p>
     </footer>
     <script src="gallery-preview.js"></script>
+    <script>
+    // Dynamisch header inladen op elke pagina
+    fetch('header.html').then(r=>r.text()).then(html=>{
+      document.getElementById('header-include').innerHTML = html;
+    });
+    // Laad muziek in home tabblad
+    fetch('config.js').then(()=>{
+      fetch(window.config.apiUrl + '/api/music/list').then(r=>r.json()).then(list=>{
+        const el = document.getElementById('music-home-list');
+        if(!el) return;
+        if(!list.length) {el.innerHTML = '<em>Geen muziek gevonden.</em>'; return;}
+        el.innerHTML = '';
+        list.slice(-6).reverse().forEach(track=>{
+          const d = document.createElement('div');
+          d.className = 'musicmatch-track';
+          d.innerHTML = `<b>${track.genre||'Onbekend genre'}</b> - ${track.sfeer||''} <audio controls src="${window.config.apiUrl}/api/music/stream/${track.id}"></audio>`;
+          el.appendChild(d);
+        });
+      });
+    });
+    </script>
 </body>
 </html>

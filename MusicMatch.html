@@ -8,6 +8,7 @@
   <script src="MusicMatch.js" defer></script>
 </head>
 <body class="dark-glass">
+  <div id="header-include"></div>
   <div class="musicmatch-main">
     <nav class="spotify-sidebar">
       <a href="MusicMatch.html" class="logo">MediaMatch</a>
@@ -37,5 +38,10 @@
       </section>
     </main>
   </div>
+  <script>
+  fetch('header.html').then(r=>r.text()).then(html=>{
+    document.getElementById('header-include').innerHTML = html;
+  });
+  </script>
 </body>
 </html>
