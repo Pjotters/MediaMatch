@@ -175,6 +175,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     fetch(`${window.config.apiUrl}/api/admin/bezwaren`, { credentials: 'include' })
         .then(r => r.json())
         .then(bezwaren => {
+            if (!Array.isArray(bezwaren)) bezwaren = [];
             if (!bezwaren || bezwaren.length === 0) {
                 bezwarenOverview.innerHTML = '<em>Geen bezwaren gevonden.</em>';
                 return;
@@ -192,7 +193,61 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
             html += '</table>';
             bezwarenOverview.innerHTML = html;
+        })
+        .catch(err => {
+            bezwarenOverview.innerHTML = '<em>Fout bij laden van bezwaren.</em>';
         });
+
+    // Admin promote formulier altijd tonen in hoek
+    if (!document.getElementById('promote-container')) {
+        const promoteDiv = document.createElement('div');
+        promoteDiv.id = 'promote-container';
+        promoteDiv.style.position = 'fixed';
+        promoteDiv.style.bottom = '2rem';
+        promoteDiv.style.right = '2rem';
+        promoteDiv.style.background = 'rgba(34,20,46,0.97)';
+        promoteDiv.style.backdropFilter = 'blur(8px)';
+        promoteDiv.style.borderRadius = '1.2rem';
+        promoteDiv.style.boxShadow = '0 4px 40px #0008';
+        promoteDiv.style.color = '#fff';
+        promoteDiv.style.zIndex = '9999';
+        promoteDiv.style.padding = '1.2rem 1.5rem 1.1rem 1.5rem';
+        promoteDiv.innerHTML = `
+          <form id="promote-form">
+            <label for="promote-code">Admin-code:</label><br>
+            <input id="promote-code" name="code" type="text" style="margin-top:0.5rem;max-width:150px;">
+            <button type="submit" class="wizard-btn" style="margin-left:0.7rem;">Word admin</button>
+            <div id="promote-status" style="margin-top:0.7rem;font-size:1em;"></div>
+          </form>`;
+        document.body.appendChild(promoteDiv);
+        const promoteForm = document.getElementById('promote-form');
+        const promoteStatus = document.getElementById('promote-status');
+        promoteForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          promoteStatus.textContent = 'Bezig met promoten...';
+          const code = promoteForm.elements['code'].value;
+          const token = localStorage.getItem('token');
+          const res = await fetch(`${window.config.apiUrl}/api/promote`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ code }),
+            credentials: 'include'
+          });
+          const data = await res.json();
+          if (data.success) {
+            promoteStatus.textContent = 'Je bent nu admin! Je wordt nu automatisch uitgelogd. Log opnieuw in voor admin-rechten.';
+            setTimeout(() => {
+              localStorage.removeItem('token');
+              window.location.href = '/login.html';
+            }, 1800);
+          } else {
+            promoteStatus.textContent = data.message || 'Fout bij promoten.';
+          }
+        });
+    }
 
     const socket = io(window.config.apiUrl, { withCredentials: true });
 

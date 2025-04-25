@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   function showPlanDetails(role, key, label) {
     const features = PLAN_FEATURES[role][key].map(f=>`<li>${f}</li>`).join('');
-    const html = `<div class='plan-popup-bg' onclick='closePlanPopup()'></div><div class='plan-popup'><h2>${label}</h2><ul>${features}</ul><button onclick='closePlanPopup()'>Sluiten</button></div>`;
+    const html = `<div class='plan-popup-bg' onclick='window.closePlanPopup()'></div><div class='plan-popup'><h2>${label}</h2><ul>${features}</ul><button onclick='window.closePlanPopup()'>Sluiten</button></div>`;
     let popup = document.getElementById('plan-popup-wrap');
     if (!popup) {
       popup = document.createElement('div');
@@ -164,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const popup = document.getElementById('plan-popup-wrap');
     if (popup) popup.remove();
   }
+  window.closePlanPopup = closePlanPopup;
 
   roleBtns.forEach(btn => {
     btn.onclick = () => {

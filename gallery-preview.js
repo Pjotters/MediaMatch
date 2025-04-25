@@ -1,6 +1,9 @@
 // Dynamische gallery carrousel op home (index.html)
 fetch('/api/uploads/recent?limit=20')
-  .then(r=>r.json())
+  .then(r => {
+    if (!r.ok) throw new Error('Kan uploads niet laden');
+    return r.json();
+  })
   .then(imgs => {
     const track = document.getElementById('galleryPreviewCarousel');
     if (!imgs.length) {
@@ -13,6 +16,10 @@ fetch('/api/uploads/recent?limit=20')
       </div>`
     ).join('');
     setupCarousel(track, imgs.length);
+  })
+  .catch(err => {
+    const track = document.getElementById('galleryPreviewCarousel');
+    if (track) track.innerHTML = '<div style="color:#f5d300;font-size:1.1em;">Fout bij laden van uploads.</div>';
   });
 
 function setupCarousel(track, total) {
