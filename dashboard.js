@@ -131,3 +131,194 @@ async function loadInkomen() {
     tbody.appendChild(tr);
   });
 }
+
+// === MediaMatch Dashboard Loader ===
+// Laadt dynamisch het juiste dashboard op basis van user role & abonnement
+
+// Haal profiel uit backend (dummy: localStorage)
+async function fetchUserProfile() {
+  // In productie: haal uit backend met token
+  return JSON.parse(localStorage.getItem('userProfile') || '{}');
+}
+
+async function fetchApiUsage() {
+  // Dummy data, vervang met echte API-call
+  return { total: 1234, month: 56, plan: 'pro', limit: 1000 };
+}
+async function fetchArtistTracks() {
+  return [
+    { title: 'Zomerzon', listens: 120, likes: 15, comments: 2 },
+    { title: 'Herfstwind', listens: 98, likes: 8, comments: 1 }
+  ];
+}
+async function fetchPhotographerUploads() {
+  return [
+    { name: 'Bruiloft', date: '2025-03-01', likes: 12, comments: 3 },
+    { name: 'Portret', date: '2025-04-10', likes: 7, comments: 0 }
+  ];
+}
+async function fetchPhotographerAlbums() {
+  return [
+    { title: 'Lente', count: 24 },
+    { title: 'Zomer', count: 18 }
+  ];
+}
+async function fetchPhotographerLiveChats() {
+  return [
+    { klant: 'Jan', last: 'Hoi, kan ik deze foto kopen?' },
+    { klant: 'Lisa', last: 'Bedankt voor de shoot!' }
+  ];
+}
+async function fetchClientFaceResults() {
+  return [
+    { photo: 'IMG_1234.jpg', match: 'Bruiloft 2024', date: '2025-04-01' },
+    { photo: 'IMG_9999.jpg', match: 'Portret', date: '2025-04-03' }
+  ];
+}
+async function fetchClientFavorites() {
+  return [
+    { title: 'Herfstwandeling', photographer: 'Sanne', date: '2025-03-21' }
+  ];
+}
+async function fetchClientComments() {
+  return [
+    { comment: 'Prachtige foto!', photo: 'Bruiloft', date: '2025-03-01' }
+  ];
+}
+async function fetchMusicAIGenerated() {
+  return [
+    { title: 'AI Song 1', genre: 'Pop', plays: 44 },
+    { title: 'AI Song 2', genre: 'Jazz', plays: 17 }
+  ];
+}
+async function fetchMusicAIGenres() {
+  return [
+    { genre: 'Pop', count: 12 },
+    { genre: 'Jazz', count: 5 }
+  ];
+}
+
+const DASHBOARD_COMPONENTS = {
+  developer: async function(user) {
+    const api = await fetchApiUsage();
+    return `
+      <h2>Developer Dashboard</h2>
+      <section class="dashboard-section">
+        <h3>API-gebruik</h3>
+        <div id="api-usage">
+          <p><strong>Totaal:</strong> ${api.total} calls</p>
+          <p><strong>Deze maand:</strong> ${api.month} / ${api.limit} (${api.plan})</p>
+        </div>
+        <h3>API-sleutel</h3>
+        <div class="api-key-box">${user.apiKey || 'Geen API-key gevonden.'}</div>
+        <button id="regen-api-key">Genereer nieuwe API-key</button>
+      </section>
+      <section class="dashboard-section"><h3>Instellingen</h3>${renderSettings(user)}</section>
+    `;
+  },
+  artiest: async function(user) {
+    const tracks = await fetchArtistTracks();
+    return `
+      <h2>Artiest Dashboard</h2>
+      <section class="dashboard-section">
+        <h3>Mijn tracks</h3>
+        <ul class="dashboard-list">
+          ${tracks.map(t=>`<li>${t.title} <span class='badge'>${t.listens} beluisterd, ${t.likes} likes, ${t.comments} reacties</span></li>`).join('')}
+        </ul>
+        <h3>Likes & Comments</h3>
+        <div id="artist-likes-comments">(Likes/comments API coming soon)</div>
+      </section>
+      <section class="dashboard-section"><h3>Instellingen</h3>${renderSettings(user)}</section>
+    `;
+  },
+  fotograaf: async function(user) {
+    const uploads = await fetchPhotographerUploads();
+    const albums = await fetchPhotographerAlbums();
+    const chats = await fetchPhotographerLiveChats();
+    return `
+      <h2>Fotograaf Dashboard</h2>
+      <section class="dashboard-section">
+        <h3>Mijn uploads</h3>
+        <ul class="dashboard-list">
+          ${uploads.map(u=>`<li>${u.name} (${u.date}) <span class='badge'>${u.likes} likes, ${u.comments} reacties</span></li>`).join('')}
+        </ul>
+        <h3>Albums</h3>
+        <ul class="dashboard-list">
+          ${albums.map(a=>`<li>${a.title} <span class='badge'>${a.count} foto's</span></li>`).join('')}
+        </ul>
+        <h3>Live chat met klanten</h3>
+        <ul class="dashboard-list">
+          ${chats.map(c=>`<li><strong>${c.klant}:</strong> ${c.last}</li>`).join('')}
+        </ul>
+      </section>
+      <section class="dashboard-section"><h3>Instellingen</h3>${renderSettings(user)}</section>
+    `;
+  },
+  klant: async function(user) {
+    const faces = await fetchClientFaceResults();
+    const favs = await fetchClientFavorites();
+    const comments = await fetchClientComments();
+    return `
+      <h2>Klant Dashboard</h2>
+      <section class="dashboard-section">
+        <h3>Gezichtsherkennings-resultaten</h3>
+        <ul class="dashboard-list">
+          ${faces.map(f=>`<li>${f.photo} → <em>${f.match}</em> (${f.date})</li>`).join('')}
+        </ul>
+        <h3>Favoriete foto's</h3>
+        <ul class="dashboard-list">
+          ${favs.map(f=>`<li>${f.title} door ${f.photographer} (${f.date})</li>`).join('')}
+        </ul>
+        <h3>Mijn comments</h3>
+        <ul class="dashboard-list">
+          ${comments.map(c=>`<li>${c.comment} op ${c.photo} (${c.date})</li>`).join('')}
+        </ul>
+      </section>
+      <section class="dashboard-section"><h3>Instellingen</h3>${renderSettings(user)}</section>
+    `;
+  },
+  musicai: async function(user) {
+    const generated = await fetchMusicAIGenerated();
+    const genres = await fetchMusicAIGenres();
+    return `
+      <h2>Music AI Dashboard</h2>
+      <section class="dashboard-section">
+        <h3>Gegenereerde muziek</h3>
+        <ul class="dashboard-list">
+          ${generated.map(g=>`<li>${g.title} (${g.genre}) <span class='badge'>${g.plays} beluisterd</span></li>`).join('')}
+        </ul>
+        <h3>Genres & Beluisteringen</h3>
+        <ul class="dashboard-list">
+          ${genres.map(g=>`<li>${g.genre}: ${g.count} tracks</li>`).join('')}
+        </ul>
+      </section>
+      <section class="dashboard-section"><h3>Instellingen</h3>${renderSettings(user)}</section>
+    `;
+  },
+};
+
+function renderSettings(user) {
+  return `
+    <div class="settings-box">
+      <p><strong>Naam:</strong> ${user.name || ''}</p>
+      <p><strong>E-mail:</strong> ${user.email || ''}</p>
+      <button id="edit-profile">Wijzig gegevens</button>
+      <button id="delete-account" class="danger">Verwijder account</button>
+      <h4>Analyse over jou</h4>
+      <div id="user-analysis">${user.analysis || 'Geen analyse beschikbaar.'}</div>
+    </div>
+  `;
+}
+
+async function loadDashboard() {
+  const user = await fetchUserProfile();
+  const root = document.getElementById('dashboard-root');
+  if (!user || !user.role) {
+    root.innerHTML = '<p>Niet ingelogd of geen gebruikersprofiel gevonden.</p>';
+    return;
+  }
+  const component = DASHBOARD_COMPONENTS[user.role] || (async () => '<p>Onbekende rol.</p>');
+  root.innerHTML = await component(user);
+}
+
+document.addEventListener('DOMContentLoaded', loadDashboard);

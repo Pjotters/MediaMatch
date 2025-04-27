@@ -18,55 +18,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
         showStatus('Bezig met inloggen...', 'loading');
-
-        const email = form.email.value;
-        const password = form.password.value;
-
+        const body = {
+            email: form.email.value,
+            password: form.password.value
+        };
         try {
-            // Probeer eerst de primaire API
-            let res;
-            let data;
-            
-            try {
-                res = await fetch(`${window.config.apiUrl}/api/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
-                });
-                
-                if (!res.ok) {
-                    throw new Error('Primaire API niet beschikbaar');
-                }
-                
-                data = await res.json();
-                console.log('Login via primaire API geslaagd');
-            } catch (primaryError) {
-                console.log('Fallback naar backup API endpoint', primaryError);
-                res = await fetch(`${window.config.apiUrl}/api/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
-                });
-                data = await res.json();
-                console.log('Login via backup API');
-            }
-            
-            if ((res.ok || data.success) && data.token) {
-                // Gebruiker opslaan in localStorage
-                localStorage.setItem('user', email);
-                localStorage.setItem('token', data.token); // JWT-token opslaan voor upload!
-                showStatus('Login gelukt! Je wordt doorgestuurd...', 'success');
+            const res = await fetch(`${window.config.apiUrl}/api/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            const data = await res.json();
+            if (res.ok && data.success) {
+                // Sla profiel info lokaal op (voor dashboard)
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('userProfile', JSON.stringify(data.user || {}));
+                showStatus('Succesvol ingelogd! Je wordt doorgestuurd...', 'success');
                 setTimeout(() => {
-                    window.location.href = '/upload.html';
-                }, 1500);
+                    window.location.href = '/MediaMatch-Dashboard.html';
+                }, 1200);
             } else {
-                showStatus(`Fout: ${data.message || 'Er is iets misgegaan'}`, 'error');
+                showStatus(data.message || 'Ongeldige inloggegevens', 'error');
             }
-        } catch (error) {
-            console.error('Login fout:', error);
-            showStatus('Netwerkfout. Controleer je verbinding en probeer opnieuw.', 'error');
+        } catch (err) {
+            showStatus('Netwerkfout. Probeer opnieuw.', 'error');
         }
     });
 });

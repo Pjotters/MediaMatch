@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediaMatch Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="dashboard-bg">
+  <div id="header-include"></div>
+  <main id="dashboard-root" class="glass dashboard-root">
+    <!-- Dynamische dashboard content wordt hier geladen -->
+  </main>
+  <footer class="glass">
+    <p>2025 MediaMatch - Alle rechten voorbehouden</p>
+  </footer>
+  <script src="config.js"></script>
+  <script src="dashboard.js"></script>
+  <script>
+    // Laad header
+    fetch('header.html').then(r=>r.text()).then(html=>{
+      document.getElementById('header-include').innerHTML = html;
+    });
+  </script>
+</body>
+</html>
