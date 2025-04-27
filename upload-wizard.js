@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let photoFiles = [];
   let photoMeta = [];
   let currentPhotoIdx = 0;
-  let aiModel = null;
+  let aiModel; // <-- Zorg dat deze declaratie maar één keer voorkomt!
   let ocrResult = null;
   let planLimit = 3; // default, wordt dynamisch opgehaald
   let maxFiles = 8; // default, wordt dynamisch bepaald
@@ -79,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // === AI MODEL INITIALISATIE ===
-  let aiModel = null;
   function loadAiModel(cb) {
     if (window.ml5 && window.ml5.imageClassifier) {
       window.ml5.imageClassifier('MobileNet', function() {
@@ -108,15 +107,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // Check album limiet via API
     try {
-      const res = await fetch(`${window.config.apiUrl}/api/user-albums?photographer=${encodeURIComponent(photographerNameInput.value)}`, {
+      const res = await fetch(`${window.config.apiUrl}/api/albums/limit`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       if (res.ok) {
         const data = await res.json();
-        const plan = data.plan || 'free';
-        const maxAlbums = plan === 'pro' ? 25 : plan === 'unlimited' ? 99999 : 5;
-        if (data.albums && data.albums.includes(albumNameInput.value.trim())) {
-          albumLimitInfo.textContent = 'Je hebt al een album met deze naam. Kies een andere naam of verwijder een album.';
+        if (!data.allowed) {
+          albumLimitInfo.textContent = data.message || 'Albumlimiet bereikt.';
           albumNameInput.classList.add('ai-animated');
           setTimeout(() => albumNameInput.classList.remove('ai-animated'), 800);
           albumNameInput.focus();

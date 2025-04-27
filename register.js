@@ -43,39 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
             name: form.name.value,
             email: form.email.value,
             password: form.password.value,
-            role: form.role.value,
-            subscriptionType: form.subscriptionType.value
+            role: form['role-select'] ? form['role-select'].value : form.role.value,
+            subscriptionType: form['plan-select'] ? form['plan-select'].value : form.subscriptionType.value
         };
 
         try {
-            // Probeer eerst de primaire API
-            let res;
-            let data;
-            
-            try {
-                res = await fetch(`${window.config.apiUrl}/api/register`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(body)
-                });
-                
-                if (!res.ok) {
-                    throw new Error('Primaire API niet beschikbaar');
-                }
-                
-                data = await res.json();
-                console.log('Registratie via primaire API geslaagd');
-            } catch (primaryError) {
-                console.log('Fallback naar backup API endpoint', primaryError);
-                res = await fetch(`${window.config.apiUrl}/api/register`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(body)
-                });
-                data = await res.json();
-                console.log('Registratie via backup API');
-            }
-            
+            let res = await fetch(`${window.config.apiUrl}/api/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            let data = await res.json();
             if (res.ok || data.success) {
                 showStatus('Registratie gelukt! Je wordt doorgestuurd...', 'success');
                 setTimeout(() => {

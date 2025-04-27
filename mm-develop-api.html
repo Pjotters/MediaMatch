@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MM Developer API - Uitleg & Sleutel Genereren</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #232526, #3a3a3a 80%);
+      color: #fafafa;
+      font-family: 'Nunito', Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .glass {
+      background: rgba(40, 40, 50, 0.55);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 2rem 2.5rem;
+      margin: 2rem auto;
+      max-width: 540px;
+      position: relative;
+      animation: fadeInUp 1.2s cubic-bezier(.39,.575,.565,1.000) both;
+    }
+    @keyframes fadeInUp {
+      0% {transform: translateY(40px); opacity:0;}
+      100% {transform: translateY(0); opacity:1;}
+    }
+    .stap {
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      animation: fadeInUp 1s both;
+    }
+    .stap-icoon {
+      width: 56px; height: 56px; border-radius: 50%; background: rgba(60,255,180,0.13); display: flex; align-items: center; justify-content: center; font-size: 2.1rem; color: #3bf0b4; box-shadow: 0 2px 12px 0 rgba(60,255,180,0.11);
+      flex-shrink: 0;
+      animation: bounceIn 1.2s cubic-bezier(.39,.575,.565,1.000) both;
+    }
+    @keyframes bounceIn {
+      0% {transform: scale(0.6); opacity:0;}
+      70% {transform: scale(1.15); opacity:1;}
+      100% {transform: scale(1);}
+    }
+    .stap-tekst {
+      flex: 1;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #e9ffe1;
+    }
+    .prijs-levels {
+      margin: 2.5rem 0 2rem 0;
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .prijs-card {
+      background: rgba(60,255,180,0.08);
+      border-radius: 18px;
+      padding: 1.3rem 1.7rem;
+      box-shadow: 0 2px 12px 0 rgba(60,255,180,0.09);
+      color: #fff;
+      min-width: 180px;
+      text-align: center;
+      border: 2px solid transparent;
+      transition: border 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      position: relative;
+      animation: fadeInUp 1.2s both;
+    }
+    .prijs-card.actief, .prijs-card:hover {
+      border: 2px solid #3bf0b4;
+      box-shadow: 0 4px 24px 0 rgba(60,255,180,0.22);
+    }
+    .prijs-card .level-icoon {
+      font-size: 2.3rem;
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+    .animatie-video {
+      margin: 3rem auto 2rem auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 540px;
+      height: 220px;
+      background: rgba(60,255,180,0.11);
+      border-radius: 18px;
+      box-shadow: 0 2px 12px 0 rgba(60,255,180,0.09);
+      position: relative;
+      overflow: hidden;
+    }
+    .animatie-icoon {
+      font-size: 4.5rem;
+      animation: bounceIn 1.2s both infinite alternate;
+      color: #3bf0b4;
+      opacity: 0.85;
+    }
+    .animatie-label {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.1rem;
+      color: #e9ffe1;
+      background: rgba(40,40,50,0.7);
+      padding: 0.4rem 1.2rem;
+      border-radius: 12px;
+      box-shadow: 0 1px 6px 0 rgba(60,255,180,0.08);
+    }
+    .api-key-box {
+      background: rgba(60,255,180,0.13);
+      color: #232526;
+      font-weight: bold;
+      border-radius: 10px;
+      padding: 0.7rem 1.2rem;
+      margin: 1rem 0 2rem 0;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      word-break: break-all;
+      box-shadow: 0 2px 12px 0 rgba(60,255,180,0.09);
+      display: none;
+      transition: all 0.3s;
+    }
+    .api-key-box.visible {
+      display: block;
+      animation: fadeInUp 1s both;
+    }
+    .btn-genereer {
+      background: linear-gradient(90deg, #3bf0b4 60%, #2be2f0 100%);
+      color: #232526;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      padding: 0.9rem 2.1rem;
+      font-size: 1.12rem;
+      margin: 1.2rem 0 0.7rem 0;
+      cursor: pointer;
+      box-shadow: 0 2px 12px 0 rgba(60,255,180,0.13);
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    .btn-genereer:hover {
+      background: linear-gradient(90deg, #2be2f0 60%, #3bf0b4 100%);
+      box-shadow: 0 4px 18px 0 rgba(60,255,180,0.22);
+    }
+  </style>
+</head>
+<body>
+  <div class="glass">
+    <h1 style="text-align:center;">👩‍💻 MM Developer API</h1>
+    <div class="animatie-video">
+      <span class="animatie-icoon" id="animatieIcoon">🔑</span>
+      <span class="animatie-label">Stap voor stap animatie</span>
+    </div>
+    <div class="prijs-levels">
+      <div class="prijs-card actief" data-level="starter">
+        <span class="level-icoon">🟢</span>
+        <strong>Starter</strong><br>
+        <span>Beperkte API-calls<br>Max 100/maand</span>
+      </div>
+      <div class="prijs-card" data-level="pro">
+        <span class="level-icoon">🟣</span>
+        <strong>Pro</strong><br>
+        <span>Meer API-calls<br>Max 1000/maand</span>
+      </div>
+      <div class="prijs-card" data-level="unlimited">
+        <span class="level-icoon">💎</span>
+        <strong>Unlimited</strong><br>
+        <span>Onbeperkt gebruik<br>Premium support</span>
+      </div>
+    </div>
+    <div class="stap">
+      <div class="stap-icoon">1</div>
+      <div class="stap-tekst">Klik op de <b>prijs</b> die bij jou past! (Starter, Pro of Unlimited)</div>
+    </div>
+    <div class="stap">
+      <div class="stap-icoon">2</div>
+      <div class="stap-tekst">Klik op de grote knop hieronder om jouw <b>eigen API-sleutel</b> te maken.<br>Deze sleutel is geheim, net als een schatkist-sleutel!</div>
+    </div>
+    <button class="btn-genereer" id="btnGenereer">Genereer mijn API-sleutel!</button>
+    <div class="api-key-box" id="apiKeyBox"></div>
+    <div class="stap">
+      <div class="stap-icoon">3</div>
+      <div class="stap-tekst">Gebruik deze sleutel in jouw app of website. Voeg hem toe aan elk verzoek als <b>x-api-key</b> header.<br>Bijvoorbeeld:<br><code style="background:#222;padding:2px 8px;border-radius:5px;">x-api-key: JOUW-SLEUTEL-HIER</code></div>
+    </div>
+    <div class="stap">
+      <div class="stap-icoon">4</div>
+      <div class="stap-tekst">Nu kun je plaatjes ophalen via de API!<br>Bijvoorbeeld:<br><code style="background:#222;padding:2px 8px;border-radius:5px;">GET /api/photos</code></div>
+    </div>
+    <div class="stap">
+      <div class="stap-icoon">5</div>
+      <div class="stap-tekst">Wil je upgraden? Kies een ander prijslevel en klik opnieuw!</div>
+    </div>
+  </div>
+  <script>
+    // Animatie van icoon
+    let animatieIcoon = document.getElementById('animatieIcoon');
+    let iconen = ['🔑','🧩','📦','🚀','💎'];
+    let i = 0;
+    setInterval(()=>{
+      i = (i+1)%iconen.length;
+      animatieIcoon.textContent = iconen[i];
+    }, 1200);
+
+    // Prijslevels interactief
+    const prijsCards = document.querySelectorAll('.prijs-card');
+    let huidigLevel = 'starter';
+    prijsCards.forEach(card => {
+      card.addEventListener('click', function() {
+        prijsCards.forEach(c => c.classList.remove('actief'));
+        this.classList.add('actief');
+        huidigLevel = this.getAttribute('data-level');
+      });
+    });
+
+    // Genereer API-key knop (dummy demo)
+    document.getElementById('btnGenereer').addEventListener('click', function() {
+      // In productie: hier een fetch naar backend endpoint voor apiKey
+      let fakeKey = 'MM-' + huidigLevel.toUpperCase() + '-' + Math.random().toString(36).substr(2, 8).toUpperCase();
+      let box = document.getElementById('apiKeyBox');
+      box.textContent = fakeKey;
+      box.classList.add('visible');
+    });
+  </script>
+</body>
+</html>

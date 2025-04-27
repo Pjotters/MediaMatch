@@ -190,36 +190,38 @@
     <main>
         <section id="register-flow" class="glass" style="max-width:700px;margin:3rem auto 2rem auto;padding:2.5rem 2rem;">
             <h1>Maak je MediaMatch account</h1>
-            <div id="register-step-role">
-                <h2>Kies je type gebruiker</h2>
-                <div class="role-choices">
-                    <button class="role-btn" data-role="artiest">Artiest</button>
-                    <button class="role-btn" data-role="fotograaf">Fotograaf</button>
-                    <button class="role-btn" data-role="musicai">Music AI</button>
-                    <button class="role-btn" data-role="klant">Klant</button>
-                </div>
-            </div>
-            <div id="register-step-plan" style="display:none;margin-top:2.5rem;">
-                <h2>Kies een abonnement</h2>
-                <div id="plan-cards" class="grid-container"></div>
-            </div>
-            <div id="register-step-form" style="display:none;margin-top:2.5rem;">
+            <div id="register-step-form" style="display:block;margin-top:2.5rem;">
                 <h2>Vul je gegevens in</h2>
                 <form id="registerForm" autocomplete="off">
-                    <input type="hidden" name="role" id="form-role">
-                    <input type="hidden" name="subscriptionType" id="form-plan">
                     <div class="form-group">
                         <label for="name">Naam</label>
                         <input type="text" name="name" id="name" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">E-mail</label>
+                        <label for="email">E-mailadres</label>
                         <input type="email" name="email" id="email" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Wachtwoord</label>
                         <input type="password" name="password" id="password" class="form-control" required minlength="8">
                         <div id="password-strength" class="password-strength"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="plan-select">Kies je abonnement</label>
+                        <select id="plan-select" name="subscriptionType" class="form-control" required>
+                            <option value="starter">Starter (Gratis)</option>
+                            <option value="pro">Pro</option>
+                            <option value="unlimited">Unlimited</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="role-select">Kies je rol</label>
+                        <select id="role-select" name="role" class="form-control" required>
+                            <option value="developer">Developer</option>
+                            <option value="artiest">Artiest</option>
+                            <option value="fotograaf">Fotograaf</option>
+                            <option value="klant">Klant</option>
+                        </select>
                     </div>
                     <button class="btn-register" type="submit">Registreer</button>
                     <div id="status" class="status-message" style="display:none;"></div>
