@@ -104,8 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
       name: registerForm.name.value,
       email: registerForm.email.value,
       password: registerForm.password.value,
-      role: formRole.value,
-      subscriptionType: formPlan.value
+      role: registerForm['role-select'] ? registerForm['role-select'].value : (registerForm.role ? registerForm.role.value : ''),
+      subscriptionType: registerForm['plan-select'] ? registerForm['plan-select'].value : (registerForm.subscriptionType ? registerForm.subscriptionType.value : '')
     };
     try {
       const res = await fetch(window.config.apiUrl + '/api/register', {

@@ -979,3 +979,26 @@ footer {
   #plan-cards {grid-template-columns:1fr;}
   .plan-card {padding:1.5rem 0.8rem;}
 }
+
+/* Custom dropdown styling */
+.styled-dropdown {
+  background: rgba(34,20,46,0.93);
+  border: 2px solid #43e97b;
+  color: #fff;
+  border-radius: 1.2rem;
+  padding: 0.7rem 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 10px #0002;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.styled-dropdown:focus {
+  border: 2px solid #b993f7;
+  box-shadow: 0 0 0 3px #43e97b44;
+}
+.styled-dropdown option {
+  background: #24162e;
+  color: #fff;
+}
