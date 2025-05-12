@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>MediaMatch | Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="home.html">Home</a>
+    <a href="gallery.html">Galerij</a>
+    <a href="upload.html">Upload</a>
+    <a href="prijzen-fotografen.html">Prijzen Fotografen</a>
+    <a href="dashboard.html" class="active">Dashboard</a>
+  </nav>
+  <main>
+    <h1>Mijn Dashboard</h1>
+    <section class="account-section">
+      <h2>Accountgegevens</h2>
+      <form id="accountForm">
+        <label>Naam: <input type="text" name="naam" id="naamInput" required></label><br>
+        <label>Email: <input type="email" name="email" id="emailInput" required></label><br>
+        <label>Abonnement: <span id="planLabel"></span></label><br>
+        <label>Pjotters-Verified: <span id="verifiedBadge"></span></label><br>
+        <label><input type="checkbox" id="aiTrainCheck"> Mijn uploads mogen gebruikt worden voor AI-training</label><br>
+        <button type="submit" class="wizard-btn">Opslaan</button>
+      </form>
+    </section>
+    <section class="quota-section">
+      <h2>Quota & Limieten</h2>
+      <div id="quotaOverview">Laden...</div>
+    </section>
+    <section class="uploads-section">
+      <h2>Mijn uploads</h2>
+      <div id="myUploads">Laden...</div>
+    </section>
+  </main>
+  <footer>&copy; 2025 MediaMatch. Alle rechten voorbehouden.</footer>
+  <script src="config.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

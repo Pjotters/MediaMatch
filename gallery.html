@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediaMatch | Galerij</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="home.html">Home</a>
+    <a href="gallery.html">Galerij</a>
+    <a href="upload.html">Upload</a>
+    <a href="prijzen.html">Prijzen</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="login.html" id="loginLink">Inloggen</a>
+    <a href="register.html">Registreren</a>
+    <a href="#" id="logoutLink" style="display:none;">Uitloggen</a>
+  </nav>
+  <main>
+    <h1>Galerij</h1>
+    <div class="albums-nav">
+      <button class="album-btn active" data-album="all">Alle foto's</button>
+      <button class="album-btn" data-album="favorieten">Favorieten</button>
+      <button class="album-btn" data-album="mij">Foto's van mij</button>
+    </div>
+    <div id="gallery-grid" class="photo-grid"></div>
+  </main>
+  <!-- Pjotters-Search Multi-step Popup -->
+  <div id="pjotters-popup" style="display:none;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(24,22,34,0.88);backdrop-filter:blur(3px);align-items:center;justify-content:center;">
+    <div id="pjotters-popup-content" style="background:var(--surface-light,#232136);color:#fff;padding:2.2em 1.7em;border-radius:1.2em;max-width:420px;width:94vw;box-shadow:0 8px 40px #0008;animation:fadeIn .6s;"></div>
+  </div>
+  <footer>
+    &copy; 2025 MediaMatch. Alle rechten voorbehouden.
+  </footer>
+  <script src="config.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/pjotters_popup.js"></script>
+</body>
+</html>

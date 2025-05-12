@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediaMatch | Home</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="home.html">Home</a>
+    <a href="gallery.html">Galerij</a>
+    <a href="upload.html">Upload</a>
+    <a href="prijzen.html">Prijzen</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="login.html" id="loginLink">Inloggen</a>
+    <a href="register.html">Registreren</a>
+    <a href="#" id="logoutLink" style="display:none;">Uitloggen</a>
+  </nav>
+  <main>
+    <h1>Welkom bij MediaMatch!</h1>
+    <div class="hero">
+      <p>Vind, like en deel roeifoto's met slimme gezichtsherkenning.</p>
+      <a href="gallery.html" class="cta-btn">Bekijk de galerij</a>
+      <a href="upload.html" class="cta-btn">Upload jouw foto's</a>
+    </div>
+    <section>
+      <h2>Laatste uploads</h2>
+      <div id="latest-photos" class="photo-grid"></div>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 MediaMatch. Alle rechten voorbehouden.
+  </footer>
+  <script src="config.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

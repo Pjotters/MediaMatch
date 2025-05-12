@@ -1,0 +1,212 @@
+/* Apple-style, premium, clean CSS for MediaMatch */
+:root {
+    --bg-main: #fafafc;
+    --bg-card: #fff;
+    --accent: #0071e3;
+    --accent2: #ffb300;
+    --text-main: #161616;
+    --text-sub: #555;
+    --border-radius: 22px;
+    --shadow: 0 6px 32px 0 rgba(0,0,0,0.07);
+    --shadow-hover: 0 12px 44px 0 rgba(0,113,227,0.11);
+    --transition: 0.22s cubic-bezier(.4,2,.6,1);
+  }
+  html, body {
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Inter', 'Poppins', 'San Francisco', Arial, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    letter-spacing: 0.01em;
+  }
+  header, nav, footer {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  nav {
+    display: flex;
+    gap: 2.5rem;
+    padding: 1.7rem 3rem 1.2rem 3rem;
+    align-items: center;
+    font-size: 1.08rem;
+    justify-content: center;
+  }
+  nav a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 12px;
+    padding: 0.35em 1.4em;
+    transition: background var(--transition), color var(--transition), box-shadow var(--transition);
+  }
+  nav a:hover, nav a.active {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 4px 18px 0 var(--accent);
+  }
+  h1, h2, h3 {
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: 0.4px;
+    margin-bottom: 0.2em;
+  }
+  .card, .pricing-card {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 2.2rem 1.7rem 2rem 1.7rem;
+    margin: 2rem auto;
+    max-width: 410px;
+    transition: box-shadow var(--transition), transform var(--transition);
+    position: relative;
+    overflow: hidden;
+    border: 1.2px solid #ececf0;
+  }
+  .card:hover, .pricing-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-7px) scale(1.022);
+  }
+  .pricing-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    justify-content: center;
+    margin: 2.5rem auto 2rem auto;
+  }
+  .pricing-card {
+    min-width: 270px;
+    background: var(--bg-card);
+    border: 1.5px solid #e0e0e5;
+    position: relative;
+    overflow: visible;
+    z-index: 1;
+    transition: box-shadow var(--transition), transform var(--transition);
+  }
+  .pricing-card.popular {
+    border: 2.5px solid var(--accent);
+    box-shadow: 0 8px 32px 0 var(--accent);
+  }
+  .pricing-card .badge {
+    position: absolute;
+    top: -18px; right: -18px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95em;
+    padding: 0.5em 1.2em;
+    border-radius: 1em;
+    box-shadow: 0 2px 12px 0 var(--accent);
+    transform: rotate(8deg);
+  }
+  .pricing-card h3 {
+    color: var(--accent);
+    margin-top: 0.3em;
+  }
+  .pricing-card .price {
+    font-size: 2.1em;
+    color: var(--text-main);
+    font-weight: 800;
+    margin-bottom: 0.2em;
+  }
+  .pricing-card ul {
+    list-style: none;
+    padding: 0;
+    color: var(--text-sub);
+    margin: 1.4em 0 1em 0;
+    font-size: 1.08em;
+  }
+  .pricing-card ul li {
+    margin-bottom: 0.7em;
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+  }
+  .pricing-card button, .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 0.8em 2.2em;
+    font-size: 1.15em;
+    font-weight: 600;
+    margin-top: 1.7em;
+    box-shadow: 0 2px 16px 0 var(--accent);
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition);
+  }
+  .pricing-card button:hover, .btn-primary:hover {
+    background: var(--accent2);
+    color: #222;
+    transform: translateY(-2px) scale(1.04);
+  }
+  .pricing-table {
+    width: 98%;
+    max-width: 950px;
+    margin: 2rem auto 1rem auto;
+    border-radius: var(--border-radius);
+    background: var(--bg-card);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+  .pricing-table th, .pricing-table td {
+    padding: 1.1rem 1.3rem;
+    text-align: center;
+    color: var(--text-main);
+    font-size: 1.08rem;
+  }
+  .pricing-table th {
+    background: #f5f5f7;
+    color: #222;
+    font-size: 1.15rem;
+  }
+  .pricing-table tr:nth-child(even) {
+    background: #f7f8fa;
+  }
+  .pricing-table tr:nth-child(odd) {
+    background: #fff;
+  }
+  .pricing-table td {
+    border-bottom: 1px solid #e0e0e5;
+  }
+  .pricing-table td:last-child, .pricing-table th:last-child {
+    border-right: none;
+  }
+  .check {
+    color: var(--accent);
+    font-size: 1.4em;
+  }
+  .cross {
+    color: var(--accent2);
+    font-size: 1.4em;
+  }
+  @media (max-width: 900px) {
+    .pricing-cards {
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .pricing-card {
+      width: 95vw;
+      min-width: 0;
+      max-width: 480px;
+    }
+    .pricing-table {
+      font-size: 0.98em;
+      max-width: 100vw;
+    }
+  }
+  .card, .pricing-card, .btn-primary {
+    will-change: transform, box-shadow;
+  }
+  .fade-in {
+    animation: fadeIn 0.7s cubic-bezier(.4,2,.6,1);
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(24px) scale(0.98); }
+    to { opacity: 1; transform: none; }
+  }
