@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>MediaMatch | Fotowedstrijden & Challenges</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="main-nav">
+    <a href="home.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="challenges.html" class="active">Challenges</a>
+  </nav>
+  <main>
+    <h1>Fotowedstrijden & Challenges</h1>
+    <section id="challengeList">
+      <h2>Lopende Challenges</h2>
+      <div id="challengesContainer">Laden...</div>
+      <button id="newChallengeBtn" style="display:none;">+ Nieuwe Challenge</button>
+      <div id="newChallengeForm" style="display:none;">
+        <h3>Nieuwe Challenge Aanmaken</h3>
+        <form id="challengeForm">
+          <input type="text" id="challengeTitle" placeholder="Titel" required><br>
+          <textarea id="challengeDesc" placeholder="Omschrijving" required></textarea><br>
+          <label>Deadline: <input type="date" id="challengeDeadline" required></label><br>
+          <button type="submit">Aanmaken</button>
+          <button type="button" id="cancelNewChallenge">Annuleren</button>
+        </form>
+      </div>
+    </section>
+    <section id="challengeDetail" style="display:none;"></section>
+  </main>
+  <footer>&copy; 2025 MediaMatch. Alle rechten voorbehouden.</footer>
+  <script src="config.js"></script>
+  <script src="js/challenges.js"></script>
+  <script src="js/hamburger.js"></script>
+</body>
+</html>

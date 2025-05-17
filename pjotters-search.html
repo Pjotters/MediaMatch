@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pjotters-Search | MediaMatch</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="header-include"></div>
+  <main class="glass" style="max-width:900px;margin:2em auto 3em auto;padding:2.5em 2em 2em 2em;box-shadow:0 8px 40px #0008;border-radius:1.5em;">
+    <h1 style="background:linear-gradient(90deg,var(--accent1),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Pjotters-Search (AI)</h1>
+    <section>
+      <h2>Wat is Pjotters-Search?</h2>
+      <p>Pjotters-Search is onze unieke AI-zoekfunctie waarmee je razendsnel foto's van jezelf of anderen kunt vinden op basis van gezichtsherkenning, kenmerken en AI-algoritmes.</p>
+    </section>
+    <section>
+      <h2>Hoe werkt het?</h2>
+      <ul>
+        <li>Upload je foto of selecteer een bestaande foto.</li>
+        <li>Onze AI vergelijkt het gezicht met duizenden foto's in de database.</li>
+        <li>Je krijgt direct een overzicht van alle matches.</li>
+        <li>De AI wordt continu getraind voor betere resultaten.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Privacy & Veiligheid</h2>
+      <ul>
+        <li>Gezichtsherkenning wordt alleen gebruikt voor zoeken binnen MediaMatch.</li>
+        <li>Je data wordt veilig opgeslagen en niet gedeeld met derden.</li>
+        <li>Je kunt altijd bezwaar maken tegen het gebruik van gezichtsherkenning.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Beperkingen</h2>
+      <ul>
+        <li>Resultaten zijn afhankelijk van de kwaliteit van de geüploade foto.</li>
+        <li>AI-matching is niet 100% foutloos, maar wordt continu verbeterd.</li>
+        <li>Bij misbruik (zoals het uploaden van andermans foto's zonder toestemming) wordt je account geblokkeerd.</li>
+      </ul>
+    </section>
+    <p style="margin-top:2em;">Vragen? Neem contact op via <a href="mailto:support@mediamatch.nl">support@mediamatch.nl</a>.</p>
+  </main>
+  <footer class="glass" style="margin-top:2em;">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Galerij</a>
+      <a href="upload.html">Upload</a>
+      <a href="prijzen.html">Prijzen</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="login.html">Inloggen</a>
+      <a href="register.html">Registreren</a>
+    </nav>
+    <p>2025 MediaMatch - Alle rechten voorbehouden</p>
+  </footer>
+  <script>
+    fetch('header.html').then(r=>r.text()).then(html=>{
+      document.getElementById('header-include').innerHTML = html;
+    });
+  </script>
+</body>
+</html>

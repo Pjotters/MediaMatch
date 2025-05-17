@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>MediaMatch | Aankoop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="hamburger" onclick="window.location.href='menu.html';">
+    <span></span><span></span><span></span>
+  </div>
+  <main>
+    <h1>Upgrade je account</h1>
+    <section class="pricing-cards">
+      <div class="pricing-card">
+        <h3>Pro</h3>
+        <div class="price">€4,99/mnd</div>
+        <ul>
+          <li>Onbeperkt albums</li>
+          <li>Album suggesties</li>
+          <li>Meedoen aan challenges</li>
+          <li>Start eigen challenges</li>
+        </ul>
+        <button class="btn-primary" onclick="showBetaal('pro')">Kies Pro</button>
+      </div>
+      <div class="pricing-card popular">
+        <span class="badge">Meest gekozen</span>
+        <h3>Premium</h3>
+        <div class="price">€8,99/mnd</div>
+        <ul>
+          <li>Alles van Pro</li>
+          <li>Gezichtsherkenning albums</li>
+          <li>Extra privacy opties</li>
+          <li>Exclusieve contests</li>
+        </ul>
+        <button class="btn-primary" onclick="showBetaal('premium')">Kies Premium</button>
+      </div>
+    </section>
+    <section id="betaalSectie" style="display:none;">
+      <h2>Betaling</h2>
+      <p>Kies je betaalmethode en rond je aankoop af.</p>
+      <button onclick="alert('Demo: betaling afgerond!'); window.location.href='dashboard.html';">Betaal met iDEAL</button>
+      <button onclick="alert('Demo: betaling afgerond!'); window.location.href='dashboard.html';">Betaal met Creditcard</button>
+      <button onclick="document.getElementById('betaalSectie').style.display='none';">Annuleren</button>
+    </section>
+  </main>
+  <footer>&copy; 2025 MediaMatch. Alle rechten voorbehouden.</footer>
+  <script src="js/hamburger.js"></script>
+  <script>
+    function showBetaal(type) {
+      document.getElementById('betaalSectie').style.display = '';
+    }
+  </script>
+</body>
+</html>

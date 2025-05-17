@@ -1,115 +1,63 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <link rel="stylesheet" href="css/modern.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MediaMatch | Prijzen</title>
+  <title>Prijzenbeleid | MediaMatch</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="fade-in">
+<body>
+  <div id="header-include"></div>
+  <main class="glass" style="max-width:1000px;margin:2em auto 3em auto;padding:2.5em 2em 2em 2em;box-shadow:0 8px 40px #0008;border-radius:1.5em;">
+  <h1 style="background:linear-gradient(90deg,var(--accent1),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;">Kies jouw abonnement</h1>
+  <div id="plans" class="plan-compare" style="display:flex;gap:2em;justify-content:center;flex-wrap:wrap;margin-bottom:2.8em;"></div>
 
-  <nav class="main-nav">
-    <a href="home.html">Home</a>
-    <a href="gallery.html">Galerij</a>
-    <a href="upload.html">Upload</a>
-    <a href="prijzen.html">Prijzen</a>
-    <a href="privacy.html">Privacy</a>
-    <a href="login.html" id="loginLink">Inloggen</a>
-    <a href="register.html">Registreren</a>
-    <a href="#" id="logoutLink" style="display:none;">Uitloggen</a>
-  </nav>
-  <main>
-    <h1>Prijzen & Abonnementen</h1>
-<div class="pricing-cards">
-  <div class="pricing-card">
-    <h3>Starter</h3>
-    <div class="price">Gratis</div>
-    <ul>
-      <li>5 uploads/maand</li>
-      <li>3 playlists</li>
-      <li>1 album</li>
-      <li>3 AI-tracks</li>
-      <li>1GB opslag</li>
-    </ul>
-    <button>Kies Starter</button>
-  </div>
-  <div class="pricing-card">
-    <h3>Basic</h3>
-    <div class="price">€4,99 <span style="font-size:0.6em; font-weight:400;">/maand</span></div>
-    <ul>
-      <li>50 uploads/maand</li>
-      <li>10 playlists</li>
-      <li>5 albums</li>
-      <li>20 AI-tracks</li>
-      <li>Downloaden</li>
-      <li>Geen advertenties</li>
-    </ul>
-    <button class="btn-primary">Kies Basic</button>
-  </div>
-  <div class="pricing-card popular">
-    <div class="badge">Populair</div>
-    <h3>Premium</h3>
-    <div class="price">€9,99 <span style="font-size:0.6em; font-weight:400;">/maand</span></div>
-    <ul>
-      <li>Onbeperkt uploads</li>
-      <li>Onbeperkt playlists</li>
-      <li>Onbeperkt albums</li>
-      <li>Onbeperkt AI-tracks</li>
-      <li>Downloaden</li>
-      <li>Geen advertenties</li>
-      <li>Early access features</li>
-    </ul>
-    <button class="btn-primary">Kies Premium</button>
-  </div>
-  <div class="pricing-card">
-    <h3>Enterprise</h3>
-    <div class="price">Contact</div>
-    <ul>
-      <li>Custom uploads & AI</li>
-      <li>Eigen branding</li>
-      <li>SLA & support</li>
-      <li>API toegang</li>
-    </ul>
-    <button class="btn-primary">Contact</button>
-  </div>
-</div>
+  <h2 style="margin-top:2em;">Twijfel je? Laat je adviseren!</h2>
+  <div id="plan-advisor" class="plan-advisor" style="margin-bottom:2.5em;"></div>
 
-    <table class="pricing-table fade-in" class="compare-table">
-      <thead>
-        <tr>
-          <th>Kenmerk</th>
-          <th>Starter</th>
-          <th>Basic</th>
-          <th>Premium</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Prijs per maand</td><td>Gratis</td><td>€ 4,99</td><td>€ 9,99</td></tr>
-        <tr><td>AI-tracks per maand</td><td>3</td><td>20</td><td>Onbeperkt</td></tr>
-        <tr><td>Uploads</td><td>5/maand</td><td>50/maand</td><td>Onbeperkt</td></tr>
-        <tr><td>Advertentievrij</td><td><span class="cross">✖</span></td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
-        <tr><td>Downloaden</td><td><span class="cross">✖</span></td><td><span class="check">✔</span></td><td><span class="check">✔</span></td></tr>
-        <tr><td>Commerciële licentie</td><td><span class="cross">✖</span></td><td><span class="cross">✖</span></td><td><span class="check">✔</span></td></tr>
-        <tr><td>Prioriteit support</td><td><span class="cross">✖</span></td><td><span class="cross">✖</span></td><td><span class="check">✔</span></td></tr>
-        <tr><td>Exclusieve content</td><td><span class="cross">✖</span></td><td><span class="cross">✖</span></td><td><span class="check">✔</span></td></tr>
-      </tbody>
-    </table>
-    <p>Bekijk <a href="privacy.html">onze privacyverklaring</a> voor meer info over gegevensverwerking.</p>
-  </main>
-  <footer class="fade-in">
-    &copy; 2025 MediaMatch. Alle rechten voorbehouden.
+  <h2>Veelgestelde vragen</h2>
+  <ul id="faq-list" class="faq-list" style="margin-bottom:2em;"></ul>
+</main>
+
+<style>
+.plan-compare { gap: 2em; }
+.plan-card { background: #181a22; border-radius: 1.2em; box-shadow: 0 4px 32px #0007; padding: 2.2em 2em 1.5em 2em; width: 240px; display: flex; flex-direction: column; align-items: center; position: relative; transition: box-shadow .2s; }
+.plan-card.best { border: 2.5px solid var(--accent2); box-shadow: 0 8px 40px #1db95433; }
+.plan-title { font-size: 1.3em; font-weight: 700; margin-bottom: 0.5em; letter-spacing: 1px; }
+.plan-card .badge { background: var(--accent2); color: #fff; border-radius: 8px; padding: 2px 10px; font-size: 0.9em; margin-left: 0.5em; }
+.plan-price { font-size: 1.7em; color: var(--accent1); margin-bottom: 0.7em; }
+.plan-features { list-style: none; padding: 0; margin: 0 0 1.2em 0; text-align: left; }
+.plan-features li { margin-bottom: 0.4em; }
+.choose-plan-btn { background: var(--accent1); color: #fff; border: none; border-radius: 8px; padding: 0.7em 1.5em; font-size: 1em; font-weight: 600; cursor: pointer; margin-top: 0.6em; transition: background .2s; }
+.choose-plan-btn:hover { background: var(--accent2); }
+.advies-box { background: #1e222b; border-radius: 1em; box-shadow: 0 2px 16px #0004; padding: 2em 1.5em; text-align: center; margin-bottom: 1.5em; }
+.advies-price { font-size: 1.2em; color: var(--accent1); font-weight: 600; display: block; margin: 0.4em 0 0.6em 0; }
+.vraag-box { background: #222; border-radius: 1em; padding: 2em 1.5em; text-align: center; margin-bottom: 1.5em; }
+.advisor-btn { background: var(--accent1); color: #fff; border: none; border-radius: 8px; padding: 0.7em 1.5em; font-size: 1em; font-weight: 600; cursor: pointer; margin: 0.7em 1em 0.2em 0; transition: background .2s; }
+.advisor-btn:hover { background: var(--accent2); }
+.faq-list { margin: 0 0 2em 0; }
+.faq-list li { margin-bottom: 1.1em; }
+@media (max-width: 900px) { .plan-compare { flex-direction: column; align-items: center; } .plan-card { width: 90%; } }
+</style>
+<script src="config.js"></script>
+<script src="js/prijzen.js"></script>
+  <footer class="glass" style="margin-top:2em;">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Galerij</a>
+      <a href="upload.html">Upload</a>
+      <a href="prijzen.html">Prijzen</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="login.html">Inloggen</a>
+      <a href="register.html">Registreren</a>
+    </nav>
+    <p>2025 MediaMatch - Alle rechten voorbehouden</p>
   </footer>
-  <style>
-    .compare-table { width:100%; border-collapse:collapse; margin: 18px 0; background:#f8fafc; border-radius:12px; overflow:hidden; box-shadow:0 2px 16px #2979ff11; }
-    .compare-table th, .compare-table td { padding:12px 8px; text-align:center; border-bottom:1px solid #e3e8ee; }
-    .compare-table th { background:linear-gradient(90deg,#2979ff 70%,#1db954 100%); color:#fff; font-size:1.1em; }
-    .compare-table tr:last-child td { border-bottom:none; }
-    .compare-table .check { color:#1db954; font-size:1.2em; font-weight:bold; }
-    .compare-table .cross { color:#c62828; font-size:1.2em; font-weight:bold; }
-    @media (max-width:700px) { .compare-table th, .compare-table td { padding:6px 2px; font-size:0.97em; } }
-  </style>
+  <script>
+    fetch('header.html').then(r=>r.text()).then(html=>{
+      document.getElementById('header-include').innerHTML = html;
+    });
+  </script>
+  <script src="js/hamburger.js"></script>
 </body>
 </html>

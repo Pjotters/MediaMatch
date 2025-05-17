@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onze Partners | MediaMatch</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="header-include"></div>
+  <main class="glass" style="max-width:1100px;margin:2em auto 3em auto;padding:2.5em 2em 2em 2em;box-shadow:0 8px 40px #0008;border-radius:1.5em;">
+    <h1 style="background:linear-gradient(90deg,var(--accent1),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Onze Partners</h1>
+    <p>MediaMatch werkt samen met innovatieve organisaties en bedrijven om de beste ervaring te bieden voor fotografen, sporters en muziekliefhebbers. Hieronder vind je een overzicht van onze belangrijkste partners.</p>
+    <div class="partners-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2.5em;margin-top:2.5em;">
+      <div class="partner-card glass" style="padding:2em 1.2em;text-align:center;">
+        <img src="assets/partners/pjotters-company.png" alt="Pjotters-Company" style="width:90px;height:90px;object-fit:contain;margin-bottom:1em;filter:drop-shadow(0 4px 12px #0004);">
+        <h2>DIYR</h2>
+        <p>Een jaarlijks sport evenement van roeien voor jongeren.</p>
+        <a href="https://diyr.nl" target="_blank">Website</a>
+      </div>
+      <div class="partner-card glass" style="padding:2em 1.2em;text-align:center;">
+        <img src="assets/partners/dds-roeivereniging.png" alt="DDS Roeivereniging" style="width:90px;height:90px;object-fit:contain;margin-bottom:1em;filter:drop-shadow(0 4px 12px #0004);">
+        <h2>DDS Roeivereniging</h2>
+        <p>Partner voor sportfotografie en AI-training op sportwedstrijden.</p>
+        <a href="https://dds-roeien.nl" target="_blank">Website</a>
+      </div>
+      <div class="partner-card glass" style="padding:2em 1.2em;text-align:center;">
+        <img src="assets/partners/ai-photocloud.png" alt="AI-PhotoCloud" style="width:90px;height:90px;object-fit:contain;margin-bottom:1em;filter:drop-shadow(0 4px 12px #0004);">
+        <h2>TimeMatch</h2>
+        <p>TimeMatch is een website waar tijden, foto's en video's van sporters worden verzameld en gedeeld.</p>
+        <a href="https://timematch.nl" target="_blank">Website</a>
+      </div>
+      <div class="partner-card glass" style="padding:2em 1.2em;text-align:center;">
+        <img src="assets/partners/sportfoto.png" alt="Sportfoto.nl" style="width:90px;height:90px;object-fit:contain;margin-bottom:1em;filter:drop-shadow(0 4px 12px #0004);">
+        <h2>RowMatch</h2>
+        <p>RowMatch is een webshop voor roeiers en roeiverenigingen gespecialiseerd in machines die informatie over het roeien opslaat en verwerkt met AI.</p>
+        <a href="https://rowmatch.nl" target="_blank">Website</a>
+      </div>
+      <div class="partner-card glass" style="padding:2em 1.2em;text-align:center;">
+        <img src="assets/partners/muziekmatch.png" alt="MuziekMatch" style="width:90px;height:90px;object-fit:contain;margin-bottom:1em;filter:drop-shadow(0 4px 12px #0004);">
+        <h2>MuziekMatch</h2>
+        <p>Leverancier van rechtenvrije muziek en AI-muziekgeneratie voor albums en video’s.</p>
+        <a href="#" target="_blank">Meer info</a>
+      </div>
+    </div>
+    <p style="margin-top:2em;">Wil je partner worden? Neem contact op via <a href="mailto:partners@mediamatch.nl">partners@mediamatch.nl</a>.</p>
+  </main>
+  <footer class="glass" style="margin-top:2em;">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Galerij</a>
+      <a href="upload.html">Upload</a>
+      <a href="prijzen.html">Prijzen</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="algemene-voorwaarden.html">Algemene Voorwaarden</a>
+      <a href="privacybeleid.html">Privacybeleid</a>
+      <a href="terms-of-service.html">Terms of Service</a>
+      <a href="pjotters-search.html">Pjotters-Search</a>
+      <a href="prijzenbeleid.html">Prijzenbeleid</a>
+      <a href="partners.html">Partners</a>
+    </nav>
+    <p>2025 MediaMatch - Alle rechten voorbehouden</p>
+  </footer>
+  <script>
+    fetch('header.html').then(r=>r.text()).then(html=>{
+      document.getElementById('header-include').innerHTML = html;
+    });
+  </script>
+</body>
+</html>

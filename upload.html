@@ -5,8 +5,174 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MediaMatch | Upload foto's</title>
   <link rel="stylesheet" href="style.css">
+<style>
+.upload-title {
+  margin-left: 2.5em;
+  margin-top: 1.5em;
+  font-size: 2.2em;
+  font-weight: 700;
+  color: var(--accent1, #3a7bfc);
+  letter-spacing: -1px;
+}
+.styled-input, .styled-textarea, .styled-select, .styled-file {
+  width: 100%;
+  background: #23243a;
+  color: #fff;
+  border: 1.5px solid #3a7bfc;
+  border-radius: 0.8em;
+  padding: 0.85em 1em;
+  margin: 0.5em 0 1.2em 0;
+  font-size: 1.1em;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px #0002;
+}
+.styled-input:focus, .styled-textarea:focus, .styled-select:focus, .styled-file:focus {
+  border-color: var(--accent2, #47e6b6);
+  outline: none;
+  box-shadow: 0 0 0 2px #47e6b633;
+}
+.styled-label {
+  font-weight: 600;
+  color: #b7c8e6;
+  margin-bottom: 0.4em;
+  display: block;
+}
+.wizard-btn {
+  background: linear-gradient(90deg, var(--accent1, #3a7bfc), var(--accent2, #47e6b6));
+  color: #fff;
+  border: none;
+  border-radius: 0.7em;
+  padding: 0.6em 1.6em;
+  font-size: 1em;
+  font-weight: 600;
+  margin-left: 0.5em;
+  margin-top: 1em;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px #0001;
+}
+.wizard-btn:active {
+  background: var(--accent2, #47e6b6);
+}
+.wizard-nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.7em;
+}
+.zoek-foto-btn {
+  background: linear-gradient(90deg, var(--accent1, #3a7bfc), var(--accent2, #47e6b6));
+  color: #fff;
+  border: none;
+  border-radius: 0.7em;
+  padding: 0.8em 2.2em;
+  font-size: 1.15em;
+  font-weight: 700;
+  text-decoration: none;
+  margin-top: 1em;
+  box-shadow: 0 2px 12px #0002;
+  transition: background 0.2s, box-shadow 0.2s;
+  display: inline-block;
+}
+.zoek-foto-btn:hover {
+  background: var(--accent2, #47e6b6);
+  color: #23243a;
+}
+input[type="file"].styled-file {
+  background: #23243a;
+  color: #b7c8e6;
+  border: 1.5px solid #3a7bfc;
+  border-radius: 0.8em;
+  padding: 0.7em 1em;
+  margin-bottom: 1.2em;
+}
+.styled-select {
+  width: 100%;
+  background: #23243a;
+  color: #fff;
+  border: 1.5px solid #3a7bfc;
+  border-radius: 0.8em;
+  padding: 0.85em 1em;
+  margin: 0.5em 0 1.2em 0;
+  font-size: 1.1em;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px #0002;
+}
+.styled-textarea {
+  width: 100%;
+  background: #23243a;
+  color: #fff;
+  border: 1.5px solid #3a7bfc;
+  border-radius: 0.8em;
+  padding: 0.85em 1em;
+  margin: 0.5em 0 1.2em 0;
+  font-size: 1.1em;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px #0002;
+}
+.styled-plus {
+  background: linear-gradient(90deg, var(--accent2, #47e6b6), var(--accent1, #3a7bfc));
+  color: #23243a;
+  border: none;
+  border-radius: 50%;
+  width: 2.2em;
+  height: 2.2em;
+  font-size: 1.3em;
+  font-weight: 900;
+  margin-left: 0.7em;
+  margin-top: 0.1em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #0002;
+  transition: background 0.2s, color 0.2s;
+}
+.styled-plus:hover {
+  background: var(--accent1, #3a7bfc);
+  color: #fff;
+}
+.styled-dropzone {
+  background: #23243a;
+  border: 2px dashed #3a7bfc;
+  border-radius: 1em;
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2em;
+  color: #b7c8e6;
+  font-size: 1.1em;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.styled-dropzone:focus-within, .styled-dropzone:hover {
+  border-color: var(--accent2, #47e6b6);
+  box-shadow: 0 0 0 2px #47e6b633;
+}
+.wizard-btn, .wizard-btn.next-btn, .wizard-btn.prev-btn, #uploadBtn {
+  background: linear-gradient(90deg, #3a7bfc 0%, #47e6b6 100%);
+  color: #fff;
+  border: none;
+  border-radius: 0.7em;
+  padding: 0.7em 1.6em;
+  font-size: 1.1em;
+  font-weight: 600;
+  margin: 0.4em 0.4em 0.4em 0;
+  box-shadow: 0 2px 12px #0002;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  display: inline-block;
+}
+.wizard-btn:hover, #uploadBtn:hover {
+  background: linear-gradient(90deg, #47e6b6 0%, #3a7bfc 100%);
+  color: #fff;
+}
+.wizard-nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+  margin-top: 1.2em;
+}
+</style>
 </head>
 <body>
+  <div id="header-include"></div>
   <nav class="main-nav">
     <a href="home.html">Home</a>
     <a href="gallery.html">Galerij</a>
@@ -18,119 +184,145 @@
     <a href="#" id="logoutLink" style="display:none;">Uitloggen</a>
   </nav>
   <main>
-    <div class="wizard-glass">
-      <div class="wizard-progress">
-        <span class="wizard-dot active"></span>
-        <span class="wizard-dot"></span>
-        <span class="wizard-dot"></span>
-        <span class="wizard-dot"></span>
-        <span class="wizard-dot"></span>
-        <span class="wizard-dot"></span>
+    <h1 class="upload-title" style="text-align:left;margin-left:0.5em;margin-bottom:0.5em;">Upload foto's</h1>
+<div class="wizard-glass glass" style="margin:2em auto 1.5em auto;max-width:540px;padding:2.5em 2.5em 2em 2.5em;box-shadow:0 8px 40px #0008;border-radius:1.5em;">
+  <div class="wizard-progress" style="margin-bottom:2.2em;">
+    <span class="wizard-dot active"></span>
+    <span class="wizard-dot"></span>
+    <span class="wizard-dot"></span>
+    <span class="wizard-dot"></span>
+    <span class="wizard-dot"></span>
+    <span class="wizard-dot"></span>
+  </div>
+  <form id="uploadWizard" autocomplete="off">
+    <!-- Stap 1: Fotograafnaam -->
+    <div class="wizard-step" id="step-1" style="display:flex;flex-direction:column;align-items:center;gap:1.5em;">
+      <div style="width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:0.7em;">
+        <h2 style="margin-bottom:0.3em;">Fotograaf & Album</h2>
+        <label class="styled-label" style="margin-bottom:0.2em;">Onder welke naam wilt u als fotograaf vermeld worden?</label>
+        <input type="text" name="photographer" class="styled-input" placeholder="Uw naam of bedrijfsnaam" required style="width:100%;">
       </div>
-      <form id="uploadWizard" autocomplete="off">
-        <!-- Stap 1: Fotograafnaam -->
-        <div class="wizard-step" id="step-1">
-          <h2>Fotograaf & Album</h2>
-          <label>Onder welke naam wilt u als fotograaf vermeld worden?</label>
-          <input type="text" name="photographer" placeholder="Uw naam of bedrijfsnaam" required>
-          <button type="button" class="wizard-btn next-btn">Volgende</button>
-        </div>
+      <div class="wizard-nav" style="width:100%;margin-top:2.2em;">
+        <button type="button" class="wizard-btn prev-btn" style="display:none;"><!-- Leeg, eerste stap --></button>
+        <button type="button" class="wizard-btn next-btn">Volgende &rarr;</button>
+      </div>
+    </div>
         <!-- Stap 2: Album -->
-        <div class="wizard-step" id="step-2" style="display:none;">
-          <label>Kies of maak een album</label>
-          <div class="album-row">
-            <select name="album" id="albumSelect">
-              <option value="">Selecteer album...</option>
-              <!-- JS: albums toevoegen -->
-            </select>
-            <button type="button" id="addAlbumBtn" class="plus-btn">+</button>
-          </div>
-          <input type="text" name="newAlbum" id="newAlbumInput" placeholder="Nieuwe albumnaam" style="display:none;">
-          <textarea name="albumDesc" placeholder="Korte omschrijving van het album (optioneel)"></textarea>
-          <label>Album cover (optioneel)</label>
-          <input type="file" name="albumCover" accept="image/png, image/jpeg">
-          <button type="button" class="wizard-btn prev-btn">Terug</button>
-          <button type="button" class="wizard-btn next-btn">Volgende</button>
-        </div>
+        <div class="wizard-step" id="step-2" style="display:flex;flex-direction:column;align-items:center;gap:1.5em;display:none;">
+  <div style="width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:1.1em;">
+    <h2 style="margin-bottom:0.3em;">Album kiezen of aanmaken</h2>
+    <label class="styled-label">Kies of maak een album</label>
+    <div class="album-row" style="display:flex;gap:0.7em;width:100%;align-items:center;">
+      <select name="album" id="albumSelect" class="styled-select" style="flex:1 1 0;">
+        <option value="">Selecteer album...</option>
+        <!-- JS: albums toevoegen -->
+      </select>
+      <button type="button" id="addAlbumBtn" class="plus-btn styled-plus">+</button>
+    </div>
+    <input type="text" name="newAlbum" id="newAlbumInput" class="styled-input" placeholder="Nieuwe albumnaam" style="display:none;width:100%;">
+    <textarea name="albumDesc" class="styled-textarea" placeholder="Korte omschrijving van het album (optioneel)" style="width:100%;"></textarea>
+    <label class="styled-label">Album cover (optioneel)</label>
+    <input type="file" name="albumCover" class="styled-file" accept="image/png, image/jpeg" style="width:100%;">
+  </div>
+  <div class="wizard-nav" style="width:100%;margin-top:2.2em;">
+    <button type="button" class="wizard-btn prev-btn">&larr; Terug</button>
+    <button type="button" class="wizard-btn next-btn">Volgende &rarr;</button>
+  </div>
+</div>
         <!-- Stap 3: Foto's kiezen -->
-        <div class="wizard-step" id="step-3" style="display:none;">
-          <label>Kies uw foto's:</label>
-          <div id="dropzone" class="dropzone">
-            <span>Sleep uw foto's hier of klik om te selecteren</span>
-            <input type="file" name="photos" id="photoInput" accept="image/*" multiple style="display:none;">
-          </div>
-          <div id="uploadLimitInfo" class="upload-limit-info">Je mag <b>5</b> foto's per week uploaden (Starter). <a href="prijzen.html">Upgrade?</a></div>
-          <div id="selectedPhotos" class="selected-photos"></div>
-          <button type="button" class="wizard-btn prev-btn">Terug</button>
-          <button type="button" class="wizard-btn next-btn">Volgende</button>
+        <div class="wizard-step" id="step-3" style="display:flex;flex-direction:column;align-items:center;gap:1.5em;display:none;">
+  <div style="width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:1.1em;">
+    <h2 style="margin-bottom:0.3em;">Foto's kiezen</h2>
+    <label class="styled-label">Kies uw foto's:</label>
+    <div id="dropzone" class="dropzone styled-dropzone" style="margin:0.5em 0;width:100%;">
+      <span>Sleep uw foto's hier of klik om te selecteren</span>
+      <input type="file" name="photos" id="photoInput" class="styled-file" accept="image/*" multiple style="display:none;">
+    </div>
+    <div id="uploadLimitInfo" class="upload-limit-info" style="margin-bottom:0.3em;">Je mag <b>5</b> foto's per week uploaden (Starter). <a href="prijzen.html">Upgrade?</a></div>
+    <div id="selectedPhotos" class="selected-photos" style="width:100%;"></div>
+  </div>
+  <div class="wizard-nav" style="width:100%;margin-top:2.2em;">
+    <button type="button" class="wizard-btn prev-btn">&larr; Terug</button>
+    <button type="button" class="wizard-btn next-btn">Volgende &rarr;</button>
+  </div>
+</div>
         </div>
         <!-- Stap 4: Per foto details -->
         <div class="wizard-step" id="step-4" style="display:none;">
           <div id="photoDetailsContainer">
-            <!-- JS: Per foto detail invullen, preview, AI suggestie -->
-          </div>
-          <button type="button" class="wizard-btn prev-btn">Terug</button>
-          <button type="button" class="wizard-btn next-btn">Volgende</button>
+  <!-- JS: Per foto detail invullen, preview, AI suggestie -->
+</div>
+<div class="wizard-nav">
+  <div class="wizard-nav">
+  <button type="button" class="wizard-btn prev-btn">&larr; Terug</button>
+  <button type="button" class="wizard-btn next-btn">Volgende &rarr;</button>
+</div>
+</div>
         </div>
         <!-- Stap 5: Portretrechten & AI check -->
         <div class="wizard-step" id="step-5" style="display:none;">
           <h2>Portretrechten</h2>
-          <label>Upload het portretrechten-formulier (PDF/JPG/PNG)</label>
-          <input type="file" name="portraitRights" accept="application/pdf,image/png,image/jpeg" required>
+          <label class="styled-label">Upload het portretrechten-formulier (PDF/JPG/PNG)</label>
+          <input type="file" name="portraitRights" class="styled-file" accept="application/pdf,image/png,image/jpeg" required>
           <div id="portraitAIResult" class="ai-result">AI controle: <span class="ai-status">Wachten...</span></div>
           <div id="contentAIResult" class="ai-result">AI contentcheck: <span class="ai-status">Wachten...</span></div>
           <div id="adminReview" style="display:none; color:#e53935;">AI heeft het formulier afgekeurd. Admin review vereist.</div>
-          <button type="button" class="wizard-btn prev-btn">Terug</button>
-          <button type="button" class="wizard-btn next-btn">Volgende</button>
+          <button type="button" class="wizard-btn prev-btn">&larr; Terug</button>
+          <button type="button" class="wizard-btn next-btn">Volgende &rarr;</button>
         </div>
         <!-- Stap 6: Watermerk -->
-        <div class="wizard-step" id="step-6" style="display:none;">
-          <h2>Watermerk toevoegen</h2>
-          <div id="watermarkOptions">
-            <div id="watermarkLocked" style="display:none;">
-              <div class="locked-info"><span class="lock-icon">🔒</span> Alleen voor Pro/Premium. <a href="prijzen-fotografen.html">Upgrade voor €5 p/m en behoud je auteursrechten!</a></div>
-            </div>
-            <div id="watermarkMain" style="display:none;">
-              <label>Upload PNG-watermerk (transparant): <input type="file" id="watermarkPngInput" accept="image/png"></label><br>
-              <label>Of typ een watermerk:</label>
-              <input type="text" id="watermarkText" maxlength="32" placeholder="Jouw watermerk">
-              <div>
-                <label>Lettertype:
-                  <select id="watermarkFont">
-                    <option value="Arial">Arial</option>
-                    <option value="Verdana">Verdana</option>
-                    <option value="Times New Roman">Times New Roman</option>
-                  </select>
-                </label>
-                <label>Stijl:
-                  <select id="watermarkStyle">
-                    <option value="normal">Normaal</option>
-                    <option value="bold">Vet</option>
-                    <option value="italic">Cursief</option>
-                  </select>
-                </label>
-                <label>Kleur: <input type="color" id="watermarkColor" value="#000000"></label>
-                <label>Grootte: <input type="number" id="watermarkSize" min="12" max="64" value="24" style="width:60px;"></label>
-                <label>Plaatsing:
-                  <select id="watermarkPosition">
-                    <option value="top-left">Links boven</option>
-                    <option value="top-right">Rechts boven</option>
-                    <option value="bottom-left">Links onder</option>
-                    <option value="bottom-right">Rechts onder</option>
-                    <option value="top">Bovenaan</option>
-                    <option value="bottom">Onderaan</option>
-                  </select>
-                </label>
-              </div>
-              <div id="watermarkPreview" style="margin:12px 0;">Voorbeeld: <span id="watermarkPreviewText">(voorbeeld)</span></div>
-              <div id="watermarkQuotaInfo"></div>
-            </div>
-            <div id="watermarkAIInfo" style="display:none;"></div>
-            <button type="button" id="watermarkObjectionBtn" class="wizard-btn" style="display:none;">Bezwaar indienen</button>
-          </div>
-          <button type="button" class="wizard-btn prev-btn">Terug</button>
-          <button type="button" class="wizard-btn next-btn">Volgende</button>
+        <div class="wizard-step" id="step-6" style="display:flex;flex-direction:column;align-items:center;gap:1.5em;display:none;">
+  <div style="width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:1.1em;">
+    <h2 style="margin-bottom:0.3em;">Watermerk toevoegen</h2>
+    <div id="watermarkOptions" style="width:100%;">
+      <div id="watermarkLocked" style="display:none;">
+        <div class="locked-info"><span class="lock-icon">🔒</span> Alleen voor Pro/Premium. <a href="prijzen-fotografen.html">Upgrade voor €5 p/m en behoud je auteursrechten!</a></div>
+      </div>
+      <div id="watermarkMain" style="display:none;flex-direction:column;gap:1.1em;">
+        <label class="styled-label">Upload PNG-watermerk (transparant):</label>
+        <input type="file" id="watermarkPngInput" class="styled-file" accept="image/png" style="width:100%;">
+        <label class="styled-label">Of typ een watermerk:</label>
+        <input type="text" id="watermarkText" class="styled-input" maxlength="32" placeholder="Jouw watermerk" style="width:100%;">
+        <div style="display:flex;flex-wrap:wrap;gap:1em;align-items:center;width:100%;">
+          <label class="styled-label">Lettertype:
+            <select id="watermarkFont" class="styled-select">
+              <option value="Arial">Arial</option>
+              <option value="Verdana">Verdana</option>
+              <option value="Times New Roman">Times New Roman</option>
+            </select>
+          </label>
+          <label class="styled-label">Stijl:
+            <select id="watermarkStyle" class="styled-select">
+              <option value="normal">Normaal</option>
+              <option value="bold">Vet</option>
+              <option value="italic">Cursief</option>
+            </select>
+          </label>
+          <label class="styled-label">Kleur: <input type="color" id="watermarkColor" class="styled-input" value="#000000"></label>
+          <label class="styled-label">Grootte: <input type="number" id="watermarkSize" class="styled-input" min="12" max="64" value="24" style="width:60px;"></label>
+          <label class="styled-label">Plaatsing:
+            <select id="watermarkPosition" class="styled-select">
+              <option value="top-left">Links boven</option>
+              <option value="top-right">Rechts boven</option>
+              <option value="bottom-left">Links onder</option>
+              <option value="bottom-right">Rechts onder</option>
+              <option value="top">Bovenaan</option>
+              <option value="bottom">Onderaan</option>
+            </select>
+          </label>
         </div>
+        <div id="watermarkPreview" style="margin:12px 0;">Voorbeeld: <span id="watermarkPreviewText">(voorbeeld)</span></div>
+        <div id="watermarkQuotaInfo"></div>
+      </div>
+      <div id="watermarkAIInfo" style="display:none;"></div>
+      <button type="button" id="watermarkObjectionBtn" class="wizard-btn" style="display:none;">Bezwaar indienen</button>
+    </div>
+  </div>
+  <div class="wizard-nav" style="width:100%;margin-top:2.2em;">
+    <button type="button" class="wizard-btn prev-btn">&larr; Terug</button>
+    <button type="button" class="wizard-btn next-btn">Volgende &rarr;</button>
+  </div>
+</div>
         <!-- Stap 7: Prijzen & shares -->
         <div class="wizard-step" id="step-7" style="display:none;">
           <h2>Prijzen & shares</h2>
@@ -147,29 +339,78 @@
           <div id="priceFields">
             <!-- Dynamisch per foto -->
           </div>
-          <button type="button" class="wizard-btn prev-btn">Terug</button>
-          <button type="button" class="wizard-btn next-btn">Volgende</button>
+          <button type="button" class="wizard-btn prev-btn">&larr; Terug</button>
+          <button type="button" class="wizard-btn next-btn">Volgende &rarr;</button>
         </div>
         <!-- Stap 8: Akkoord -->
-        <div class="wizard-step" id="step-6" style="display:none;">
+        <div class="wizard-step" id="step-8" style="display:none;">
           <h2>Voorwaarden & Akkoord</h2>
           <div class="checkbox-group">
-            <label><input type="checkbox" id="termsCheck" required> Ik ga akkoord met de <a href="#" target="_blank">algemene voorwaarden</a> van MediaMatch. (verplicht, wegen AVG-wetgeving!)</label>
-            <label><input type="checkbox" id="aiCheck" required> Ik ga akkoord met het gebruik van AI Search voor mijn uploads. (verplicht, wegen het plan!)</label>
-            <label><input type="checkbox" id="trainCheck"> Mijn uploads mogen gebruikt worden om de AI te trainen. (optioneel, de AI verbeteren en Gratis voor iedereen!)</label>
+            <label class="styled-label"><input type="checkbox" id="termsCheck" required> Ik ga akkoord met de <a href="#" target="_blank">algemene voorwaarden</a> van MediaMatch. (verplicht, wegen AVG-wetgeving!)</label>
+            <label class="styled-label"><input type="checkbox" id="aiCheck" required> Ik ga akkoord met het gebruik van AI Search voor mijn uploads. (verplicht, wegen het plan!)</label>
+            <label class="styled-label"><input type="checkbox" id="trainCheck"> Mijn uploads mogen gebruikt worden om de AI te trainen. (optioneel, de AI verbeteren en Gratis voor iedereen!)</label>
           </div>
-          <button type="button" class="wizard-btn prev-btn">Terug</button>
-          <button type="submit" class="wizard-btn" id="uploadBtn" disabled>Uploaden</button>
+          <button type="button" class="wizard-btn prev-btn">&larr; Terug</button>
+          <div class="wizard-nav">
+  <button type="button" class="wizard-btn prev-btn">&larr; Terug</button>
+  <button type="submit" class="wizard-btn" id="uploadBtn" disabled>Uploaden</button>
+</div>
         </div>
       </form>
       <canvas class="confetti" id="confettiCanvas" style="display:none;"></canvas>
       <div id="uploadStatus"></div>
     </div>
+    <div style="text-align:center;margin-top:2em;">
+      <a href="gallery.html" class="zoek-foto-btn">Zoek jezelf op foto</a>
+    </div>
   </main>
-  <footer>
-    &copy; 2025 MediaMatch. Alle rechten voorbehouden.
+  <footer class="glass" style="margin-top:2em;">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Galerij</a>
+      <a href="upload.html">Upload</a>
+      <a href="prijzen.html">Prijzen</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="algemene-voorwaarden.html">Algemene Voorwaarden</a>
+      <a href="privacybeleid.html">Privacybeleid</a>
+      <a href="terms-of-service.html">Terms of Service</a>
+      <a href="pjotters-search.html">Pjotters-Search</a>
+      <a href="prijzenbeleid.html">Prijzenbeleid</a>
+      <a href="partners.html">Partners</a>
+      <span class="lang-switch">
+        <button onclick="switchLang('nl')">NL</button> |
+        <button onclick="switchLang('en')">EN</button>
+      </span>
+    </nav>
+    <p>2025 MediaMatch - Alle rechten voorbehouden</p>
   </footer>
+  <script>
+    function switchLang(lang) {
+      // Simpele redirect voor juridische documenten
+      const map = {
+        'algemene-voorwaarden.html': {nl: 'algemene-voorwaarden.html', en: 'terms-of-service.html'},
+        'privacybeleid.html': {nl: 'privacybeleid.html', en: 'privacy-policy.html'},
+        'prijzenbeleid.html': {nl: 'prijzenbeleid.html', en: 'pricing-policy.html'},
+        'pjotters-search.html': {nl: 'pjotters-search.html', en: 'pjotters-search-en.html'}
+      };
+      const path = window.location.pathname.split('/').pop();
+      for (const key in map) {
+        if (path === key || path === map[key].en) {
+          window.location.href = map[key][lang];
+          return;
+        }
+      }
+      alert('Taalwisseling alleen beschikbaar op juridische pagina’s.');
+    }
+  </script>
+  <div style="text-align:center;font-size:0.95em;color:#888;margin-top:1em;">De Nederlandse versie van de juridische documenten is altijd leidend. The Dutch version of all legal documents prevails in case of differences.</div>
+  <script>
+  fetch('header.html').then(r=>r.text()).then(html=>{
+    document.getElementById('header-include').innerHTML = html;
+  });
+  </script>
   <script src="config.js"></script>
   <script src="js/upload.js"></script>
+  <script src="js/hamburger.js"></script>
 </body>
 </html>

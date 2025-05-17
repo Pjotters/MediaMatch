@@ -7,6 +7,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="hamburger" onclick="window.location.href='menu.html';">
+    <span></span><span></span><span></span>
+  </div>
+  <div id="header-include"></div>
   <nav class="main-nav">
     <a href="home.html">Home</a>
     <a href="gallery.html">Galerij</a>
@@ -17,19 +21,53 @@
     <a href="register.html">Registreren</a>
     <a href="#" id="logoutLink" style="display:none;">Uitloggen</a>
   </nav>
-  <main>
-    <h1>Privacybeleid</h1>
-    <p>Wij respecteren jouw privacy. MediaMatch verwerkt persoonsgegevens uitsluitend voor het functioneren van het platform (zoals inloggen, uploads, gezichtsherkenning en reacties).</p>
-    <ul>
-      <li>Je gegevens worden nooit verkocht aan derden.</li>
-      <li>Foto's en gezichtsdata worden alleen gebruikt voor het zoeken binnen MediaMatch.</li>
-      <li>Je kunt altijd je data inzien of laten verwijderen via <a href="mailto:support@mediamatch.nl">support@mediamatch.nl</a>.</li>
+  <main class="glass" style="max-width:700px;margin:2em auto 3em auto;padding:2.5em 2em 2em 2em;box-shadow:0 8px 40px #0008;border-radius:1.5em;">
+    <h1>Privacy-instellingen</h1>
+    <section class="privacy-uitleg">
+      <h2>Jouw privacy, jouw regie</h2>
+      <p>Bij MediaMatch bepaal je zelf wie jouw foto's en albums mag zien en wat ermee mag gebeuren.</p>
+      <ul>
+        <li><b>Album delen met specifieke gebruikers:</b> Voeg e-mailadressen toe van mensen die toegang mogen hebben tot een album.</li>
+        <li><b>Album verbergen:</b> Maak albums alleen zichtbaar voor jezelf of geselecteerde gebruikers.</li>
+        <li><b>Downloads uitschakelen:</b> Sta niet toe dat anderen jouw foto's downloaden (Pro/Premium).</li>
+        <li><b>Gezichtsherkenning (Premium):</b> Alleen premium gebruikers kunnen albums beveiligen met gezichtsherkenning.</li>
+      </ul>
+      <p>Je kunt deze opties beheren bij het aanmaken of bewerken van een album.</p>
+    </section>
+    <section class="admin-uitleg">
+      <h2>Let op: Admin-toegang</h2>
+      <p>Alleen beheerders (admin-accounts) kunnen gebruik maken van de functies op <b>admin.html</b>. Heb je geen admin-rechten, dan krijg je geen toegang tot deze pagina.</p>
+    </section>
+    <section class="privacy-instellingen">
+      <h2>Jouw privacy-instellingen</h2>
+      <form id="privacyForm">
+        <label><input type="checkbox" name="hideProfile" id="hideProfile"> Mijn profiel verbergen voor anderen</label><br>
+        <label><input type="checkbox" name="disableDownload" id="disableDownload"> Downloads van mijn foto's uitschakelen</label><br>
+        <label><input type="checkbox" name="faceLock" id="faceLock"> Gezichtsherkenning activeren (Premium)</label><br>
+        <button type="submit">Opslaan</button>
+      </form>
+      <div id="privacyStatus"></div>
+    </section>
       <li>We volgen de AVG (GDPR) en slaan data veilig op.</li>
     </ul>
     <p>Voor vragen of verzoeken: <a href="mailto:support@mediamatch.nl">support@mediamatch.nl</a></p>
   </main>
-  <footer>
-    &copy; 2025 MediaMatch. Alle rechten voorbehouden.
+  <footer class="glass" style="margin-top:2em;">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Galerij</a>
+      <a href="upload.html">Upload</a>
+      <a href="prijzen.html">Prijzen</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="login.html">Inloggen</a>
+      <a href="register.html">Registreren</a>
+    </nav>
+    <p>2025 MediaMatch - Alle rechten voorbehouden</p>
   </footer>
+  <script>
+  fetch('header.html').then(r=>r.text()).then(html=>{
+    document.getElementById('header-include').innerHTML = html;
+  });
+  </script>
 </body>
 </html>
