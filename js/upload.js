@@ -276,8 +276,45 @@ uploadWizard.onsubmit = async function(e) {
       showStatus('Upload gelukt!');
       uploadWizard.reset();
       showStep(0);
+      // === Album-suggestie ophalen ===
+      const { userId, userType } = getUserInfo();
+      if (userType === 'pro' || userType === 'premium') {
+        fetch(`${API}/api/albums/suggest?userId=${encodeURIComponent(userId)}`)
+          .then(res=>res.json()).then(data=>{
+            if (data.suggestions && data.suggestions.length) {
+              const sugg = data.suggestions[0];
+              showAlbumSuggestPopup(sugg.title);
+            }
+          });
+      }
     }).catch(()=>showStatus('Upload mislukt',true));
 };
+
+function showAlbumSuggestPopup(title) {
+  let popup = document.createElement('div');
+  popup.className = 'album-suggest-popup';
+  popup.innerHTML = `<div class="popup-inner"><b>Album-suggestie:</b><br>
+    Wil je een album aanmaken met de titel:<br><b>"${title}"</b>?<br>
+    <button id="createAlbumBtn">Ja, maak album</button>
+    <button id="closeAlbumSuggest">Nee, bedankt</button></div>`;
+  Object.assign(popup.style, {
+    position:'fixed',top:'20vh',left:'50%',transform:'translateX(-50%)',zIndex:9999,
+    background:'#fff',border:'2px solid #1976d2',borderRadius:'12px',padding:'24px',boxShadow:'0 6px 32px #0004'
+  });
+  document.body.appendChild(popup);
+  document.getElementById('closeAlbumSuggest').onclick = ()=>popup.remove();
+  document.getElementById('createAlbumBtn').onclick = ()=>{
+    const { userId } = getUserInfo();
+    fetch(`${API}/api/albums`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ userId, name:title })
+    }).then(()=>{
+      popup.innerHTML = '<b>Album aangemaakt!</b>';
+      setTimeout(()=>popup.remove(),1200);
+    });
+  };
+}
+
 
 // --- Gezichtszoeker (face search) ---
 // Wizard-stap toevoegen (optioneel: na upload of apart)

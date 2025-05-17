@@ -1,4 +1,4 @@
-// admin.js - beheer Pjotters-Verified & abonnementen
+// admin.js - beheer Pjotters-Verified & abonnementen + moderatie
 const API = window.config.photoApiUrl;
 const searchUser = document.getElementById('searchUser');
 const findUserBtn = document.getElementById('findUserBtn');
@@ -9,6 +9,43 @@ const editNaam = document.getElementById('editNaam');
 const editEmail = document.getElementById('editEmail');
 const editPlan = document.getElementById('editPlan');
 const editVerified = document.getElementById('editVerified');
+const pendingComments = document.getElementById('pendingComments');
+
+function loadPendingComments() {
+  fetch(`${API}/api/moderation/comments/pending`)
+    .then(res=>res.json())
+    .then(data=>{
+      if (!data.pending || !data.pending.length) {
+        pendingComments.innerHTML = '<em>Geen reacties te modereren.</em>';
+        return;
+      }
+      let html = '<table class="pending-table"><tr><th>Foto ID</th><th>Gebruiker</th><th>Reactie</th><th>Actie</th></tr>';
+      data.pending.forEach((c,i) => {
+        html += `<tr><td>${c.photoId}</td><td>${c.user}</td><td>${c.text}</td><td>
+          <button onclick="approveComment('${c.photoId}',${c.commentIndex})">Goedkeuren</button>
+          <button onclick="deleteComment('${c.photoId}',${c.commentIndex})">Verwijder</button></td></tr>`;
+      });
+      html += '</table>';
+      pendingComments.innerHTML = html;
+    });
+}
+
+window.approveComment = function(photoId, commentIndex) {
+  fetch(`${API}/api/moderation/comments/approve`, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ photoId: Number(photoId), commentIndex })
+  }).then(()=>loadPendingComments());
+}
+window.deleteComment = function(photoId, commentIndex) {
+  fetch(`${API}/api/moderation/comments/delete`, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ photoId: Number(photoId), commentIndex })
+  }).then(()=>loadPendingComments());
+}
+
+document.addEventListener('DOMContentLoaded', loadPendingComments);
 
 findUserBtn.onclick = function() {
   const userId = searchUser.value.trim();

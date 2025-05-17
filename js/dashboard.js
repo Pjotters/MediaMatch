@@ -8,6 +8,9 @@ const verifiedBadge = document.getElementById('verifiedBadge');
 const aiTrainCheck = document.getElementById('aiTrainCheck');
 const quotaOverview = document.getElementById('quotaOverview');
 const myUploads = document.getElementById('myUploads');
+const statsOverview = document.getElementById('statsOverview');
+const favoritesOverview = document.getElementById('favoritesOverview');
+const notificationsOverview = document.getElementById('notificationsOverview');
 
 function getUserInfo() {
   let userId = localStorage.getItem('mediamatch_userid') || 'anon';
@@ -62,3 +65,41 @@ function loadUploads() {
 loadAccount();
 loadQuota();
 loadUploads();
+loadStats();
+loadFavorites();
+loadNotifications();
+
+function loadStats() {
+  const { userId } = getUserInfo();
+  fetch(`${API}/api/user/stats?userId=${encodeURIComponent(userId)}`)
+    .then(r=>r.json())
+    .then(stats => {
+      statsOverview.innerHTML = `<ul>`+
+        `<li>Uploads: ${stats.uploads||0}</li>`+
+        `<li>Downloads: ${stats.downloads||0}</li>`+
+        `<li>Likes: ${stats.likes||0}</li>`+
+        `<li>Reacties: ${stats.comments||0}</li>`+
+      `</ul>`;
+    })
+    .catch(()=>{statsOverview.innerHTML='Niet beschikbaar';});
+}
+
+function loadFavorites() {
+  const { userId } = getUserInfo();
+  fetch(`${API}/api/user/favorites?userId=${encodeURIComponent(userId)}`)
+    .then(r=>r.json())
+    .then(favs => {
+      favoritesOverview.innerHTML = (favs.favorites||[]).map(f=>`<div class="favorite-item">${f.type==='photo'?'<img src="'+API+'/uploads/'+f.filename+'" class="fav-thumb"/>':f.title}</div>`).join('')||'Nog geen favorieten.';
+    })
+    .catch(()=>{favoritesOverview.innerHTML='Niet beschikbaar';});
+}
+
+function loadNotifications() {
+  const { userId } = getUserInfo();
+  fetch(`${API}/api/user/notifications?userId=${encodeURIComponent(userId)}`)
+    .then(r=>r.json())
+    .then(nots => {
+      notificationsOverview.innerHTML = (nots.notifications||[]).map(n=>`<div class="notification-item">${n.message}</div>`).join('')||'Geen notificaties.';
+    })
+    .catch(()=>{notificationsOverview.innerHTML='Niet beschikbaar';});
+}
