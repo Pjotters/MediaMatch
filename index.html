@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MediaMatch</title>
+  </head>
+  <body>
+    <!-- HERO SECTION -->
+    <header class="bg-gradient-to-br from-primary via-accent to-white text-white py-16 shadow">
+      <div class="max-w-3xl mx-auto px-6 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow">Vind jouw roeifoto’s razendsnel</h1>
+        <p class="text-lg md:text-xl mb-8">MediaMatch gebruikt gezichtsherkenning om duizenden roeifoto’s in seconden doorzoekbaar te maken. Voor roeiers & fotografen.</p>
+        <div class="flex flex-col md:flex-row gap-4 justify-center">
+          <button onclick="openModal('login')" class="bg-white text-primary font-bold px-6 py-3 rounded shadow hover:bg-accent hover:text-white transition">Inloggen</button>
+          <button onclick="openModal('register')" class="bg-primary border-2 border-white font-bold px-6 py-3 rounded hover:bg-white hover:text-primary transition">Registreren</button>
+          <a href="#abonnementen" class="bg-accent font-bold px-6 py-3 rounded hover:bg-primary hover:text-white transition">Bekijk abonnementen</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- FEATURES SECTION -->
+    <section id="features" class="py-16 bg-white">
+      <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-3 gap-10 text-center">
+        <div class="p-6 rounded-lg border border-accent shadow hover:shadow-xl transition">
+          <svg class="mx-auto mb-4 w-12 h-12 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 10l4.553-2.276A2 2 0 0020 6.382V5a2 2 0 00-2-2H6a2 2 0 00-2 2v1.382a2 2 0 00.447 1.342L9 10m6 0v4m0 0l-4.553 2.276A2 2 0 0112 17.618V19a2 2 0 002 2h8a2 2 0 002-2v-1.382a2 2 0 00-.447-1.342L15 14zm0 0V10" /></svg>
+          <h3 class="font-semibold text-lg mb-2">Supersnel zoeken</h3>
+          <p>Upload 3 foto’s en vind direct alle matches tussen duizenden roeifoto’s.</p>
+        </div>
+        <div class="p-6 rounded-lg border border-primary shadow hover:shadow-xl transition">
+          <svg class="mx-auto mb-4 w-12 h-12 text-accent" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4" /></svg>
+          <h3 class="font-semibold text-lg mb-2">Voor roeiers & fotografen</h3>
+          <p>Iedereen kan zoeken, kopen of verkopen. Professionele tools voor fotografen.</p>
+        </div>
+        <div class="p-6 rounded-lg border border-accent shadow hover:shadow-xl transition">
+          <svg class="mx-auto mb-4 w-12 h-12 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 8v4l3 3" /></svg>
+          <h3 class="font-semibold text-lg mb-2">Veilig & privacyproof</h3>
+          <p>AVG/GDPR-compliant, watermerken op previews en veilige betaling via Mollie.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- OVER ONS SECTION -->
+    <section id="overons" class="py-16 bg-gradient-to-br from-white to-accent/10">
+      <div class="max-w-3xl mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold text-primary mb-4">Over MediaMatch</h2>
+        <p class="mb-6 text-lg">MediaMatch is ontstaan uit liefde voor roeien én fotografie. Wij maken het makkelijk om roeifoto’s terug te vinden, te kopen en te delen. Gemaakt voor en door de community.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="#features" class="text-accent underline">Features</a>
+          <a href="#zoek" class="text-accent underline">Zoekpagina</a>
+          <a href="#dashboard" class="text-accent underline">Dashboard</a>
+          <a href="#fotografen" class="text-accent underline">Voor fotografen</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-primary text-white py-8 mt-8">
+      <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div>
+          <span class="font-bold text-lg">MediaMatch</span> &copy; 2025
+        </div>
+        <div class="flex gap-4">
+          <a href="#voorwaarden" class="underline hover:text-accent">Voorwaarden</a>
+          <a href="#privacy" class="underline hover:text-accent">Privacy</a>
+          <a href="#contact" class="underline hover:text-accent">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="hidden fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
+      <div class="bg-white text-black rounded-lg shadow-lg w-full max-w-sm p-8 relative">
+        <button onclick="closeModal('login')" class="absolute right-4 top-4 text-accent text-2xl">&times;</button>
+        <h2 class="text-xl font-bold mb-4 text-primary">Inloggen</h2>
+        <form onsubmit="submitLogin(event)">
+          <input id="login-email" type="email" required placeholder="E-mail" class="w-full mb-3 p-2 border rounded" />
+          <input id="login-password" type="password" required placeholder="Wachtwoord" class="w-full mb-3 p-2 border rounded" />
+          <button type="submit" class="w-full bg-primary text-white py-2 rounded font-semibold hover:bg-accent transition">Inloggen</button>
+        </form>
+      </div>
+    </div>
+    <!-- Register Modal -->
+    <div id="register-modal" class="hidden fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
+      <div class="bg-white text-black rounded-lg shadow-lg w-full max-w-sm p-8 relative">
+        <button onclick="closeModal('register')" class="absolute right-4 top-4 text-accent text-2xl">&times;</button>
+        <h2 class="text-xl font-bold mb-4 text-primary">Registreren</h2>
+        <form onsubmit="submitRegister(event)">
+          <input id="register-email" type="email" required placeholder="E-mail" class="w-full mb-3 p-2 border rounded" />
+          <input id="register-password" type="password" required placeholder="Wachtwoord" class="w-full mb-3 p-2 border rounded" />
+          <button type="submit" class="w-full bg-primary text-white py-2 rounded font-semibold hover:bg-accent transition">Registreren</button>
+        </form>
+      </div>
+    </div>
+    <script src="main.js"></script>
+    <script src="auth.js"></script>
+  </body>
+</html>
